@@ -1,0 +1,43 @@
+services:
+  backend:
+    build: ./backend
+    container_name: ecap-backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/ecap_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: "#kiran24NN"
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      TZ: "Asia/Kolkata"
+    networks:
+      - ecap-net
+
+  db:
+    image: postgres:15
+    container_name: ecap-db
+    environment:
+      POSTGRES_DB: ecap_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "#kiran24NN"
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    networks:
+      - ecap-net
+
+volumes:
+  postgres_data:
+
+networks:
+  ecap-net:
+    driver: bridge

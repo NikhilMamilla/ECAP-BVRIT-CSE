@@ -1,0 +1,13 @@
+com\ecap\backend\controller\TimetableController.class
+com\ecap\backend\security\JwtUtil.class
+com\ecap\backend\entity\Timetable.class
+com\ecap\backend\repository\TimetableRepository.class
+com\ecap\backend\entity\Faculty.class
+com\ecap\backend\controller\AuthController.class
+com\ecap\backend\security\SecurityConfig.class
+com\ecap\backend\entity\Student.class
+com\ecap\backend\repository\StudentRepository.class
+com\ecap\backend\EcapBackendApplication.class
+com\ecap\backend\DataInitializer.class
+com\ecap\backend\repository\FacultyRepository.class
+com\ecap\backend\service\TimetableService.class
