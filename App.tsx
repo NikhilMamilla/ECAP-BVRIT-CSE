@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   BrowserRouter as Router,
   Routes,
@@ -30,6 +30,7 @@ import CSBSDepartmentPage from './components/pages/CSBSDepartmentPage';
 import ITDepartmentPage from './components/pages/ITDepartmentPage';
 import FacultyAll from './components/FacultyAll';
 import GraceHopperCOEFull from './components/pages/GraceHopperCOEFull';
+import RAndDPage from './components/pages/RAndDPage';
 
 // ECAP shared
 import ECAPLogin from './ECAP/ECAPLogin';
@@ -93,7 +94,7 @@ const NotFound: React.FC = () => (
 );
 
 const App: React.FC = () => {
-  const [initialLoad, setInitialLoad] = useState(true);
+
 
   return (
     <StoreContextProvider>
@@ -118,6 +119,7 @@ const App: React.FC = () => {
             <Route path="/it-department" element={<ITDepartmentPage />} />
             <Route path="/cse/faculty" element={<FacultyAll />} />
             <Route path="/cse/grace-hopper" element={<GraceHopperCOEFull />} />
+            <Route path="/r-and-d" element={<RAndDPage />} />
 
             {/* ECAP auth entry points */}
             <Route path="/ecap/login" element={<ECAPLogin />} />

@@ -125,7 +125,7 @@ const FacultyResources: React.FC = () => {
         }
       });
 
-      const { filePath, fileSize } = uploadResponse.data || {};
+      const { filePath, fileSize } = (uploadResponse.data || {}) as any;
       if (!filePath) {
         throw new Error('Upload failed: filePath missing from server response');
       }
@@ -433,10 +433,10 @@ const FacultyResources: React.FC = () => {
                   <td style={{ padding: '10px', textAlign: 'center', border: '1px solid #d1d5db' }}>
                     {resource.uploadDate
                       ? new Date(resource.uploadDate).toLocaleDateString('en-US', {
-                          year: 'numeric',
-                          month: 'short',
-                          day: 'numeric'
-                        })
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric'
+                      })
                       : 'N/A'}
                   </td>
                   <td style={{ padding: '10px', textAlign: 'center', border: '1px solid #d1d5db', color: '#2563eb', fontWeight: 'bold' }}>

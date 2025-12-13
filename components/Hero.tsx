@@ -16,7 +16,7 @@ const ArrowIcon = ({ className = "" }: { className?: string }) => (
 
 // --- The Final Hero Component ---
 const Hero: React.FC<HeroProps> = ({ onClick }) => {
-  const { url, heroList } = useContext(StoreContext);
+  const { heroList } = useContext(StoreContext);
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -99,9 +99,8 @@ const Hero: React.FC<HeroProps> = ({ onClick }) => {
   return (
     <section
       onClick={onClick}
-      className={`relative w-full overflow-hidden group ${
-        isMobile ? 'mt-16' : 'h-[70vh] mt-[10vh]'
-      }`}
+      className={`relative w-full overflow-hidden group ${isMobile ? 'mt-16' : 'h-[70vh] mt-[10vh]'
+        }`}
     >
       {/* Debug info - remove in production */}
       {/* <div className="absolute top-2 left-2 z-50 bg-black/50 text-white p-2 text-xs">
@@ -148,9 +147,8 @@ const Hero: React.FC<HeroProps> = ({ onClick }) => {
               key={slide.title || slide.id || index}
               src={`${slide.url}`}
               alt={`Slide ${slide.title || index + 1}`}
-              className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${
-                index === currentSlideIndex ? 'opacity-100' : 'opacity-0'
-              }`}
+              className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${index === currentSlideIndex ? 'opacity-100' : 'opacity-0'
+                }`}
             />
           ))}
           <div className="absolute top-0 left-0 w-full h-full z-10 flex items-center justify-between px-2">

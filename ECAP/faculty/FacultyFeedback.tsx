@@ -21,15 +21,16 @@ const FacultyFeedback: React.FC = () => {
   const subjects = ['CD', 'CN', 'OSSA', 'FDT', 'COI', 'ADSC', 'CCT'];
 
   const handleRespond = (id: number) => {
+    console.log(`Responding to feedback ${id}`);
     alert('Response form will open...');
   };
 
   return (
     <div style={{ fontFamily: 'Verdana, Geneva, Arial, Helvetica, sans-serif', fontSize: '12px' }}>
-      <h2 style={{ 
-        color: '#1e40af', 
-        fontSize: '18px', 
-        fontWeight: 'bold', 
+      <h2 style={{
+        color: '#1e40af',
+        fontSize: '18px',
+        fontWeight: 'bold',
         marginBottom: '15px',
         borderBottom: '2px solid #2563eb',
         paddingBottom: '5px'
@@ -111,7 +112,7 @@ const FacultyFeedback: React.FC = () => {
                   <strong>Total Responses:</strong> {feedback.totalResponses}
                 </div>
                 <div style={{ marginBottom: '10px' }}>
-                  <strong>Average Rating:</strong> 
+                  <strong>Average Rating:</strong>
                   <span style={{ color: '#2563eb', fontWeight: 'bold', marginLeft: '10px' }}>
                     {feedback.avgRating.toFixed(1)} / 5.0
                   </span>
@@ -131,12 +132,12 @@ const FacultyFeedback: React.FC = () => {
       {/* Respond Tab */}
       {activeTab === 'respond' && (
         <div>
-          <table 
-            border={1} 
-            cellPadding={8} 
-            cellSpacing={0} 
-            style={{ 
-              width: '100%', 
+          <table
+            border={1}
+            cellPadding={8}
+            cellSpacing={0}
+            style={{
+              width: '100%',
               borderCollapse: 'collapse',
               border: '1px solid #d1d5db',
               fontSize: '11px'
@@ -155,9 +156,9 @@ const FacultyFeedback: React.FC = () => {
             </thead>
             <tbody>
               {individualFeedbacks.map((feedback, index) => (
-                <tr 
+                <tr
                   key={feedback.id}
-                  style={{ 
+                  style={{
                     backgroundColor: index % 2 === 0 ? '#ffffff' : '#f9fafb'
                   }}
                 >
@@ -176,9 +177,9 @@ const FacultyFeedback: React.FC = () => {
                   <td style={{ padding: '10px', textAlign: 'center', border: '1px solid #d1d5db' }}>
                     {new Date(feedback.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
                   </td>
-                  <td style={{ 
-                    padding: '10px', 
-                    textAlign: 'center', 
+                  <td style={{
+                    padding: '10px',
+                    textAlign: 'center',
                     border: '1px solid #d1d5db',
                     color: feedback.responded ? '#10b981' : '#f59e0b',
                     fontWeight: 'bold'

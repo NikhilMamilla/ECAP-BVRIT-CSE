@@ -14,7 +14,7 @@ const StudentDashboard: React.FC = () => {
     const rollNumber = localStorage.getItem('ecap_rollNumber');
     const userName = localStorage.getItem('ecap_userName');
     const userType = localStorage.getItem('ecap_userType');
-    
+
     if (!token || (userType !== 'student' && userType !== 'parent')) {
       navigate('/ecap/login');
       return;
@@ -135,13 +135,13 @@ const StudentDashboard: React.FC = () => {
     );
   }
 
-  const displayName = studentInfo.userType === 'student' 
+  const displayName = studentInfo.userType === 'student'
     ? `Hi...${studentInfo.name.toUpperCase()}(${studentInfo.rollNumber})`
     : `Hi...${studentInfo.name.toUpperCase()}(${studentInfo.rollNumber})`;
 
   // Check if current route should show top tabs (only for academic calendar and attendance)
   const showTopTabs = location.pathname.includes('/academic-calendar') ||
-                      location.pathname.includes('/attendance');
+    location.pathname.includes('/attendance');
 
   return (
     <div style={{ backgroundColor: '#FFFFFF', margin: 0, padding: '10px 0', minHeight: '100vh' }}>
@@ -205,11 +205,11 @@ const StudentDashboard: React.FC = () => {
             {/* Header Image */}
             <tr>
               <td>
-                <img 
-                  src="/collegeimages/title_head.jpg" 
-                  width="1200" 
-                  height="100" 
-                  alt="Header" 
+                <img
+                  src="/collegeimages/title_head.jpg"
+                  width="1200"
+                  height="100"
+                  alt="Header"
                   style={{ display: 'block', maxWidth: '100%', height: 'auto' }}
                 />
               </td>
@@ -217,10 +217,10 @@ const StudentDashboard: React.FC = () => {
 
             {/* News/Marquee */}
             <tr>
-              <td style={{ 
-                fontFamily: 'Verdana', 
-                fontSize: '12px', 
-                fontWeight: 'bold', 
+              <td style={{
+                fontFamily: 'Verdana',
+                fontSize: '12px',
+                fontWeight: 'bold',
                 color: 'blue',
                 padding: '5px 0'
               }}>
@@ -234,8 +234,8 @@ const StudentDashboard: React.FC = () => {
 
             {/* User Info Bar */}
             <tr>
-              <td style={{ 
-                fontFamily: 'Verdana', 
+              <td style={{
+                fontFamily: 'Verdana',
                 fontSize: '12px',
                 padding: '5px 0'
               }}>
@@ -245,8 +245,8 @@ const StudentDashboard: React.FC = () => {
                       <span style={{ fontWeight: 'bold', color: '#000' }}>{displayName}</span>
                     </td>
                     <td style={{ width: '30%', textAlign: 'center' }}>
-                      <a 
-                        href="#" 
+                      <a
+                        href="#"
                         onClick={(e) => { e.preventDefault(); /* TODO: Implement change password */ }}
                         className="welcomeLink"
                       >
@@ -254,8 +254,8 @@ const StudentDashboard: React.FC = () => {
                       </a>
                     </td>
                     <td align="right">
-                      <a 
-                        href="#" 
+                      <a
+                        href="#"
                         onClick={(e) => { e.preventDefault(); handleLogout(); }}
                         className="welcomeLink"
                       >
@@ -275,24 +275,24 @@ const StudentDashboard: React.FC = () => {
                 <table width="100%" cellSpacing={0} cellPadding={0}>
                   <tr>
                     {/* Left Sidebar Menu */}
-                    <td style={{ 
-                      width: '220px', 
-                      paddingLeft: '4px', 
+                    <td style={{
+                      width: '220px',
+                      paddingLeft: '4px',
                       backgroundColor: '#f9fafb',
                       verticalAlign: 'top',
                       border: '1px solid #e5e7eb'
                     }} align="left" valign="top">
-                      <div style={{ 
+                      <div style={{
                         padding: '10px 0',
                         backgroundColor: '#f3f4f6',
                         borderBottom: '2px solid #2563eb',
                         paddingLeft: '8px',
                         marginBottom: '5px'
                       }}>
-                        <strong style={{ 
-                          fontFamily: 'Verdana', 
-                          fontSize: '13px', 
-                          color: '#1e40af' 
+                        <strong style={{
+                          fontFamily: 'Verdana',
+                          fontSize: '13px',
+                          color: '#1e40af'
                         }}>MENU</strong>
                       </div>
                       <div>
@@ -371,7 +371,7 @@ const StudentDashboard: React.FC = () => {
                     <td style={{ width: '5px' }}>&nbsp;</td>
 
                     {/* Main Content Area */}
-                    <td valign="top" style={{ 
+                    <td valign="top" style={{
                       border: '1px solid #e5e7eb',
                       backgroundColor: '#ffffff',
                       padding: '0',
@@ -379,14 +379,14 @@ const StudentDashboard: React.FC = () => {
                     }}>
                       {/* Top Tabs - Show only for academic calendar and attendance pages */}
                       {showTopTabs && (
-                        <div style={{ 
+                        <div style={{
                           marginBottom: '0',
                           borderBottom: '2px solid #e5e7eb',
                           backgroundColor: '#f9fafb'
                         }}>
                           <div style={{ display: 'flex', gap: '0', flexWrap: 'wrap' }}>
                             {topTabs.map((tab) => {
-                              const isActive = activeMenu === tab.id || 
+                              const isActive = activeMenu === tab.id ||
                                 (tab.id === 'academic-calendar' && location.pathname.includes('/academic-calendar') && !location.pathname.includes('/attendance'));
                               return (
                                 <div

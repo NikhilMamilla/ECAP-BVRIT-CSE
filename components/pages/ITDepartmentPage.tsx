@@ -8,20 +8,13 @@ import {
     BookOpen,
     FileText,
     Award,
-    Briefcase,
-    Globe,
     Target,
     Lightbulb,
     Cpu,
     Shield,
     Cloud,
     Database,
-    Code,
-    Zap,
-    Layers,
-    Server,
-    Wifi,
-    Lock
+    Wifi
 } from 'lucide-react';
 
 const ITDepartmentPage: React.FC = () => {

@@ -1,0 +1,2 @@
+﻿ECAP/student/StudentResources.tsx(137,7): error TS2552: Cannot find name 'setFilteredResources'. Did you mean 'getFilteredResources'?
+ECAP/student/StudentResources.tsx(152,5): error TS2552: Cannot find name 'setFilteredResources'. Did you mean 'getFilteredResources'?

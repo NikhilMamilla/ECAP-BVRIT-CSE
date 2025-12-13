@@ -10,6 +10,7 @@ import CSEFaculty from './CSEFaculty';
 import PlacementsSection from './PlacementsSection';
 import GraceHopperCOE from './GraceHopperCOE';
 import Clubs from './Clubs';
+import RAndDHomeSection from './RAndDHomeSection';
 
 import Testimonials from './testominals';
 import Footer from './Footer';
@@ -127,6 +128,7 @@ const Home: React.FC = () => {
           <GraceHopperCOE />
         </section>
         <section id="Clubs"><Clubs /></section>
+        <section id="RAndD"><RAndDHomeSection /></section>
         <section id="Placements"><PlacementsSection /></section>
 
         <section id="Testimonials"><Testimonials /></section>

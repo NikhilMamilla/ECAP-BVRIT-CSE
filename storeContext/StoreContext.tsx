@@ -1,21 +1,25 @@
+/// <reference types="vite/client" />
 import { createContext, useEffect, useState } from "react";
-import axios from "axios";
 
 // export const StoreContext = createContext(null);
 interface StoreContextType {
-    newsEventsList: any[]; // Replace `any` with your proper type
+    url: string;
+    newsEventsList: any[];
     heroList: any[];
     announcementList: any[];
     departmentList: any[];
     placementList: any[];
+    setDepartmentList: React.Dispatch<React.SetStateAction<any[]>>;
 }
 
 export const StoreContext = createContext<StoreContextType>({
+    url: "",
     newsEventsList: [],
     heroList: [],
     announcementList: [],
     departmentList: [],
     placementList: [],
+    setDepartmentList: () => { },
 });
 
 const API_BASE_URL = (() => {
@@ -27,74 +31,16 @@ const API_BASE_URL = (() => {
     return "";
 })();
 
-const StoreContextProvider = (props) => {
+const StoreContextProvider: React.FC<{ children: React.ReactNode }> = (props) => {
     const url = API_BASE_URL;
 
-    const [newsEventsList, setNewsEventsList] = useState([]);
-    const [heroList, setHeroList] = useState([]);
-    const [announcementList, setAnnouncementList] = useState([]);
-    const [departmentList, setDepartmentList] = useState([]);
-    const [placementList, setPlacementList] = useState([]);
+    const [newsEventsList] = useState<any[]>([]);
+    const [heroList] = useState<any[]>([]);
+    const [announcementList] = useState<any[]>([]);
+    const [departmentList, setDepartmentList] = useState<any[]>([]);
+    const [placementList] = useState<any[]>([]);
 
-    const newsListFetchData = async () => {
-        try {
-            const res = await axios.get(`${url}/api/newsEvents/list`);
-            // console.log("API Response:", res.data); // Add this
-            setNewsEventsList((prevData) => {
-                if (JSON.stringify(prevData) !== JSON.stringify(res.data)) {
-                    return res.data;
-                }
-                return prevData;
-            });
-        } catch (err) {
-            console.error("Error fetching newsEvents data:", err);
-        }
-    };
 
-    const heroListFetchData = async () => {
-        try {
-            const res = await axios.get(`${url}/api/heroImage/list`);
-            console.log("API Response:", res.data); // Add this
-            setHeroList((prevData) => {
-                if (JSON.stringify(prevData) !== JSON.stringify(res.data)) {
-                    return res.data;
-                }
-                return prevData;
-            });
-        } catch (err) {
-            console.error("Error fetching heroImages data:", err);
-        }
-    };
-
-    const announcementListFetchData = async () => {
-        try {
-            const res = await axios.get(`${url}/api/announcement/list`);
-            console.log("API Response:", res.data); // Add this
-            setAnnouncementList((prevData) => {
-                if (JSON.stringify(prevData) !== JSON.stringify(res.data)) {
-                    return res.data;
-                }
-                return prevData;
-            });
-        } catch (err) {
-            console.error("Error fetching announcements data:", err);
-        }
-    };
-
-    const placementListFetchData = async () => {
-        try {
-            const res = await axios.get(`${url}/api/placement/list`);
-            console.log("API Response:", res.data); // Add this
-            setPlacementList((prevData) => {
-                if (JSON.stringify(prevData) !== JSON.stringify(res.data)) {
-                    return res.data;
-                }
-                return prevData;
-            });
-        } catch (err) {
-            console.error("Error fetching departments data:", err);
-        }
-    };
 
     useEffect(() => {
         // API calls disabled - no backend configured

@@ -9,17 +9,8 @@ import {
     FileText,
     Award,
     Briefcase,
-    Globe,
     Target,
-    Lightbulb,
-    Cpu,
-    Shield,
-    Cloud,
-    Database,
-    Code,
-    Zap,
-    Layers,
-    Server
+    Lightbulb
 } from 'lucide-react';
 
 const CSEDepartmentPage: React.FC = () => {

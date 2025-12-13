@@ -31,6 +31,7 @@ const FacultyAnnouncements: React.FC = () => {
 
   const handleDelete = (id: number) => {
     if (confirm('Are you sure you want to delete this announcement?')) {
+      console.log(`Deleting announcement ${id}`);
       alert('Announcement deleted successfully!');
     }
   };
@@ -47,9 +48,9 @@ const FacultyAnnouncements: React.FC = () => {
   return (
     <div style={{ fontFamily: 'Verdana, Geneva, Arial, Helvetica, sans-serif', fontSize: '12px' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px' }}>
-        <h2 style={{ 
-          color: '#1e40af', 
-          fontSize: '18px', 
+        <h2 style={{
+          color: '#1e40af',
+          fontSize: '18px',
           fontWeight: 'bold',
           borderBottom: '2px solid #2563eb',
           paddingBottom: '5px',
@@ -86,7 +87,7 @@ const FacultyAnnouncements: React.FC = () => {
               <input
                 type="text"
                 value={announcementData.title}
-                onChange={(e) => setAnnouncementData({...announcementData, title: e.target.value})}
+                onChange={(e) => setAnnouncementData({ ...announcementData, title: e.target.value })}
                 placeholder="Enter announcement title"
                 style={{
                   width: '100%',
@@ -102,7 +103,7 @@ const FacultyAnnouncements: React.FC = () => {
                 <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>Category</label>
                 <select
                   value={announcementData.category}
-                  onChange={(e) => setAnnouncementData({...announcementData, category: e.target.value})}
+                  onChange={(e) => setAnnouncementData({ ...announcementData, category: e.target.value })}
                   style={{
                     width: '100%',
                     padding: '8px',
@@ -120,7 +121,7 @@ const FacultyAnnouncements: React.FC = () => {
                 <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>Priority</label>
                 <select
                   value={announcementData.priority}
-                  onChange={(e) => setAnnouncementData({...announcementData, priority: e.target.value})}
+                  onChange={(e) => setAnnouncementData({ ...announcementData, priority: e.target.value })}
                   style={{
                     width: '100%',
                     padding: '8px',
@@ -139,7 +140,7 @@ const FacultyAnnouncements: React.FC = () => {
               <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>Content *</label>
               <textarea
                 value={announcementData.content}
-                onChange={(e) => setAnnouncementData({...announcementData, content: e.target.value})}
+                onChange={(e) => setAnnouncementData({ ...announcementData, content: e.target.value })}
                 rows={5}
                 placeholder="Enter announcement content"
                 style={{
@@ -187,11 +188,11 @@ const FacultyAnnouncements: React.FC = () => {
             }}
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '10px' }}>
-              <h3 style={{ 
-                margin: 0, 
-                fontSize: '14px', 
-                fontWeight: 'bold', 
-                color: '#1e40af' 
+              <h3 style={{
+                margin: 0,
+                fontSize: '14px',
+                fontWeight: 'bold',
+                color: '#1e40af'
               }}>
                 {announcement.title}
               </h3>

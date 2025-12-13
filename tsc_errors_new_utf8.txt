@@ -1,0 +1,28 @@
+﻿components/Hero.tsx(19,11): error TS6133: 'url' is declared but its value is never read.
+components/pages/RAndDPage.tsx(14,5): error TS6133: 'Beaker' is declared but its value is never read.
+components/pages/RAndDPage.tsx(15,5): error TS6133: 'Cpu' is declared but its value is never read.
+components/pages/RAndDPage.tsx(16,5): error TS6133: 'Database' is declared but its value is never read.
+components/pages/RAndDPage.tsx(17,5): error TS6133: 'Zap' is declared but its value is never read.
+components/pages/RAndDPage.tsx(18,5): error TS6133: 'Globe' is declared but its value is never read.
+components/PlacementsSection.tsx(66,11): error TS6133: 'url' is declared but its value is never read.
+components/PlacementsSection.tsx(67,15): error TS6133: 'inView' is declared but its value is never read.
+components/PlacementsSection.tsx(137,21): error TS2353: Object literal may only specify known properties, and ''@media (max-width: 767px)'' does not exist in type 'Properties<string | number, string & {}>'.
+components/PlacementsSection.tsx(155,27): error TS2353: Object literal may only specify known properties, and ''@media (min-width: 768px)'' does not exist in type 'Properties<string | number, string & {}>'.
+components/RAndDHomeSection.tsx(46,42): error TS2322: Type '"scale-up"' is not assignable to type 'AnimationType'.
+ECAP/ECAPLogin.tsx(1,1): error TS6133: 'setMaxIdleHTTPParsers' is declared but its value is never read.
+ECAP/faculty/FacultyAnnouncements.tsx(32,25): error TS6133: 'id' is declared but its value is never read.
+ECAP/faculty/FacultyFeedback.tsx(23,26): error TS6133: 'id' is declared but its value is never read.
+ECAP/faculty/FacultyRegulations.tsx(8,23): error TS6133: 'setRegulations' is declared but its value is never read.
+ECAP/faculty/FacultyResources.tsx(128,15): error TS2339: Property 'filePath' does not exist on type '{}'.
+ECAP/faculty/FacultyResources.tsx(128,25): error TS2339: Property 'fileSize' does not exist on type '{}'.
+ECAP/FacultyDashboard.tsx(140,17): error TS2339: Property 'marquee' does not exist on type 'JSX.IntrinsicElements'.
+ECAP/FacultyDashboard.tsx(142,17): error TS2339: Property 'marquee' does not exist on type 'JSX.IntrinsicElements'.
+ECAP/student/StudentEvents.tsx(23,27): error TS6133: 'eventId' is declared but its value is never read.
+ECAP/student/StudentResources.tsx(17,10): error TS6133: 'filteredResources' is declared but its value is never read.
+ECAP/student/StudentResources.tsx(51,20): error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'SetStateAction<Resource[]>'.
+ECAP/student/StudentResources.tsx(52,28): error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'SetStateAction<Resource[]>'.
+ECAP/student/StudentResources.tsx(67,9): error TS6133: 'getUniqueSubjectCodes' is declared but its value is never read.
+ECAP/student/StudentResources.tsx(73,9): error TS6133: 'filterResourcesBySubjectCode' is declared but its value is never read.
+ECAP/student/StudentResources.tsx(114,30): error TS2322: Type 'unknown' is not assignable to type 'BlobPart'.
+ECAP/StudentDashboard.tsx(227,17): error TS2339: Property 'marquee' does not exist on type 'JSX.IntrinsicElements'.
+ECAP/StudentDashboard.tsx(229,17): error TS2339: Property 'marquee' does not exist on type 'JSX.IntrinsicElements'.

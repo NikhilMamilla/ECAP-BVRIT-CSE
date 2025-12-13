@@ -63,7 +63,7 @@ const About: React.FC = () => {
                 <div className="bg-white p-6 rounded-xl shadow-lg border border-blue-300 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
                   <img src="/Highlights/industry.jpg" alt="Industry Partnerships" className="h-12 w-auto mb-3 object-contain" />
                   <h3 className="font-bold text-gray-900 mb-2">Industry Partnerships</h3>
-                  <p className="text-sm text-gray-700">MoUs with Microsoft, AWS, Google, and leading tech companies</p>
+                  <p className="text-sm text-gray-700">MoUs with leading tech companies like capgemini, tcs, wipro, etc.</p>
                 </div>
 
                 <div className="bg-white p-6 rounded-xl shadow-lg border border-blue-300 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">

@@ -14,8 +14,6 @@ interface Resource {
 
 const StudentResources: React.FC = () => {
   const [resources, setResources] = useState<Resource[]>([]);
-  const [filteredResources, setFilteredResources] = useState<Resource[]>([]);
-  const [selectedSubjectCode, setSelectedSubjectCode] = useState<string>('');
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
@@ -33,23 +31,22 @@ const StudentResources: React.FC = () => {
     try {
       setLoading(true);
       setError('');
-      
+
       const token = getAuthToken();
       if (!token) {
         setError('Please login to view resources');
         setLoading(false);
         return;
       }
-      
+
       const response = await axios.get(`${API_BASE_URL}/resources`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
         }
       });
-      
-      setResources(response.data);
-      setFilteredResources(response.data);
+
+      setResources(response.data as Resource[]);
       setHasSearched(true);
     } catch (error: any) {
       console.error('Error fetching resources:', error);
@@ -63,23 +60,6 @@ const StudentResources: React.FC = () => {
     }
   };
 
-  // Get unique subject codes from resources
-  const getUniqueSubjectCodes = (): string[] => {
-    const subjectCodes = resources.map(resource => resource.course);
-    return [...new Set(subjectCodes)].sort();
-  };
-
-  // Filter resources by selected subject code
-  const filterResourcesBySubjectCode = (subjectCode: string) => {
-    setSelectedSubjectCode(subjectCode);
-    if (subjectCode === '') {
-      setFilteredResources(resources);
-    } else {
-      const filtered = resources.filter(resource => resource.course === subjectCode);
-      setFilteredResources(filtered);
-    }
-  };
-
   // Handle resource download
   const handleDownload = async (resourceId: number) => {
     try {
@@ -88,15 +68,15 @@ const StudentResources: React.FC = () => {
         alert('Please login to download resources');
         return;
       }
-      
+
       // Increment download count
-      await axios.put(`${API_BASE_URL}/resources/download/${resourceId-1}`, {}, {
+      await axios.put(`${API_BASE_URL}/resources/download/${resourceId - 1}`, {}, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
         }
       });
-      
+
       // Download the actual file
       const downloadResponse = await axios.get(`${API_BASE_URL}/resources/file/${resourceId}`, {
         headers: {
@@ -104,14 +84,14 @@ const StudentResources: React.FC = () => {
         },
         responseType: 'blob' // Important for file download
       });
-      
+
       // Get the resource details to determine filename
       const resource = resources.find(r => r.id === resourceId);
       const filename = resource?.title || `resource_${resourceId}`;
       const fileType = resource?.fileType || 'application/pdf';
-      
+
       // Create blob and download
-      const blob = new Blob([downloadResponse.data], { type: fileType });
+      const blob = new Blob([downloadResponse.data as BlobPart], { type: fileType });
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
@@ -120,10 +100,10 @@ const StudentResources: React.FC = () => {
       link.click();
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
-      
+
       // Refresh resources after download
       fetchResources();
-      
+
       alert('Resource downloaded successfully!');
     } catch (error: any) {
       console.error('Error downloading resource:', error);
@@ -140,7 +120,7 @@ const StudentResources: React.FC = () => {
   // Search filtering
   const getFilteredResources = () => {
     let filtered = resources;
-    
+
     // Filter by search term
     if (searchTerm) {
       filtered = filtered.filter(resource =>
@@ -149,15 +129,15 @@ const StudentResources: React.FC = () => {
         resource.facultyName.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
-    
+
     return filtered;
   };
   useEffect(() => {
     if (searchTerm.trim() === '') {
-      setFilteredResources([]);
       setHasSearched(false);
     }
   }, [searchTerm]);
+
   // Handle search - fetch resources when search is performed
   const handleSearch = () => {
     if (searchTerm.trim()) {
@@ -167,19 +147,18 @@ const StudentResources: React.FC = () => {
 
   // Handle clear search
   const handleClearSearch = () => {
-  setSearchTerm('');          // clears input
-  setResources([]);           // clears data
-  setFilteredResources([]);   // clears filtered data
-  setHasSearched(false);      // hides table & shows “use search” message
-};
+    setSearchTerm('');          // clears input
+    setResources([]);           // clears data
+    setHasSearched(false);      // hides table & shows “use search” message
+  };
 
 
   return (
     <div style={{ fontFamily: 'Verdana, Geneva, Arial, Helvetica, sans-serif', fontSize: '12px' }}>
-      <h2 style={{ 
-        color: '#1e40af', 
-        fontSize: '18px', 
-        fontWeight: 'bold', 
+      <h2 style={{
+        color: '#1e40af',
+        fontSize: '18px',
+        fontWeight: 'bold',
         marginBottom: '15px',
         borderBottom: '2px solid #2563eb',
         paddingBottom: '5px'
@@ -254,12 +233,12 @@ const StudentResources: React.FC = () => {
             <p>{error}</p>
           </div>
         ) : (
-          <table 
-            border={1} 
-            cellPadding={8} 
-            cellSpacing={0} 
-            style={{ 
-              width: '100%', 
+          <table
+            border={1}
+            cellPadding={8}
+            cellSpacing={0}
+            style={{
+              width: '100%',
               borderCollapse: 'collapse',
               border: '1px solid #d1d5db',
               fontSize: '11px'
@@ -270,7 +249,7 @@ const StudentResources: React.FC = () => {
                 <th style={{ padding: '10px', textAlign: 'left', border: '1px solid #1e40af', fontWeight: 'bold' }}>Title</th>
                 <th style={{ padding: '10px', textAlign: 'center', border: '1px solid #1e40af', fontWeight: 'bold' }}>Subject Code</th>
                 <th style={{ padding: '10px', textAlign: 'center', border: '1px solid #1e40af', fontWeight: 'bold' }}>Type</th>
-        
+
                 <th style={{ padding: '10px', textAlign: 'center', border: '1px solid #1e40af', fontWeight: 'bold' }}>Upload Date</th>
                 <th style={{ padding: '10px', textAlign: 'left', border: '1px solid #1e40af', fontWeight: 'bold' }}>Faculty</th>
                 <th style={{ padding: '10px', textAlign: 'center', border: '1px solid #1e40af', fontWeight: 'bold' }}>Action</th>
@@ -279,9 +258,9 @@ const StudentResources: React.FC = () => {
             <tbody>
               {getFilteredResources().length > 0 ? (
                 getFilteredResources().map((resource, index) => (
-                  <tr 
+                  <tr
                     key={resource.id}
-                    style={{ 
+                    style={{
                       backgroundColor: index % 2 === 0 ? '#ffffff' : '#f9fafb'
                     }}
                   >
@@ -294,7 +273,7 @@ const StudentResources: React.FC = () => {
                     <td style={{ padding: '10px', textAlign: 'center', border: '1px solid #d1d5db' }}>
                       {resource.fileType || 'PDF'}
                     </td>
-                    
+
                     <td style={{ padding: '10px', textAlign: 'center', border: '1px solid #d1d5db' }}>
                       {resource.uploadDate ? new Date(resource.uploadDate).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : 'N/A'}
                     </td>
@@ -323,10 +302,7 @@ const StudentResources: React.FC = () => {
               ) : (
                 <tr>
                   <td colSpan={7} style={{ padding: '20px', textAlign: 'center', border: '1px solid #d1d5db', color: '#6b7280' }}>
-                    {selectedSubjectCode 
-                      ? `No resources found for subject code "${selectedSubjectCode}".`
-                      : 'No resources found matching your search.'
-                    }
+                    No resources found matching your search.
                   </td>
                 </tr>
               )}

@@ -1,0 +1,90 @@
+﻿components/data/facultyData.ts(1,1): error TS6133: 'React' is declared but its value is never read.
+components/data/facultyData.ts(2,1): error TS6133: 'AnimatedElement' is declared but its value is never read.
+components/data/facultyData.ts(2,33): error TS2307: Cannot find module './AnimatedElement' or its corresponding type declarations.
+components/Hero.tsx(19,11): error TS2339: Property 'url' does not exist on type 'StoreContextType'.
+components/Hero.tsx(19,11): error TS6133: 'url' is declared but its value is never read.
+components/pages/CSBSDepartmentPage.tsx(10,5): error TS6133: 'Award' is declared but its value is never read.
+components/pages/CSBSDepartmentPage.tsx(12,5): error TS6133: 'Globe' is declared but its value is never read.
+components/pages/CSBSDepartmentPage.tsx(15,5): error TS6133: 'Cpu' is declared but its value is never read.
+components/pages/CSBSDepartmentPage.tsx(16,5): error TS6133: 'Shield' is declared but its value is never read.
+components/pages/CSBSDepartmentPage.tsx(17,5): error TS6133: 'Cloud' is declared but its value is never read.
+components/pages/CSBSDepartmentPage.tsx(18,5): error TS6133: 'Database' is declared but its value is never read.
+components/pages/CSBSDepartmentPage.tsx(19,5): error TS6133: 'Code' is declared but its value is never read.
+components/pages/CSBSDepartmentPage.tsx(20,5): error TS6133: 'Zap' is declared but its value is never read.
+components/pages/CSBSDepartmentPage.tsx(21,5): error TS6133: 'Layers' is declared but its value is never read.
+components/pages/CSBSDepartmentPage.tsx(22,5): error TS6133: 'Server' is declared but its value is never read.
+components/pages/CSBSDepartmentPage.tsx(24,5): error TS6133: 'DollarSign' is declared but its value is never read.
+components/pages/CSBSDepartmentPage.tsx(25,5): error TS6133: 'PieChart' is declared but its value is never read.
+components/pages/CSDDepartmentPage.tsx(10,5): error TS6133: 'Database' is declared but its value is never read.
+components/pages/CSDDepartmentPage.tsx(12,5): error TS6133: 'TrendingUp' is declared but its value is never read.
+components/pages/CSDDepartmentPage.tsx(13,5): error TS6133: 'Briefcase' is declared but its value is never read.
+components/pages/CSDDepartmentPage.tsx(15,5): error TS6133: 'BarChart' is declared but its value is never read.
+components/pages/CSEDepartmentPage.tsx(12,5): error TS6133: 'Globe' is declared but its value is never read.
+components/pages/CSEDepartmentPage.tsx(15,5): error TS6133: 'Cpu' is declared but its value is never read.
+components/pages/CSEDepartmentPage.tsx(16,5): error TS6133: 'Shield' is declared but its value is never read.
+components/pages/CSEDepartmentPage.tsx(17,5): error TS6133: 'Cloud' is declared but its value is never read.
+components/pages/CSEDepartmentPage.tsx(18,5): error TS6133: 'Database' is declared but its value is never read.
+components/pages/CSEDepartmentPage.tsx(19,5): error TS6133: 'Code' is declared but its value is never read.
+components/pages/CSEDepartmentPage.tsx(20,5): error TS6133: 'Zap' is declared but its value is never read.
+components/pages/CSEDepartmentPage.tsx(21,5): error TS6133: 'Layers' is declared but its value is never read.
+components/pages/CSEDepartmentPage.tsx(22,5): error TS6133: 'Server' is declared but its value is never read.
+components/pages/GraceHopperCOEFull.tsx(22,5): error TS6133: 'ExternalLink' is declared but its value is never read.
+components/pages/GraceHopperCOEFull.tsx(24,5): error TS6133: 'Sparkles' is declared but its value is never read.
+components/pages/GraceHopperCOEFull.tsx(28,18): error TS6133: 'AnimatePresence' is declared but its value is never read.
+components/pages/ITDepartmentPage.tsx(11,5): error TS6133: 'Briefcase' is declared but its value is never read.
+components/pages/ITDepartmentPage.tsx(12,5): error TS6133: 'Globe' is declared but its value is never read.
+components/pages/ITDepartmentPage.tsx(19,5): error TS6133: 'Code' is declared but its value is never read.
+components/pages/ITDepartmentPage.tsx(20,5): error TS6133: 'Zap' is declared but its value is never read.
+components/pages/ITDepartmentPage.tsx(21,5): error TS6133: 'Layers' is declared but its value is never read.
+components/pages/ITDepartmentPage.tsx(22,5): error TS6133: 'Server' is declared but its value is never read.
+components/pages/ITDepartmentPage.tsx(24,5): error TS6133: 'Lock' is declared but its value is never read.
+components/pages/RAndDPage.tsx(14,5): error TS6133: 'Beaker' is declared but its value is never read.
+components/pages/RAndDPage.tsx(15,5): error TS6133: 'Cpu' is declared but its value is never read.
+components/pages/RAndDPage.tsx(16,5): error TS6133: 'Database' is declared but its value is never read.
+components/pages/RAndDPage.tsx(17,5): error TS6133: 'Zap' is declared but its value is never read.
+components/pages/RAndDPage.tsx(18,5): error TS6133: 'Globe' is declared but its value is never read.
+components/PlacementsSection.tsx(66,11): error TS2339: Property 'url' does not exist on type 'StoreContextType'.
+components/PlacementsSection.tsx(66,11): error TS6133: 'url' is declared but its value is never read.
+components/PlacementsSection.tsx(67,15): error TS6133: 'inView' is declared but its value is never read.
+components/PlacementsSection.tsx(137,21): error TS2353: Object literal may only specify known properties, and ''@media (max-width: 767px)'' does not exist in type 'Properties<string | number, string & {}>'.
+components/PlacementsSection.tsx(155,27): error TS2353: Object literal may only specify known properties, and ''@media (min-width: 768px)'' does not exist in type 'Properties<string | number, string & {}>'.
+components/RAndDHomeSection.tsx(46,42): error TS2322: Type '"scale-up"' is not assignable to type 'AnimationType'.
+ECAP/ECAPLogin.tsx(1,1): error TS6133: 'setMaxIdleHTTPParsers' is declared but its value is never read.
+ECAP/faculty/FacultyAnnouncements.tsx(32,25): error TS6133: 'id' is declared but its value is never read.
+ECAP/faculty/FacultyFeedback.tsx(23,26): error TS6133: 'id' is declared but its value is never read.
+ECAP/faculty/FacultyRegulations.tsx(8,23): error TS6133: 'setRegulations' is declared but its value is never read.
+ECAP/faculty/FacultyResources.tsx(128,15): error TS2339: Property 'filePath' does not exist on type '{}'.
+ECAP/faculty/FacultyResources.tsx(128,25): error TS2339: Property 'fileSize' does not exist on type '{}'.
+ECAP/FacultyDashboard.tsx(140,17): error TS2339: Property 'marquee' does not exist on type 'JSX.IntrinsicElements'.
+ECAP/FacultyDashboard.tsx(142,17): error TS2339: Property 'marquee' does not exist on type 'JSX.IntrinsicElements'.
+ECAP/student/StudentEvents.tsx(23,27): error TS6133: 'eventId' is declared but its value is never read.
+ECAP/student/StudentResources.tsx(17,10): error TS6133: 'filteredResources' is declared but its value is never read.
+ECAP/student/StudentResources.tsx(51,20): error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'SetStateAction<Resource[]>'.
+ECAP/student/StudentResources.tsx(52,28): error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'SetStateAction<Resource[]>'.
+ECAP/student/StudentResources.tsx(67,9): error TS6133: 'getUniqueSubjectCodes' is declared but its value is never read.
+ECAP/student/StudentResources.tsx(73,9): error TS6133: 'filterResourcesBySubjectCode' is declared but its value is never read.
+ECAP/student/StudentResources.tsx(114,30): error TS2322: Type 'unknown' is not assignable to type 'BlobPart'.
+ECAP/StudentDashboard.tsx(227,17): error TS2339: Property 'marquee' does not exist on type 'JSX.IntrinsicElements'.
+ECAP/StudentDashboard.tsx(229,17): error TS2339: Property 'marquee' does not exist on type 'JSX.IntrinsicElements'.
+services/geminiService.ts(1,35): error TS2307: Cannot find module '@google/genai' or its corresponding type declarations.
+services/geminiService.ts(9,7): error TS6133: 'getAIClient' is declared but its value is never read.
+storeContext/StoreContext.tsx(22,32): error TS2339: Property 'env' does not exist on type 'ImportMeta'.
+storeContext/StoreContext.tsx(30,31): error TS7006: Parameter 'props' implicitly has an 'any' type.
+storeContext/StoreContext.tsx(39,11): error TS6133: 'newsListFetchData' is declared but its value is never read.
+storeContext/StoreContext.tsx(43,31): error TS2345: Argument of type '(prevData: never[]) => unknown' is not assignable to parameter of type 'SetStateAction<never[]>'.
+  Type '(prevData: never[]) => unknown' is not assignable to type '(prevState: never[]) => never[]'.
+    Type 'unknown' is not assignable to type 'never[]'.
+storeContext/StoreContext.tsx(54,11): error TS6133: 'heroListFetchData' is declared but its value is never read.
+storeContext/StoreContext.tsx(58,25): error TS2345: Argument of type '(prevData: never[]) => unknown' is not assignable to parameter of type 'SetStateAction<never[]>'.
+  Type '(prevData: never[]) => unknown' is not assignable to type '(prevState: never[]) => never[]'.
+    Type 'unknown' is not assignable to type 'never[]'.
+storeContext/StoreContext.tsx(69,11): error TS6133: 'announcementListFetchData' is declared but its value is never read.
+storeContext/StoreContext.tsx(73,33): error TS2345: Argument of type '(prevData: never[]) => unknown' is not assignable to parameter of type 'SetStateAction<never[]>'.
+  Type '(prevData: never[]) => unknown' is not assignable to type '(prevState: never[]) => never[]'.
+    Type 'unknown' is not assignable to type 'never[]'.
+storeContext/StoreContext.tsx(84,11): error TS6133: 'placementListFetchData' is declared but its value is never read.
+storeContext/StoreContext.tsx(88,30): error TS2345: Argument of type '(prevData: never[]) => unknown' is not assignable to parameter of type 'SetStateAction<never[]>'.
+  Type '(prevData: never[]) => unknown' is not assignable to type '(prevState: never[]) => never[]'.
+    Type 'unknown' is not assignable to type 'never[]'.
+stores/videoStore.ts(1,24): error TS2307: Cannot find module 'zustand' or its corresponding type declarations.
+stores/videoStore.ts(9,48): error TS7006: Parameter 'set' implicitly has an 'any' type.

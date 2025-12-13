@@ -13,17 +13,12 @@ interface AdminLink {
 const adminPanelLinks: AdminLink[] = [
   {
     name: 'ECAP',
-    link: '/ecap/login',
+    link: 'https://bvrit.edu.in/Default.aspx?ReturnUrl=%2f',
+    target: '_blank',
     desc: 'Academic & exam portal',
     color: 'from-blue-500 to-cyan-500'
   },
-  {
-    name: 'ADMIN',
-    link: 'https://viitadminfrontend.onrender.com/',
-    target: '_blank',
-    desc: 'College administration',
-    color: 'from-rose-500 to-pink-500'
-  }
+
 ];
 
 interface HeaderProps {
@@ -131,9 +126,8 @@ const Header: React.FC<HeaderProps> = ({ onLogoClick }) => {
                   </svg>
                 </button>
                 <div
-                  className={`absolute top-full right-0 mt-3 w-[320px] transition-all duration-300 ease-in-out transform-gpu ${
-                    isAdminPanelOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'
-                  }`}
+                  className={`absolute top-full right-0 mt-3 w-[320px] transition-all duration-300 ease-in-out transform-gpu ${isAdminPanelOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'
+                    }`}
                 >
                   <div className="bg-white/95 backdrop-blur-md rounded-xl shadow-xl border border-slate-200/70 overflow-hidden">
                     <div className="bg-slate-100 px-4 py-3">
@@ -177,9 +171,8 @@ const Header: React.FC<HeaderProps> = ({ onLogoClick }) => {
                 <div className="relative" ref={mobileAdminPanelRef}>
                   <button
                     onClick={() => setIsMobileAdminPanelOpen(!isMobileAdminPanelOpen)}
-                    className={`p-2 rounded-lg transition-colors duration-300 focus:outline-none mr-2 ${
-                      isMobileAdminPanelOpen ? 'bg-slate-200' : 'hover:bg-slate-100'
-                    }`}
+                    className={`p-2 rounded-lg transition-colors duration-300 focus:outline-none mr-2 ${isMobileAdminPanelOpen ? 'bg-slate-200' : 'hover:bg-slate-100'
+                      }`}
                     aria-label="Toggle admin panel"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 text-slate-700" viewBox="0 0 24 24" fill="currentColor">
@@ -187,9 +180,8 @@ const Header: React.FC<HeaderProps> = ({ onLogoClick }) => {
                     </svg>
                   </button>
                   <div
-                    className={`absolute top-full right-0 mt-2 w-[280px] transition-all duration-300 ease-in-out transform-gpu ${
-                      isMobileAdminPanelOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'
-                    }`}
+                    className={`absolute top-full right-0 mt-2 w-[280px] transition-all duration-300 ease-in-out transform-gpu ${isMobileAdminPanelOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'
+                      }`}
                   >
                     <div className="bg-white/95 backdrop-blur-md rounded-xl shadow-xl border border-slate-200/70 overflow-hidden">
                       <div className="bg-slate-100 px-3 py-2">

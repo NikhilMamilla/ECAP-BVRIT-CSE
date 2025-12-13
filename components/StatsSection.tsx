@@ -8,7 +8,7 @@ import { AnimatedElement } from './AnimatedElement';
 // Data for the statistics cards - CSE Department Specific
 const statsData = [
   { value: 600, label: 'CSE Students', description: 'Across all specializations', suffix: '+', decimals: 0 },
-  { value: 95, label: 'Placement Rate', description: 'CSE Department placements', suffix: '%', decimals: 0 },
+  { value: 62, label: 'Placement Rate', description: 'CSE Department placements', suffix: '%', decimals: 0 },
   { value: 45, label: 'Highest Package', description: 'CSE student achievement', suffix: ' LPA', decimals: 0 },
   { value: 12, label: 'Average Package', description: 'For CSE graduates', suffix: ' LPA', decimals: 0 },
   { value: 40, label: 'Expert Faculty', description: 'PhD holders & industry experts', suffix: '+', decimals: 0 },

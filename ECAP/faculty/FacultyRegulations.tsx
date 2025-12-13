@@ -5,7 +5,7 @@ const FacultyRegulations: React.FC = () => {
   const [selectedRegulation, setSelectedRegulation] = useState<number | null>(null);
 
   // Mock regulations data
-  const [regulations, setRegulations] = useState([
+  const [regulations] = useState([
     { id: 1, title: 'Academic Regulations 2024', category: 'Academic', lastUpdated: '2024-01-01', editable: true, content: 'Academic regulations content...' },
     { id: 2, title: 'Examination Regulations', category: 'Examination', lastUpdated: '2024-01-15', editable: true, content: 'Examination regulations content...' },
     { id: 3, title: 'Attendance Policy', category: 'Academic', lastUpdated: '2024-01-20', editable: true, content: 'Attendance policy content...' },
@@ -29,10 +29,10 @@ const FacultyRegulations: React.FC = () => {
 
   return (
     <div style={{ fontFamily: 'Verdana, Geneva, Arial, Helvetica, sans-serif', fontSize: '12px' }}>
-      <h2 style={{ 
-        color: '#1e40af', 
-        fontSize: '18px', 
-        fontWeight: 'bold', 
+      <h2 style={{
+        color: '#1e40af',
+        fontSize: '18px',
+        fontWeight: 'bold',
         marginBottom: '15px',
         borderBottom: '2px solid #2563eb',
         paddingBottom: '5px'
@@ -97,12 +97,12 @@ const FacultyRegulations: React.FC = () => {
         </div>
       ) : (
         <div style={{ marginTop: '20px' }}>
-          <table 
-            border={1} 
-            cellPadding={8} 
-            cellSpacing={0} 
-            style={{ 
-              width: '100%', 
+          <table
+            border={1}
+            cellPadding={8}
+            cellSpacing={0}
+            style={{
+              width: '100%',
               borderCollapse: 'collapse',
               border: '1px solid #d1d5db',
               fontSize: '11px'
@@ -119,9 +119,9 @@ const FacultyRegulations: React.FC = () => {
             </thead>
             <tbody>
               {regulations.map((regulation, index) => (
-                <tr 
+                <tr
                   key={regulation.id}
-                  style={{ 
+                  style={{
                     backgroundColor: index % 2 === 0 ? '#ffffff' : '#f9fafb'
                   }}
                 >
@@ -143,9 +143,9 @@ const FacultyRegulations: React.FC = () => {
                   <td style={{ padding: '10px', textAlign: 'center', border: '1px solid #d1d5db' }}>
                     {new Date(regulation.lastUpdated).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
                   </td>
-                  <td style={{ 
-                    padding: '10px', 
-                    textAlign: 'center', 
+                  <td style={{
+                    padding: '10px',
+                    textAlign: 'center',
                     border: '1px solid #d1d5db',
                     color: regulation.editable ? '#10b981' : '#6b7280',
                     fontWeight: 'bold'

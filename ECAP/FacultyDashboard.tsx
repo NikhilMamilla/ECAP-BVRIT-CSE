@@ -12,7 +12,7 @@ const FacultyDashboard: React.FC = () => {
     const token = localStorage.getItem('ecap_token');
     const userName = localStorage.getItem('ecap_userName');
     const userType = localStorage.getItem('ecap_userType');
-    
+
     if (!token || userType !== 'employee') {
       navigate('/ecap/login');
       return;
@@ -118,11 +118,11 @@ const FacultyDashboard: React.FC = () => {
             {/* Header Image */}
             <tr>
               <td>
-                <img 
-                  src="/collegeimages/title_head.jpg" 
-                  width="1200" 
-                  height="100" 
-                  alt="Header" 
+                <img
+                  src="/collegeimages/title_head.jpg"
+                  width="1200"
+                  height="100"
+                  alt="Header"
                   style={{ display: 'block', maxWidth: '100%', height: 'auto' }}
                 />
               </td>
@@ -130,10 +130,10 @@ const FacultyDashboard: React.FC = () => {
 
             {/* News/Marquee */}
             <tr>
-              <td style={{ 
-                fontFamily: 'Verdana', 
-                fontSize: '12px', 
-                fontWeight: 'bold', 
+              <td style={{
+                fontFamily: 'Verdana',
+                fontSize: '12px',
+                fontWeight: 'bold',
                 color: 'blue',
                 padding: '5px 0'
               }}>
@@ -147,8 +147,8 @@ const FacultyDashboard: React.FC = () => {
 
             {/* User Info Bar */}
             <tr>
-              <td style={{ 
-                fontFamily: 'Verdana', 
+              <td style={{
+                fontFamily: 'Verdana',
                 fontSize: '12px',
                 padding: '5px 0'
               }}>
@@ -158,8 +158,8 @@ const FacultyDashboard: React.FC = () => {
                       <span style={{ fontWeight: 'bold', color: '#000' }}>{displayName}</span>
                     </td>
                     <td style={{ width: '30%', textAlign: 'center' }}>
-                      <a 
-                        href="#" 
+                      <a
+                        href="#"
                         onClick={(e) => { e.preventDefault(); /* TODO: Implement change password */ }}
                         className="welcomeLink"
                       >
@@ -167,8 +167,8 @@ const FacultyDashboard: React.FC = () => {
                       </a>
                     </td>
                     <td align="right">
-                      <a 
-                        href="#" 
+                      <a
+                        href="#"
                         onClick={(e) => { e.preventDefault(); handleLogout(); }}
                         className="welcomeLink"
                       >
@@ -188,24 +188,24 @@ const FacultyDashboard: React.FC = () => {
                 <table width="100%" cellSpacing={0} cellPadding={0}>
                   <tr>
                     {/* Left Sidebar Menu */}
-                    <td style={{ 
-                      width: '220px', 
-                      paddingLeft: '4px', 
+                    <td style={{
+                      width: '220px',
+                      paddingLeft: '4px',
                       backgroundColor: '#f9fafb',
                       verticalAlign: 'top',
                       border: '1px solid #e5e7eb'
                     }} align="left" valign="top">
-                      <div style={{ 
+                      <div style={{
                         padding: '10px 0',
                         backgroundColor: '#f3f4f6',
                         borderBottom: '2px solid #2563eb',
                         paddingLeft: '8px',
                         marginBottom: '5px'
                       }}>
-                        <strong style={{ 
-                          fontFamily: 'Verdana', 
-                          fontSize: '13px', 
-                          color: '#1e40af' 
+                        <strong style={{
+                          fontFamily: 'Verdana',
+                          fontSize: '13px',
+                          color: '#1e40af'
                         }}>FACULTY MENU</strong>
                       </div>
                       <div>
@@ -236,7 +236,7 @@ const FacultyDashboard: React.FC = () => {
                     <td style={{ width: '5px' }}>&nbsp;</td>
 
                     {/* Main Content Area */}
-                    <td valign="top" style={{ 
+                    <td valign="top" style={{
                       border: '1px solid #e5e7eb',
                       backgroundColor: '#ffffff',
                       padding: '10px',

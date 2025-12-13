@@ -19,13 +19,11 @@ import {
     GraduationCap,
     Building2,
     Activity,
-    ExternalLink,
     ArrowDown,
-    Sparkles,
     ChevronLeft,
     ChevronRight
 } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 const GraceHopperCOEFull: React.FC = () => {
     // Scroll to top on page load
@@ -1061,10 +1059,15 @@ const GraceHopperCOEFull: React.FC = () => {
                 </section >
 
                 {/* Research & Publications Section */}
-                < section className="bg-gradient-to-br from-gray-50 to-blue-50 py-16 md:py-20" >
+                <section className="bg-gradient-to-br from-gray-50 to-blue-50 py-16 md:py-20">
                     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+
+                        {/* Header */}
                         <AnimatedElement animation="slide-down">
-                            <h2 className="text-4xl sm:text-5xl font-extrabold text-gray-900 text-center mb-4" style={{ fontFamily: 'Georgia, serif' }}>
+                            <h2
+                                className="text-4xl sm:text-5xl font-extrabold text-gray-900 text-center mb-4"
+                                style={{ fontFamily: "Georgia, serif" }}
+                            >
                                 Research & Publications
                             </h2>
                             <p className="text-center text-lg text-gray-600 mb-12 max-w-3xl mx-auto">
@@ -1073,51 +1076,67 @@ const GraceHopperCOEFull: React.FC = () => {
                         </AnimatedElement>
 
                         <div className="grid lg:grid-cols-2 gap-8 mb-12">
-                            {/* Google Earth Engine Projects */}
+
+                            {/* ================= GOOGLE EARTH ENGINE ================= */}
                             <AnimatedElement animation="slide-right">
-                                <div className="bg-white rounded-xl shadow-xl p-8 border-2 border-gray-100 h-full">
+                                <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-200 h-full">
+
                                     <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
                                         <Globe className="w-8 h-8 text-blue-600" />
                                         Google Earth Engine & ML
                                     </h3>
+
                                     <div className="grid sm:grid-cols-2 gap-6">
                                         {[
                                             {
-                                                title: 'Soil Carbon Assessment',
-                                                subtitle: 'Central India',
-                                                team: 'S. Sai Charan, T. Akshay Kumar',
-                                                image: 'https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=800&q=80'
+                                                title: "Soil Carbon Assessment",
+                                                subtitle: "Central India",
+                                                team: "S. Sai Charan, T. Akshay Kumar",
+                                                image:
+                                                    "https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=800&q=80",
                                             },
                                             {
-                                                title: 'Rubber Plantation',
-                                                subtitle: 'Characterization - Kerala',
-                                                team: 'S. Sai Charan, T. Ramya',
-                                                image: 'https://images.unsplash.com/photo-1473448912268-2022ce9509d8?w=800&q=80'
+                                                title: "Rubber Plantation Characterization",
+                                                subtitle: "Kerala",
+                                                team: "S. Sai Charan, T. Ramya",
+                                                image:
+                                                    "https://images.unsplash.com/photo-1473448912268-2022ce9509d8?w=800&q=80",
                                             },
                                             {
-                                                title: 'Rubber Characterization',
-                                                subtitle: 'North-East India',
-                                                team: 'Hari Sharan, Balasubramanyam',
-                                                image: 'https://images.unsplash.com/photo-1596329636286-904c6c97a61e?w=800&q=80'
+                                                title: "Rubber Characterization",
+                                                subtitle: "North-East India",
+                                                team: "Hari Sharan, Balasubramanyam",
+                                                image:
+                                                    "https://images.unsplash.com/photo-1596329636286-904c6c97a61e?w=800&q=80",
                                             },
                                             {
-                                                title: 'Mangrove Forest Dynamics',
-                                                subtitle: 'Gujarat',
-                                                team: 'T. Sruthi, Suhana Shaik',
-                                                image: 'https://images.unsplash.com/photo-1519810755548-392116d9a642?w=800&q=80'
-                                            }
+                                                title: "Mangrove Forest Dynamics",
+                                                subtitle: "Gujarat",
+                                                team: "T. Sruthi, Suhana Shaik",
+                                                image:
+                                                    "https://images.unsplash.com/photo-1519810755548-392116d9a642?w=800&q=80",
+                                            },
                                         ].map((project, idx) => (
-                                            <div key={idx} className="group relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300">
-                                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10"></div>
+                                            <div
+                                                key={idx}
+                                                className="group relative overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-all duration-300"
+                                            >
+                                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10" />
+
                                                 <img
                                                     src={project.image}
                                                     alt={project.title}
                                                     className="w-full h-48 object-cover transform group-hover:scale-110 transition-transform duration-500"
                                                 />
+
                                                 <div className="absolute bottom-0 left-0 right-0 p-4 z-20 text-white">
-                                                    <h4 className="font-bold text-sm leading-tight mb-1">{project.title}</h4>
-                                                    <p className="text-xs text-blue-200 mb-2">{project.subtitle}</p>
-                                                    <p className="text-[10px] opacity-80 line-clamp-1">Team: {project.team}</p>
+                                                    <h4 className="font-bold text-sm mb-1">{project.title}</h4>
+                                                    <p className="text-xs text-blue-200 mb-2">
+                                                        {project.subtitle}
+                                                    </p>
+                                                    <p className="text-[11px] opacity-80">
+                                                        Team: {project.team}
+                                                    </p>
                                                 </div>
                                             </div>
                                         ))}
@@ -1125,163 +1144,206 @@ const GraceHopperCOEFull: React.FC = () => {
                                 </div>
                             </AnimatedElement>
 
-                            {/* ML Healthcare Projects */}
+                            {/* ================= ML HEALTHCARE ================= */}
                             <AnimatedElement animation="slide-left" delay={200}>
-                                <div className="bg-white rounded-xl shadow-xl p-8 border-2 border-gray-100 h-full">
+                                <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-200 h-full">
+
                                     <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
                                         <Activity className="w-8 h-8 text-green-600" />
                                         ML Healthcare Projects
                                     </h3>
+
                                     <div className="space-y-4">
                                         {[
                                             {
-                                                title: 'Recti Cure - Cataract Detection',
-                                                team: 'Dr. L. Pallavi, A. Sai Charan & Team',
-                                                link: 'https://ieeexplore.ieee.org/search/searchresult.jsp?newsearch=true&queryText=Recti%20Cure%20-%20Cataract%20Detection'
+                                                title: "Recti Cure – Cataract Detection",
+                                                team: "Dr. L. Pallavi, A. Sai Charan & Team",
                                             },
                                             {
-                                                title: 'SoulEase - AI Emotion Detection',
-                                                team: 'Mrs. Ch. Sreedevi, B. Naga Reshmi & Team',
-                                                link: 'https://ieeexplore.ieee.org/search/searchresult.jsp?newsearch=true&queryText=SoulEase%20-%20AI%20Emotion%20Detection'
+                                                title: "SoulEase – AI Emotion Detection",
+                                                team: "Mrs. Ch. Sreedevi, B. Naga Reshmi & Team",
                                             },
                                             {
-                                                title: 'Brain Tumor Detection - GAN Analysis',
-                                                team: 'Dr. L. Pallavi, T. Ramya & Team'
+                                                title: "Brain Tumor Detection using GANs",
+                                                team: "Dr. L. Pallavi, T. Ramya & Team",
                                             },
                                             {
-                                                title: 'FeminaInsight - PCOS Detection',
-                                                team: 'Mr. Jagadeesh Dandu, Kalamatha Eshwari & Team'
+                                                title: "FeminaInsight – PCOS Detection",
+                                                team: "Mr. Jagadeesh Dandu, Kalamatha Eshwari & Team",
                                             },
                                             {
-                                                title: 'Mental Health Prediction - ML',
-                                                team: 'Dr. Ch. Madhu Babu, M. Nikhil & Team'
-                                            }
+                                                title: "Mental Health Prediction using ML",
+                                                team: "Dr. Ch. Madhu Babu, M. Nikhil & Team",
+                                            },
                                         ].map((project, idx) => (
-                                            <div key={idx} className="flex items-start justify-between p-4 rounded-lg bg-gray-50 border border-gray-100 hover:border-green-200 hover:bg-green-50 transition-colors duration-300">
+                                            <div
+                                                key={idx}
+                                                className="flex items-center justify-between p-4 rounded-xl bg-gray-50 border border-gray-200 hover:bg-green-50 hover:border-green-300 transition-all"
+                                            >
                                                 <div>
-                                                    <h4 className="font-semibold text-gray-900 text-sm mb-1">{project.title}</h4>
+                                                    <h4 className="font-semibold text-gray-900 text-sm mb-1">
+                                                        {project.title}
+                                                    </h4>
                                                     <p className="text-xs text-gray-600">{project.team}</p>
                                                 </div>
-                                                {project.link && (
-                                                    <a
-                                                        href={project.link}
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        className="flex-shrink-0 ml-4 px-3 py-1.5 bg-green-600 text-white text-xs font-medium rounded-full hover:bg-green-700 transition-colors flex items-center gap-1"
-                                                    >
-                                                        View Paper <ExternalLink className="w-3 h-3" />
-                                                    </a>
-                                                )}
+
+                                                <span className="text-xs px-3 py-1.5 rounded-full bg-green-100 text-green-700 font-medium">
+                                                    View Paper (Soon)
+                                                </span>
                                             </div>
                                         ))}
                                     </div>
                                 </div>
                             </AnimatedElement>
                         </div>
-
-                        {/* Publications Highlights */}
-                        <AnimatedElement animation="fade-in">
-                            <div className="bg-white rounded-xl shadow-xl p-8 border-2 border-gray-100">
-                                <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">Selected IEEE Publications (2023-2024)</h3>
-                                <div className="grid md:grid-cols-3 gap-6">
-                                    <div className="text-center p-4 bg-teal-50 rounded-xl">
-                                        <div className="text-4xl font-bold text-blue-600 mb-2">15+</div>
-                                        <div className="text-gray-700 font-medium">Conference Papers</div>
-                                    </div>
-                                    <div className="text-center p-4 bg-green-50 rounded-xl">
-                                        <div className="text-4xl font-bold text-green-600 mb-2">100+</div>
-                                        <div className="text-gray-700 font-medium">Total Citations</div>
-                                    </div>
-                                    <div className="text-center p-4 bg-teal-50 rounded-xl">
-                                        <div className="text-4xl font-bold text-blue-600 mb-2">11</div>
-                                        <div className="text-gray-700 font-medium">Highest Citations</div>
-                                    </div>
-                                </div>
-                                <div className="mt-8 grid md:grid-cols-2 gap-4 text-sm text-gray-600">
-                                    <div className="flex items-start gap-2">
-                                        <CheckCircle2 className="w-5 h-5 text-blue-600 flex-shrink-0" />
-                                        <span>AI-driven multimodal chatbot for healthcare (11 citations)</span>
-                                    </div>
-                                    <div className="flex items-start gap-2">
-                                        <CheckCircle2 className="w-5 h-5 text-blue-600 flex-shrink-0" />
-                                        <span>Enhancing soft skill development with ChatGPT (10 citations)</span>
-                                    </div>
-                                    <div className="flex items-start gap-2">
-                                        <CheckCircle2 className="w-5 h-5 text-blue-600 flex-shrink-0" />
-                                        <span>Placement prediction system using ML (8 citations)</span>
-                                    </div>
-                                    <div className="flex items-start gap-2">
-                                        <CheckCircle2 className="w-5 h-5 text-blue-600 flex-shrink-0" />
-                                        <span>Image generation using BERT and GAN (6 citations)</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </AnimatedElement>
                     </div>
-                </section >
+                </section>
+
 
                 {/* Patents & Awards Section */}
-                < section className="bg-white py-16 md:py-20" >
+                <section className="bg-white py-16 md:py-20">
                     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+
+                        {/* Section Title */}
                         <AnimatedElement animation="slide-down">
-                            <h2 className="text-4xl sm:text-5xl font-extrabold text-gray-900 text-center mb-12" style={{ fontFamily: 'Georgia, serif' }}>
+                            <h2
+                                className="text-4xl sm:text-5xl font-extrabold text-gray-900 text-center mb-12"
+                                style={{ fontFamily: "Georgia, serif" }}
+                            >
                                 Patents & Awards
                             </h2>
                         </AnimatedElement>
 
-                        <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
-                            {/* Patents */}
-                            <AnimatedElement animation="slide-right">
-                                <div className="bg-gradient-to-br from-blue-50 to-white rounded-xl shadow-xl p-8 border-2 border-blue-200">
-                                    <div className="flex items-center mb-6">
-                                        <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white mr-4">
-                                            <Award className="w-6 h-6" />
+                        {/* ===== 3 ITEMS IN A SINGLE ROW ===== */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+
+                            {/* ================= PATENT 1 ================= */}
+                            <AnimatedElement animation="slide-up">
+                                <div className="bg-gradient-to-br from-blue-50 to-white rounded-xl shadow-xl p-6 border-2 border-blue-200 h-full">
+
+                                    <div className="flex items-center mb-4">
+                                        <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white mr-3">
+                                            <Award className="w-5 h-5" />
                                         </div>
-                                        <h3 className="text-2xl font-bold text-gray-900">Patents Published (2024)</h3>
+                                        <h3 className="text-lg font-bold text-gray-900">
+                                            Patent – 2024
+                                        </h3>
                                     </div>
-                                    <div className="space-y-4">
-                                        <div className="bg-white rounded-lg p-4 border border-blue-200">
-                                            <h4 className="font-bold text-gray-900 mb-2">AI-Driven Multimodal Chatbot</h4>
-                                            <p className="text-sm text-gray-600 mb-2">Application No: 202441085902</p>
-                                            <p className="text-xs text-gray-500">Lank Pallavi, Bala Subramanyam, Hari Sharan, et al.</p>
+
+                                    <h4 className="font-bold text-gray-900 mb-2 text-sm">
+                                        AI-Driven Multimodal Chatbot for Healthcare Accessibility
+                                    </h4>
+
+                                    <p className="text-xs text-gray-700 mb-1">
+                                        <strong>Application No:</strong> 202441085902
+                                    </p>
+                                    <p className="text-xs text-gray-700 mb-1">
+                                        <strong>Status:</strong> Published
+                                    </p>
+                                    <p className="text-xs text-gray-700 mb-1">
+                                        <strong>Filed:</strong> 08/11/2024
+                                    </p>
+                                    <p className="text-xs text-gray-700 mb-1">
+                                        <strong>Published:</strong> 22/11/2024
+                                    </p>
+                                    <p className="text-xs text-gray-700 mb-2">
+                                        <strong>Applicant:</strong> B V Raju Institute of Technology
+                                    </p>
+
+                                    <p className="text-[11px] text-gray-500">
+                                        <strong>Inventors:</strong> Lanke Pallavi, Bala Subramanyam Garimella,
+                                        Hari Sharan Garlapati, Srivani Choul, Rajesh Chenkuri
+                                    </p>
+                                </div>
+                            </AnimatedElement>
+
+                            {/* ================= PATENT 2 ================= */}
+                            <AnimatedElement animation="slide-up" delay={100}>
+                                <div className="bg-gradient-to-br from-blue-50 to-white rounded-xl shadow-xl p-6 border-2 border-blue-200 h-full">
+
+                                    <div className="flex items-center mb-4">
+                                        <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white mr-3">
+                                            <Award className="w-5 h-5" />
                                         </div>
-                                        <div className="bg-white rounded-lg p-4 border border-blue-200">
-                                            <h4 className="font-bold text-gray-900 mb-2">SKILLIFY - Enhanced Learning System</h4>
-                                            <p className="text-sm text-gray-600 mb-2">Application No: 202441087085</p>
-                                            <p className="text-xs text-gray-500">Sreedevi Chikkudu, Dharya Jeera, Naga Reshmi, et al.</p>
+                                        <h3 className="text-lg font-bold text-gray-900">
+                                            Patent – 2024
+                                        </h3>
+                                    </div>
+
+                                    <h4 className="font-bold text-gray-900 mb-2 text-sm">
+                                        SKILLIFY: Enhanced LMS Using Generative AI
+                                    </h4>
+
+                                    <p className="text-xs text-gray-700 mb-1">
+                                        <strong>Application No:</strong> 202441087085
+                                    </p>
+                                    <p className="text-xs text-gray-700 mb-1">
+                                        <strong>Status:</strong> Published
+                                    </p>
+                                    <p className="text-xs text-gray-700 mb-1">
+                                        <strong>Filed:</strong> 12/11/2024
+                                    </p>
+                                    <p className="text-xs text-gray-700 mb-1">
+                                        <strong>Published:</strong> 22/11/2024
+                                    </p>
+                                    <p className="text-xs text-gray-700 mb-2">
+                                        <strong>Applicant:</strong> B V Raju Institute of Technology
+                                    </p>
+
+                                    <p className="text-[11px] text-gray-500">
+                                        <strong>Inventors:</strong> Sreedevi Chikkudu, Dharya Jeera,
+                                        Hrishikesh Gollapalli, Persis Soni, Dandla Vaishnavi
+                                    </p>
+                                </div>
+                            </AnimatedElement>
+
+                            {/* ================= AWARD ================= */}
+                            <AnimatedElement animation="slide-up" delay={200}>
+                                <div className="bg-gradient-to-br from-green-50 to-white rounded-xl shadow-xl p-6 border-2 border-green-200 h-full">
+
+                                    <div className="flex items-center mb-4">
+                                        <div className="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center text-white mr-3">
+                                            <Award className="w-5 h-5" />
                                         </div>
+                                        <h3 className="text-lg font-bold text-gray-900">
+                                            IEEE YESIST12 – 2024
+                                        </h3>
+                                    </div>
+
+                                    <div className="text-center mb-4">
+                                        <div className="inline-flex items-center gap-2 bg-green-100 text-green-800 px-3 py-1 rounded-full font-bold text-sm mb-3">
+                                            <Award className="w-4 h-4" /> BEST PROJECT
+                                        </div>
+
+                                        <h4 className="text-sm font-bold text-gray-900 mb-2">
+                                            Medical Imaging Using GANs
+                                        </h4>
+
+                                        <p className="text-xs text-gray-600">
+                                            RBI90 Quiz Competition – Winners
+                                        </p>
+                                    </div>
+
+                                    <div className="text-xs text-gray-700">
+                                        <p className="mb-1">
+                                            <strong>Team:</strong> T. Ramya, S. Sai Charan,
+                                            S. Amith, T. Akshay Kumar
+                                        </p>
+                                        <p className="mb-1">
+                                            <strong>Guide:</strong> Lanke Pallavi
+                                        </p>
+                                        <p>
+                                            <strong>Venue:</strong> NITTE Meenakshi Institute
+                                            <br />
+                                            <strong>Date:</strong> April 2024
+                                        </p>
                                     </div>
                                 </div>
                             </AnimatedElement>
 
-                            {/* Awards */}
-                            <AnimatedElement animation="slide-left" delay={200}>
-                                <div className="bg-gradient-to-br from-green-50 to-white rounded-xl shadow-xl p-8 border-2 border-green-200">
-                                    <div className="flex items-center mb-6">
-                                        <div className="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center text-white mr-4">
-                                            <Award className="w-6 h-6" />
-                                        </div>
-                                        <h3 className="text-2xl font-bold text-gray-900">IEEE YESIST12 2024</h3>
-                                    </div>
-                                    <div className="bg-white rounded-lg p-6 border border-green-200">
-                                        <div className="text-center mb-4">
-                                            <div className="inline-block bg-green-100 text-green-800 px-4 py-2 rounded-full font-bold text-lg mb-4 flex items-center gap-2">
-                                                <Award className="w-5 h-5" /> BEST PROJECT
-                                            </div>
-                                            <h4 className="text-xl font-bold text-gray-900 mb-2">Medical Imaging in GANs</h4>
-                                            <p className="text-gray-600 mb-4">RBI90 Quiz Competition Winners</p>
-                                        </div>
-                                        <div className="text-sm text-gray-700">
-                                            <p className="mb-2"><strong>Team:</strong> T. Ramya, S. Sai Charan, S. Amith, T. Akshay Kumar</p>
-                                            <p className="mb-2"><strong>Guide:</strong> Lanke Pallavi</p>
-                                            <p><strong>Event:</strong> NITTE Meenakshi Institute, April 2024</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </AnimatedElement>
                         </div>
                     </div>
-                </section >
+                </section>
 
                 {/* Startup Success Section */}
                 < section className="bg-gradient-to-br from-green-50 to-blue-50 py-16 md:py-20" >
@@ -1342,37 +1404,71 @@ const GraceHopperCOEFull: React.FC = () => {
                 </section >
 
                 {/* Call-to-Action Section */}
-                < section className="bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white py-16" >
+                <section className="bg-white py-16 md:py-20">
                     <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+
                         <AnimatedElement animation="fade-in">
-                            <h2 className="text-3xl sm:text-4xl font-bold mb-6">Join Grace Hopper Center of Excellence</h2>
-                            <p className="text-xl mb-8 text-blue-100 max-w-3xl mx-auto">
+                            <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-gray-900">
+                                Join Grace Hopper Center of Excellence
+                            </h2>
+
+                            <p className="text-lg sm:text-xl mb-8 text-gray-600 max-w-3xl mx-auto">
                                 Transform your academic journey into real-world success with industry partnerships,
                                 cutting-edge research, and entrepreneurial opportunities.
                             </p>
+
                             <div className="flex flex-wrap gap-4 justify-center">
+
+                                {/* Contact Button */}
                                 <a
                                     href="mailto:cse@bvrit.ac.in"
-                                    className="inline-flex items-center px-8 py-4 bg-white text-blue-600 rounded-full font-semibold text-lg hover:bg-teal-50 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105"
+                                    className="inline-flex items-center px-8 py-4 bg-blue-600 text-white rounded-full font-semibold text-lg 
+                     hover:bg-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
                                 >
                                     Contact Us
-                                    <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                    <svg
+                                        className="w-5 h-5 ml-2"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth={2}
+                                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                                        />
                                     </svg>
                                 </a>
+
+                                {/* Back to Home Button */}
                                 <a
                                     href="/"
-                                    className="inline-flex items-center px-8 py-4 bg-teal-500 text-white rounded-full font-semibold text-lg hover:bg-blue-400 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105 border-2 border-white"
+                                    className="inline-flex items-center px-8 py-4 bg-gray-100 text-gray-800 rounded-full font-semibold text-lg 
+                     hover:bg-gray-200 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 border border-gray-300"
                                 >
                                     Back to Home
-                                    <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                                    <svg
+                                        className="w-5 h-5 ml-2"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth={2}
+                                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                                        />
                                     </svg>
                                 </a>
+
                             </div>
                         </AnimatedElement>
+
                     </div>
-                </section >
+                </section>
+
             </main >
 
             <Footer />

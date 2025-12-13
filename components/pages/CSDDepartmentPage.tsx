@@ -7,12 +7,8 @@ import {
     Users,
     BookOpen,
     FileText,
-    Database,
     CheckCircle,
-    TrendingUp,
-    Briefcase,
-    Globe,
-    BarChart
+    Globe
 } from 'lucide-react';
 
 const CSDDepartmentPage: React.FC = () => {

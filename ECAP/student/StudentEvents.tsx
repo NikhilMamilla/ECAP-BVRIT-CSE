@@ -21,15 +21,16 @@ const StudentEvents: React.FC = () => {
   });
 
   const handleRegister = (eventId: number) => {
+    console.log(`Registering for event ${eventId}`);
     alert('Registration successful!');
   };
 
   return (
     <div style={{ fontFamily: 'Verdana, Geneva, Arial, Helvetica, sans-serif', fontSize: '12px' }}>
-      <h2 style={{ 
-        color: '#1e40af', 
-        fontSize: '18px', 
-        fontWeight: 'bold', 
+      <h2 style={{
+        color: '#1e40af',
+        fontSize: '18px',
+        fontWeight: 'bold',
         marginBottom: '15px',
         borderBottom: '2px solid #2563eb',
         paddingBottom: '5px'
@@ -61,12 +62,12 @@ const StudentEvents: React.FC = () => {
       </div>
 
       <div style={{ marginTop: '20px' }}>
-        <table 
-          border={1} 
-          cellPadding={8} 
-          cellSpacing={0} 
-          style={{ 
-            width: '100%', 
+        <table
+          border={1}
+          cellPadding={8}
+          cellSpacing={0}
+          style={{
+            width: '100%',
             borderCollapse: 'collapse',
             border: '1px solid #d1d5db',
             fontSize: '11px'
@@ -85,9 +86,9 @@ const StudentEvents: React.FC = () => {
           <tbody>
             {filteredEvents.length > 0 ? (
               filteredEvents.map((event, index) => (
-                <tr 
+                <tr
                   key={event.id}
-                  style={{ 
+                  style={{
                     backgroundColor: index % 2 === 0 ? '#ffffff' : '#f9fafb'
                   }}
                 >
@@ -103,9 +104,9 @@ const StudentEvents: React.FC = () => {
                   <td style={{ padding: '10px', border: '1px solid #d1d5db' }}>
                     {event.venue}
                   </td>
-                  <td style={{ 
-                    padding: '10px', 
-                    textAlign: 'center', 
+                  <td style={{
+                    padding: '10px',
+                    textAlign: 'center',
                     border: '1px solid #d1d5db',
                     color: event.status === 'upcoming' ? '#10b981' : '#6b7280',
                     fontWeight: 'bold'

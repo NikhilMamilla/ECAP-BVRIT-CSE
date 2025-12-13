@@ -7,22 +7,10 @@ import {
     Users,
     BookOpen,
     FileText,
-    Award,
-    Briefcase,
-    Globe,
     Target,
     Lightbulb,
-    Cpu,
-    Shield,
-    Cloud,
-    Database,
-    Code,
-    Zap,
-    Layers,
-    Server,
     TrendingUp,
-    DollarSign,
-    PieChart
+    Briefcase
 } from 'lucide-react';
 
 const CSBSDepartmentPage: React.FC = () => {
