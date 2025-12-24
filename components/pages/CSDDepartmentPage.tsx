@@ -36,12 +36,12 @@ const CSDDepartmentPage: React.FC = () => {
                 {/* Content */}
                 <div className="container mx-auto px-4 relative z-10 text-center">
                     <AnimatedElement animation="slide-down" duration={1000}>
-                        <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 tracking-tight drop-shadow-2xl font-serif">
+                        <h1 className="text-3xl md:text-6xl lg:text-7xl font-bold text-white mb-6 tracking-tight drop-shadow-2xl font-serif">
                             Department of <br />
                             <span className="text-cyan-200">CSE (Data Science)</span>
                         </h1>
                         <div className="w-32 h-1 bg-cyan-400 mx-auto mb-8 rounded-full"></div>
-                        <p className="text-xl md:text-3xl text-cyan-100 font-light tracking-wide max-w-4xl mx-auto">
+                        <p className="text-lg md:text-3xl text-cyan-100 font-light tracking-wide max-w-4xl mx-auto">
                             Unlocking Insights, Empowering Decisions with Data Science
                         </p>
                     </AnimatedElement>
@@ -73,7 +73,7 @@ const CSDDepartmentPage: React.FC = () => {
                             { count: '20+', label: 'Research Papers', icon: <FileText className="w-8 h-8" /> },
                         ].map((stat, index) => (
                             <AnimatedElement key={index} animation="slide-up" delay={index * 100}>
-                                <div className="bg-white p-8 rounded-xl shadow-xl border-2 border-blue-300 text-center hover:-translate-y-2 transition-transform duration-300 group">
+                                <div className="bg-white p-4 md:p-8 rounded-xl shadow-xl border-2 border-blue-300 text-center hover:-translate-y-2 transition-transform duration-300 group">
                                     <div className="text-blue-600 mb-4 flex justify-center group-hover:scale-110 transition-transform duration-300">{stat.icon}</div>
                                     <div className="text-4xl font-bold text-gray-900 mb-2">{stat.count}</div>
                                     <div className="text-sm font-semibold text-gray-500 uppercase tracking-wider">{stat.label}</div>
@@ -85,7 +85,7 @@ const CSDDepartmentPage: React.FC = () => {
             </section>
 
             {/* About Department */}
-            <section className="py-20">
+            <section className="py-10 md:py-20">
                 <div className="container mx-auto px-4">
                     <div className="flex flex-col lg:flex-row gap-16">
                         {/* Left (text) */}
@@ -93,9 +93,9 @@ const CSDDepartmentPage: React.FC = () => {
                             <AnimatedElement animation="fade-in">
                                 <div className="flex items-center mb-8">
                                     <div className="w-2 h-10 bg-blue-600 mr-4 rounded-full"></div>
-                                    <h2 className="text-3xl font-bold text-gray-900">About the Department</h2>
+                                    <h2 className="text-2xl md:text-3xl font-bold text-gray-900">About the Department</h2>
                                 </div>
-                                <div className="space-y-6 text-gray-700 leading-relaxed text-lg text-justify">
+                                <div className="space-y-6 text-gray-700 leading-relaxed text-lg text-left">
                                     <p>
                                         B.Tech Computer Science and Engineering (Data Science) or Bachelor of Technology in Computer Science and Engineering with a specialization in Data Science is a four-year undergraduate degree programme with 8 semesters. The Department of B.Tech CSE(Data Science) has started in the year 2020 with an intake of 60 students. Now, the intake is increased to 120 Students. This programme provides the students to understand the fundamental concepts of Computer Science & Engineering with specialized engineering knowledge in the areas of Data Science. Through this Data Science course, students will learn how to combine various techniques and tools to extract insights from their raw data.
                                     </p>
@@ -140,12 +140,12 @@ const CSDDepartmentPage: React.FC = () => {
             </section>
 
             {/* Data Science Significance */}
-            <section className="py-20 bg-slate-50">
+            <section className="py-10 md:py-20 bg-slate-50">
                 <div className="container mx-auto px-4">
                     <div className="grid md:grid-cols-2 gap-12 items-center">
                         <AnimatedElement animation="slide-right">
-                            <h2 className="text-3xl font-bold text-gray-900 mb-6">Data Science Significance</h2>
-                            <div className="space-y-6 text-gray-700 leading-relaxed text-lg text-justify">
+                            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">Data Science Significance</h2>
+                            <div className="space-y-6 text-gray-700 leading-relaxed text-lg text-left">
                                 <p>
                                     Over the last ten years, data science has emerged as one of the most dynamic, high-growth, and rewarding careers in Industries. In addition to introducing fundamental technologies such as AI, data mining, and data modelling, this course enables a strong emphasis on Data Analytics, Machine Learning, and Big Data Analytics.
                                 </p>
@@ -182,10 +182,10 @@ const CSDDepartmentPage: React.FC = () => {
             </section>
 
             {/* Program Highlights */}
-            <section className="py-20 bg-white">
+            <section className="py-10 md:py-20 bg-white">
                 <div className="container mx-auto px-4">
                     <AnimatedElement animation="slide-down">
-                        <h2 className="text-3xl font-bold text-center text-gray-900 mb-16">Program Highlights</h2>
+                        <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-900 mb-16">Program Highlights</h2>
                     </AnimatedElement>
 
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
@@ -213,12 +213,12 @@ const CSDDepartmentPage: React.FC = () => {
             </section>
 
             {/* Career Prospects */}
-            <section className="py-20 bg-slate-900 text-white relative overflow-hidden">
+            <section className="py-10 md:py-20 bg-slate-900 text-white relative overflow-hidden">
                 <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1518186285589-2f7649de83e0?w=1600&h=900&fit=crop')] bg-cover bg-center opacity-10 mix-blend-overlay"></div>
                 <div className="container mx-auto px-4 relative z-10">
                     <AnimatedElement animation="slide-up">
                         <h2 className="text-3xl font-bold mb-12 text-center">Career and Future Prospects</h2>
-                        <div className="max-w-5xl mx-auto space-y-8 text-blue-100 leading-relaxed text-lg text-justify">
+                        <div className="max-w-5xl mx-auto space-y-8 text-blue-100 leading-relaxed text-lg text-left">
                             <p>
                                 Data science and artificial intelligence are revolutionizing the business world, ranging from small businesses or start-ups to large multinational companies, and even public administrations. Internships and placement as data scientists, data analysts, and data engineers will be made easier by the institution’s placement cell, industry partners, and alumni network.
                             </p>

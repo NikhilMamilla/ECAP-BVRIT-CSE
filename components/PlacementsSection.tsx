@@ -49,10 +49,10 @@ import { StoreContext } from '../storeContext/StoreContext';
 
 // --- SUB-COMPONENTS ---
 const AnimatedStat: React.FC<{ value: number; decimals?: number; suffix: string; label: string }> = ({ value, decimals = 0, suffix, label }) => {
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.5 });
-  const count = useCounter(value, 2000, inView, decimals);
+  // Counters now start immediately to make the site static/interactive on load as requested
+  const count = useCounter(value, 2000, true, decimals);
   return (
-    <div ref={ref} className="text-center">
+    <div className="text-center">
       <p className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-800">
         {count}<span className="text-blue-600">{suffix}</span>
       </p>
@@ -94,7 +94,7 @@ const PlacementsSection: React.FC = () => {
         {/* --- HEADER --- */}
         <div className="text-center mb-16 md:mb-20">
           <AnimatedElement animation="slide-down" className="block">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900" style={{ fontFamily: 'Georgia, serif' }}>
+            <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900" style={{ fontFamily: 'Georgia, serif' }}>
               A Legacy of Placement Excellence
             </h2>
           </AnimatedElement>
@@ -103,10 +103,18 @@ const PlacementsSection: React.FC = () => {
               Our students are shaping the future at the world's leading technology companies.
             </p>
           </AnimatedElement>
+          <AnimatedElement animation="fade-in" delay={400} className="block mt-6">
+            <a
+              href="/placements"
+              className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-6 md:py-3 md:px-8 rounded-lg shadow-lg transition duration-300 ease-in-out transform hover:scale-105"
+            >
+              View Complete Placements
+            </a>
+          </AnimatedElement>
         </div>
 
         {/* --- STATS DASHBOARD --- */}
-        <div className="grid grid-cols-4 gap-6 md:gap-8 mb-20 md:mb-24">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mb-20 md:mb-24">
           <AnimatedElement animation="slide-up" delay={100} className="h-full">
             <AnimatedStat value={37} suffix=" LPA" label="Highest Package" />
           </AnimatedElement>
@@ -120,78 +128,150 @@ const PlacementsSection: React.FC = () => {
             <AnimatedStat value={163} suffix="+" label="Companies Visited" />
           </AnimatedElement>
         </div>
+      </div>
 
-        {/* --- FINAL RESPONSIVE CAROUSEL --- */}
-        <div className="relative h-[380px] sm:h-[420px] md:h-[450px] w-full flex items-center justify-center md:[perspective:1500px]">
-          <div className="relative w-64 sm:w-72 md:w-80 h-full [transform-style:preserve-3d]">
-            {highlights.map((highlight: any, index: number) => {
-              const modIndex = (currentIndex % totalHighlights + totalHighlights) % totalHighlights;
-              let offset = index - modIndex;
-              if (offset > totalHighlights / 2) offset -= totalHighlights;
-              if (offset < -totalHighlights / 2) offset += totalHighlights;
-
-              const isCentralCard = offset === 0;
-              const isVisibleOnDesktop = Math.abs(offset) <= 1;
-
-              return (
-                <div
-                  key={index}
-                  className="absolute w-full h-full"
-                  style={{
-                    transition: 'all 0.6s ease-out',
-                    transform: isMobile
-                      ? 'translateX(0) rotateY(0) scale(1)'
-                      : `translateX(${offset * 105}%) rotateY(${offset * 25}deg) scale(${isCentralCard ? 1 : 0.85})`,
-                    opacity: isMobile
-                      ? (isCentralCard ? 1 : 0)
-                      : (isVisibleOnDesktop ? 1 : 0),
-                    zIndex: isMobile
-                      ? (isCentralCard ? 1 : 0)
-                      : totalHighlights - Math.abs(offset),
-                  }}
-                >
-                  <Tilt
-                    className="w-full h-full rounded-2xl overflow-hidden shadow-2xl bg-slate-800"
-                    perspective={1000} glareEnable={true} glareMaxOpacity={0.1} glareColor="#ffffff" glarePosition="all"
-                    tiltMaxAngleX={5} tiltMaxAngleY={5} transitionSpeed={1500}
-                  >
-                    <div className="relative w-full h-full">
-                      <img
-                        src={`${highlight.image.url}`}
-                        alt={highlight.student}
-                        className="absolute inset-0 w-full h-full object-cover object-top transition-all duration-500 ease-out"
-                        style={{
-                          filter: (!isMobile && !isCentralCard) ? 'blur(8px)' : 'blur(0px)',
-                          transform: (!isMobile && !isCentralCard) ? 'scale(1.1)' : 'scale(1)',
-                        }}
-                      />
-
-                      <div className="absolute inset-0">
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
-                        <div className="absolute inset-x-0 bottom-0 p-5 md:p-6 text-white">
-                          <img src={`${highlight.companyLogo.url}`} alt={`${highlight.company} logo`} className="w-24 h-auto mb-3" style={{ filter: 'drop-shadow(0 0 5px rgba(255, 255, 255, 0.5))' }} />
-                          <p className="text-xl font-bold tracking-wide" style={{ textShadow: '0 1px 3px rgba(0,0,0,0.4)' }}>{highlight.student}</p>
-                          <p className="text-2xl font-extrabold text-cyan-400" style={{ textShadow: '0 1px 3px rgba(0,0,0,0.4)' }}>{highlight.package}</p>
-                        </div>
-                      </div>
-                    </div>
-                  </Tilt>
-                </div>
-              );
-            })}
-          </div>
-
-          <button onClick={goToPrev} className="absolute left-0 sm:left-4 md:-left-4 top-1/2 -translate-y-1/2 p-2 bg-white/60 backdrop-blur-sm rounded-full text-slate-700 hover:bg-white transition-all shadow-lg z-30">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
-          </button>
-          <button onClick={goToNext} className="absolute right-0 sm:right-4 md:-right-4 top-1/2 -translate-y-1/2 p-2 bg-white/60 backdrop-blur-sm rounded-full text-slate-700 hover:bg-white transition-all shadow-lg z-30">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
-          </button>
+      {/* --- PLACEMENT ACHIEVEMENTS (R&D THEMED SECTION) --- */}
+      <div className="bg-gradient-to-br from-slate-900 via-slate-900 to-blue-950 py-10 md:py-14 px-4 sm:px-6 lg:px-28 text-white relative overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-[0.05] pointer-events-none">
+          <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(#fff 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
         </div>
 
-        {/* --- COMPLETE RECRUITER SECTION --- */}
-        <div className="mt-28 text-center">
-          <h3 className="text-3xl font-bold mb-10 text-slate-800">Top Recruiters</h3>
+        <div className="max-w-7xl mx-auto relative z-10">
+          {/* Header Row */}
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-5 gap-4">
+            <h2 className="text-xl md:text-3xl font-black tracking-tight text-white uppercase" style={{ fontFamily: 'Arial, sans-serif' }}>Placement Achievements</h2>
+
+            <div className="flex flex-col items-start md:items-end text-right">
+              <p className="text-[9px] md:text-[10px] font-bold opacity-80 mb-1 tracking-widest text-white">
+                93% placement already achieved
+              </p>
+              <a
+                href="/placements"
+                className="group flex items-center gap-2 text-xs md:text-[11px] font-bold text-white hover:text-cyan-400 transition-all duration-300"
+              >
+                <div className="w-6 h-6 rounded-full border border-white flex items-center justify-center group-hover:bg-cyan-600 group-hover:border-cyan-600 transition-all">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </div>
+                Learn more
+              </a>
+            </div>
+          </div>
+
+          {/* Simple White Divider Line */}
+          <div className="w-full h-[0.5px] bg-white/20 mb-8 md:mb-10"></div>
+
+          {/* Cards Grid with Decent Gap */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 items-center mb-2 px-2 md:px-0">
+            {/* Left Card with Blue Frame */}
+            <AnimatedElement animation="slide-right" delay={100} className="relative">
+              <div className="absolute -inset-2 border-2 border-cyan-400/60 z-0 pointer-events-none hidden md:block"></div>
+              <div className="relative z-10 bg-white p-5 flex flex-col items-center text-center shadow-2xl border border-slate-200 min-h-[300px] md:min-h-[320px]">
+                <div className="text-cyan-600 font-bold text-[9px] tracking-widest mb-1">2024</div>
+                <div className="text-slate-400 text-[8px] font-bold mb-3 uppercase tracking-tighter">Placement Achievements</div>
+                <div className="w-10 h-[1px] bg-slate-200 mb-4"></div>
+
+                <div className="flex items-center gap-2 mb-4">
+                  <span className="text-4xl md:text-5xl font-black text-[#ff8000] leading-none">02</span>
+                  <div className="text-left text-slate-800 font-bold leading-tight">
+                    <p className="text-sm md:text-base font-black tracking-tighter">BVRITIans</p>
+                    <p className="text-[9px] opacity-60">selected at</p>
+                  </div>
+                </div>
+
+                <div className="w-full h-[1px] bg-slate-100 mb-5"></div>
+
+                <div className="mb-5">
+                  <p className="text-slate-400 text-[8px] font-bold uppercase mb-1">PACKAGE OF</p>
+                  <div className="flex items-center justify-center gap-1 text-[#0066cc]">
+                    <span className="text-lg font-black">₹</span>
+                    <span className="text-3xl md:text-4xl font-black tabular-nums">36.00</span>
+                  </div>
+                  <p className="text-[#0066cc] font-bold text-[8px] uppercase mt-1 tracking-widest">LAKHS PER ANNUM</p>
+                </div>
+
+                <div className="mt-auto w-full flex justify-center pt-2">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/2/29/Autodesk_Logo.svg" alt="Autodesk" className="h-7 object-contain" />
+                </div>
+              </div>
+            </AnimatedElement>
+
+            {/* Center Card (Elevated & Exact) */}
+            <AnimatedElement animation="slide-up" delay={300} className="relative z-20">
+              <div className="bg-white p-7 flex flex-col items-center text-center shadow-[0_15px_40px_rgba(0,0,0,0.4)] border border-slate-200 min-h-[340px] md:min-h-[360px]">
+                <div className="text-cyan-600 font-bold text-[10px] tracking-widest mb-1">2024</div>
+                <div className="text-slate-400 text-[9px] font-bold mb-4 uppercase tracking-tighter">Placement Achievements</div>
+                <div className="w-14 h-[1px] bg-slate-200 mb-5"></div>
+
+                <div className="flex items-center gap-3 mb-5">
+                  <span className="text-6xl md:text-7xl font-black text-[#ff8000] leading-none">02</span>
+                  <div className="text-left text-slate-900 font-bold leading-none py-0.5">
+                    <p className="text-lg md:text-xl font-black tracking-tighter">BVRITIans</p>
+                    <p className="text-[10px] opacity-60">selected at</p>
+                  </div>
+                </div>
+
+                <div className="w-full h-[1px] bg-slate-100 mb-6"></div>
+
+                <div className="mb-6">
+                  <p className="text-slate-400 text-[9px] font-bold uppercase mb-2">PACKAGE OF</p>
+                  <div className="flex items-center justify-center gap-1 text-[#0066cc]">
+                    <span className="text-xl md:text-2xl font-black">₹</span>
+                    <span className="text-5xl md:text-6xl font-black tracking-tighter tabular-nums">49.12</span>
+                  </div>
+                  <p className="text-[#0066cc] font-bold text-[10px] uppercase mt-2 tracking-widest">LAKHS PER ANNUM</p>
+                </div>
+
+                <div className="mt-auto w-full flex flex-col items-center gap-1.5 pt-3">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" alt="Microsoft" className="h-8 object-contain" />
+                  <span className="text-base font-bold text-slate-700 tracking-tight">Microsoft</span>
+                </div>
+              </div>
+            </AnimatedElement>
+
+            {/* Right Card with Blue Frame */}
+            <AnimatedElement animation="slide-left" delay={500} className="relative">
+              <div className="absolute -inset-2 border-2 border-cyan-400/60 z-0 pointer-events-none hidden md:block"></div>
+              <div className="relative z-10 bg-white p-5 flex flex-col items-center text-center shadow-2xl border border-slate-200 min-h-[300px] md:min-h-[320px]">
+                <div className="text-cyan-600 font-bold text-[9px] tracking-widest mb-1">2024</div>
+                <div className="text-slate-400 text-[8px] font-bold mb-3 uppercase tracking-tighter">Placement Achievements</div>
+                <div className="w-10 h-[1px] bg-slate-200 mb-4"></div>
+
+                <div className="flex items-center gap-2 mb-4">
+                  <span className="text-4xl md:text-5xl font-black text-[#ff8000] leading-none">05</span>
+                  <div className="text-left text-slate-800 font-bold leading-tight">
+                    <p className="text-sm md:text-base font-black tracking-tighter">BVRITIans</p>
+                    <p className="text-[9px] opacity-60">selected at</p>
+                  </div>
+                </div>
+
+                <div className="w-full h-[1px] bg-slate-100 mb-5"></div>
+
+                <div className="mb-5">
+                  <p className="text-slate-400 text-[8px] font-bold uppercase mb-1">PACKAGE OF</p>
+                  <div className="flex items-center justify-center gap-1 text-[#0066cc]">
+                    <span className="text-lg font-black">₹</span>
+                    <span className="text-3xl md:text-4xl font-black tabular-nums">18.00</span>
+                  </div>
+                  <p className="text-[#0066cc] font-bold text-[8px] uppercase mt-1 tracking-widest">LAKHS PER ANNUM</p>
+                </div>
+
+                <div className="mt-auto w-full flex flex-col items-center gap-1 pt-2">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Cisco_logo_blue_2016.svg" alt="Cisco" className="h-7 object-contain" />
+                  <span className="text-[8px] font-bold text-slate-400 uppercase tracking-tighter">Cisco</span>
+                </div>
+              </div>
+            </AnimatedElement>
+          </div>
+        </div>
+      </div>
+
+      {/* --- TOP RECRUITERS (LIGHT BACKGROUND) --- */}
+      <div className="bg-white pt-16 pb-8 px-4 sm:px-6 lg:px-28">
+        <div className="max-w-7xl mx-auto text-center">
+          <h3 className="text-3xl md:text-4xl font-black mb-12 text-slate-800 tracking-tight">Top Recruiters</h3>
           <style>{`
             @keyframes scroll {
               0% { transform: translateX(0); }
@@ -199,17 +279,17 @@ const PlacementsSection: React.FC = () => {
             }
             .logos {
               overflow: hidden;
-              padding: 20px 0;
-              background: rgba(226, 232, 240, 0.4);
+              padding: 24px 0;
+              background: rgba(226, 232, 240, 0.3);
               white-space: nowrap;
               position: relative;
-              border-radius: 8px;
-              border: 1px solid rgba(226, 232, 240, 0.8);
+              border-radius: 16px;
+              border: 1px solid rgba(226, 232, 240, 0.6);
             }
             .logos:before, .logos:after {
               position: absolute;
               top: 0;
-              width: 60px;
+              width: 100px;
               height: 100%;
               content: "";
               z-index: 2;
@@ -223,37 +303,36 @@ const PlacementsSection: React.FC = () => {
               background: linear-gradient(to left, white, transparent);
             }
             .logos-slide {
-              display: inline-block;
-              animation: scroll 20s linear infinite;
+              display: inline-flex;
+              align-items: center;
+              animation: scroll 35s linear infinite;
             }
             .logos:hover .logos-slide {
               animation-play-state: paused;
             }
             .logo {
-              display: inline-flex;
+              flex-shrink: 0;
+              display: flex;
               align-items: center;
               justify-content: center;
-              height: 70px;
-              width: 140px;
-              margin: 0 12px;
+              height: 75px;
+              width: 150px;
+              margin: 0 15px;
               background: white;
-              box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+              box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
               border-radius: 10px;
-              padding: 12px;
+              padding: 15px;
               transition: all 0.3s ease;
               vertical-align: middle;
             }
             .logo:hover {
               transform: translateY(-5px);
-              box-shadow: 0 10px 25px rgba(66, 153, 225, 0.3);
+              box-shadow: 0 10px 25px rgba(66, 153, 225, 0.4);
             }
             .logo img {
               max-height: 45px;
               max-width: 120px;
               object-fit: contain;
-              object-position: center;
-              display: block;
-              margin: auto;
             }
           `}</style>
           <div className="logos">

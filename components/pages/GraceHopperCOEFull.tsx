@@ -425,7 +425,7 @@ const GraceHopperCOEFull: React.FC = () => {
                     {/* Content */}
                     <div className="container mx-auto px-4 relative z-10 text-center">
                         <AnimatedElement animation="slide-down" duration={1000}>
-                            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 tracking-tight drop-shadow-2xl font-serif">
+                            <h1 className="text-3xl md:text-6xl lg:text-8xl font-bold text-white mb-6 tracking-tight drop-shadow-2xl font-serif">
                                 Grace Hopper <br />
                                 <span className="text-cyan-200">Center of Excellence</span>
                             </h1>
@@ -797,7 +797,7 @@ const GraceHopperCOEFull: React.FC = () => {
                         </div>
 
 
-                        <StickyScroll content={studentAchievementsContent} contentClassName="h-80 w-[32rem]" />
+                        <StickyScroll content={studentAchievementsContent} contentClassName="h-80 w-full md:w-[32rem]" />
                     </div>
                 </section>
 

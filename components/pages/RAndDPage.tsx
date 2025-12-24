@@ -107,12 +107,12 @@ const RAndDPage: React.FC = () => {
                 {/* Content */}
                 <div className="container mx-auto px-4 relative z-10 text-center">
                     <AnimatedElement animation="slide-down" duration={1000}>
-                        <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 tracking-tight drop-shadow-2xl font-serif">
+                        <h1 className="text-3xl md:text-6xl lg:text-7xl font-bold text-white mb-6 tracking-tight drop-shadow-2xl font-serif">
                             Research & <br />
                             <span className="text-cyan-200">Development</span>
                         </h1>
                         <div className="w-32 h-1 bg-cyan-400 mx-auto mb-8 rounded-full"></div>
-                        <p className="text-xl md:text-3xl text-cyan-100 font-light tracking-wide max-w-4xl mx-auto">
+                        <p className="text-lg md:text-3xl text-cyan-100 font-light tracking-wide max-w-4xl mx-auto">
                             Innovating the Future through Excellence in Education and Research
                         </p>
                     </AnimatedElement>
@@ -135,15 +135,15 @@ const RAndDPage: React.FC = () => {
             </section>
 
             {/* About R&D */}
-            <section className="py-20">
+            <section className="py-10 md:py-20">
                 <div className="container mx-auto px-4">
                     <div className="max-w-5xl mx-auto">
                         <AnimatedElement animation="fade-in">
                             <div className="flex items-center mb-8 justify-center">
                                 <div className="w-2 h-10 bg-blue-600 mr-4 rounded-full"></div>
-                                <h2 className="text-3xl font-bold text-gray-900">About R&D</h2>
+                                <h2 className="text-2xl md:text-3xl font-bold text-gray-900">About R&D</h2>
                             </div>
-                            <div className="space-y-6 text-gray-700 leading-relaxed text-lg text-justify bg-blue-50/50 p-8 rounded-2xl border border-blue-100 shadow-sm">
+                            <div className="space-y-6 text-gray-700 leading-relaxed text-lg text-left bg-blue-50/50 p-6 md:p-8 rounded-2xl border border-blue-100 shadow-sm">
                                 <p>
                                     BVRIT is a premier institute having highly committed faculty with admirable academic and research background and strong inclination towards research and development of innovative technologies. The faculty of the institute offer quality research training to the students through various in-house and industry collaborative projects. The execution of various sponsored projects granted by DST, UGC and AICTE, and a number of research papers published in SCI/SCOPUS indexed journals indicate the institute’s strength in R&D.
                                 </p>
@@ -157,7 +157,7 @@ const RAndDPage: React.FC = () => {
             </section>
 
             {/* PDF Links Grid */}
-            <section className="py-16 bg-slate-50">
+            <section className="py-10 md:py-16 bg-slate-50">
                 <div className="container mx-auto px-4">
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {pdfLinks.map((item, index) => (
@@ -188,12 +188,12 @@ const RAndDPage: React.FC = () => {
             </section>
 
             {/* Thrust Areas */}
-            <section className="py-20">
+            <section className="py-10 md:py-20">
                 <div className="container mx-auto px-4">
                     <AnimatedElement animation="slide-down">
                         <div className="flex items-center mb-12 justify-center">
                             <Target className="w-8 h-8 text-cyan-600 mr-3" />
-                            <h2 className="text-3xl font-bold text-gray-900">Thrust Areas of R&D</h2>
+                            <h2 className="text-2xl md:text-3xl font-bold text-gray-900">Thrust Areas of R&D</h2>
                         </div>
                     </AnimatedElement>
 
@@ -211,13 +211,13 @@ const RAndDPage: React.FC = () => {
             </section>
 
             {/* Research Centers & Special Labs */}
-            <section className="py-20 bg-white text-gray-800 relative overflow-hidden">
+            <section className="py-10 md:py-20 bg-white text-gray-800 relative overflow-hidden">
                 <div className="container mx-auto px-4 relative z-10">
                     <div className="grid lg:grid-cols-2 gap-16">
 
                         {/* Research Centers */}
                         <AnimatedElement animation="slide-right">
-                            <div className="bg-slate-50 p-8 rounded-2xl border border-blue-100 shadow-lg h-full">
+                            <div className="bg-slate-50 p-6 md:p-8 rounded-2xl border border-blue-100 shadow-lg h-full">
                                 <div className="flex items-center mb-8">
                                     <BookOpen className="w-8 h-8 text-blue-600 mr-3" />
                                     <h2 className="text-2xl font-bold text-gray-900">JNTUH Recognized Research Centers</h2>
@@ -245,7 +245,7 @@ const RAndDPage: React.FC = () => {
 
                         {/* Special Labs */}
                         <AnimatedElement animation="slide-left" delay={200}>
-                            <div className="bg-slate-50 p-8 rounded-2xl border border-purple-100 shadow-lg h-full">
+                            <div className="bg-slate-50 p-6 md:p-8 rounded-2xl border border-purple-100 shadow-lg h-full">
                                 <div className="flex items-center mb-8">
                                     <Microscope className="w-8 h-8 text-purple-600 mr-3" />
                                     <h2 className="text-2xl font-bold text-gray-900">Special Laboratories</h2>

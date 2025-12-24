@@ -37,12 +37,12 @@ const CSMDepartmentPage: React.FC = () => {
                 {/* Content */}
                 <div className="container mx-auto px-4 relative z-10 text-center">
                     <AnimatedElement animation="slide-down" duration={1000}>
-                        <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 tracking-tight drop-shadow-2xl font-serif">
+                        <h1 className="text-3xl md:text-6xl lg:text-7xl font-bold text-white mb-6 tracking-tight drop-shadow-2xl font-serif">
                             Department of <br />
                             <span className="text-cyan-200">CSE (AI & ML)</span>
                         </h1>
                         <div className="w-32 h-1 bg-cyan-400 mx-auto mb-8 rounded-full"></div>
-                        <p className="text-xl md:text-3xl text-cyan-100 font-light tracking-wide max-w-4xl mx-auto">
+                        <p className="text-lg md:text-3xl text-cyan-100 font-light tracking-wide max-w-4xl mx-auto">
                             Empowering Intelligent Systems for a Smarter Tomorrow
                         </p>
                     </AnimatedElement>
@@ -74,7 +74,7 @@ const CSMDepartmentPage: React.FC = () => {
                             { count: '20+', label: 'Research Papers', icon: <FileText className="w-8 h-8" /> },
                         ].map((stat, index) => (
                             <AnimatedElement key={index} animation="slide-up" delay={index * 100}>
-                                <div className="bg-white p-8 rounded-xl shadow-xl border-2 border-blue-300 text-center hover:-translate-y-2 transition-transform duration-300 group">
+                                <div className="bg-white p-4 md:p-8 rounded-xl shadow-xl border-2 border-blue-300 text-center hover:-translate-y-2 transition-transform duration-300 group">
                                     <div className="text-blue-600 mb-4 flex justify-center group-hover:scale-110 transition-transform duration-300">{stat.icon}</div>
                                     <div className="text-4xl font-bold text-gray-900 mb-2">{stat.count}</div>
                                     <div className="text-sm font-semibold text-gray-500 uppercase tracking-wider">{stat.label}</div>
@@ -86,16 +86,16 @@ const CSMDepartmentPage: React.FC = () => {
             </section>
 
             {/* About Department */}
-            <section className="py-20">
+            <section className="py-10 md:py-20">
                 <div className="container mx-auto px-4">
                     <div className="flex flex-col lg:flex-row gap-16">
                         <div className="lg:w-2/3">
                             <AnimatedElement animation="fade-in">
                                 <div className="flex items-center mb-8">
                                     <div className="w-2 h-10 bg-blue-600 mr-4 rounded-full"></div>
-                                    <h2 className="text-3xl font-bold text-gray-900">About the Department</h2>
+                                    <h2 className="text-2xl md:text-3xl font-bold text-gray-900">About the Department</h2>
                                 </div>
-                                <div className="space-y-6 text-gray-700 leading-relaxed text-lg text-justify">
+                                <div className="space-y-6 text-gray-700 leading-relaxed text-lg text-left">
                                     <p>
                                         At B V Raju Institute of Technology, Narsapur, the New Age Programs have been started in Academic Year 2020-21, and B.Tech in CSE (Artificial Intelligence and Machine Learning) was launched with an Intake of 60, and subsequently, the intake is enhanced from 60 to 120 from Academic Year 2022-23 Onwards. The Department has State-of-the-Art Infrastructure and Computing Equipment Supported by High-Speed Internet and Wireless Networks.
                                     </p>
@@ -152,13 +152,13 @@ const CSMDepartmentPage: React.FC = () => {
             </section>
 
             {/* Why Study & Focus */}
-            <section className="py-20 bg-slate-50">
+            <section className="py-10 md:py-20 bg-slate-50">
                 <div className="container mx-auto px-4">
                     <div className="grid md:grid-cols-2 gap-12">
                         {/* Left: Why Study */}
                         <AnimatedElement animation="slide-right">
                             <h2 className="text-3xl font-bold text-gray-900 mb-6">Why Study B.Tech in CSE (AI & ML)?</h2>
-                            <div className="space-y-6 text-gray-700 leading-relaxed text-lg text-justify">
+                            <div className="space-y-6 text-gray-700 leading-relaxed text-lg text-left">
                                 <p>
                                     B.Tech in CSE (AI&ML) offered by the Computer Science and Engineering Department provides budding engineers with a spectacular array of courses dedicated to frontiers in the field of Artificial Intelligence and Machine Learning (AI&ML) with a foundation in Computer Science and Engineering.
                                 </p>
@@ -197,10 +197,10 @@ const CSMDepartmentPage: React.FC = () => {
             </section>
 
             {/* Advantages */}
-            <section className="py-20 bg-white">
+            <section className="py-10 md:py-20 bg-white">
                 <div className="container mx-auto px-4">
                     <AnimatedElement animation="slide-down">
-                        <h2 className="text-3xl font-bold text-center text-gray-900 mb-16">Advantages</h2>
+                        <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-900 mb-16">Advantages</h2>
                     </AnimatedElement>
 
                     <div className="max-w-4xl mx-auto">
@@ -229,12 +229,12 @@ const CSMDepartmentPage: React.FC = () => {
             </section>
 
             {/* Career Prospects */}
-            <section className="py-20 bg-slate-900 text-white relative overflow-hidden">
+            <section className="py-10 md:py-20 bg-slate-900 text-white relative overflow-hidden">
                 <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=1600&h=900&fit=crop')] bg-cover bg-center opacity-10 mix-blend-overlay"></div>
                 <div className="container mx-auto px-4 relative z-10">
                     <AnimatedElement animation="slide-up">
                         <h2 className="text-3xl font-bold mb-12 text-center">Career and Future Prospects</h2>
-                        <div className="max-w-5xl mx-auto space-y-8 text-blue-100 leading-relaxed text-lg text-justify">
+                        <div className="max-w-5xl mx-auto space-y-8 text-blue-100 leading-relaxed text-lg text-left">
                             <p>
                                 A recent report of IT firm Accenture stated that AI has the potential to add nearly $957 Billion to the Indian economy by changing the nature of work and creating better outcomes for businesses. The report called ‘Rewire for Growth’ predicts that AI intervention could increase India’s annual growth rate of gross value added (GVA) by 1.3 % points, thus lifting the country’s income by 15% in 2035.
                             </p>

@@ -60,79 +60,49 @@ const CSEProgramOverview: React.FC = () => {
                     </AnimatedElement>
                 </div>
 
-                {/* Sliding Programs Carousel */}
-                <div className="relative overflow-hidden">
-                    <style>{`
-            @keyframes scroll-programs {
-              0% { transform: translateX(0); }
-              100% { transform: translateX(-50%); }
-            }
-            .programs-slider {
-              display: flex;
-              animation: scroll-programs 30s linear infinite;
-              width: fit-content;
-            }
-            .programs-slider:hover {
-              animation-play-state: paused;
-            }
-            .program-card {
-              flex: 0 0 auto;
-              width: 350px;
-              margin: 0 12px;
-            }
-            @media (max-width: 768px) {
-              .program-card {
-                width: 280px;
-              }
-            }
-          `}</style>
+                {/* Static Programs Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {programs.map((program, index) => (
+                        <div key={index} className="group relative bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 h-full border border-blue-300">
+                            {/* Program Image with Overlay */}
+                            <div className="relative h-48 overflow-hidden">
+                                <img
+                                    src={program.image}
+                                    alt={program.code}
+                                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-blue-900/90 via-blue-900/50 to-transparent"></div>
 
-                    <div className="programs-slider">
-                        {/* Duplicate the array for seamless loop */}
-                        {[...programs, ...programs].map((program, index) => (
-                            <div key={index} className="program-card">
-                                <div className="group relative bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 h-full border border-blue-300">
-                                    {/* Program Image with Overlay */}
-                                    <div className="relative h-48 overflow-hidden">
-                                        <img
-                                            src={program.image}
-                                            alt={program.code}
-                                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                                        />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-blue-900/90 via-blue-900/50 to-transparent"></div>
-
-                                        {/* Program Code & Name */}
-                                        <div className="absolute bottom-0 left-0 right-0 p-6">
-                                            <h3 className="text-2xl font-bold text-white mb-1">{program.code}</h3>
-                                            <p className="text-sm text-blue-200 font-semibold">{program.fullName}</p>
-                                        </div>
-                                    </div>
-
-                                    {/* Program Details - White background */}
-                                    <div className="p-6 bg-white">
-                                        <p className="text-gray-700 text-sm leading-relaxed h-10 overflow-hidden">{program.description}</p>
-
-                                        <Link
-                                            to={
-                                                program.code === 'IT' ? "/it-department" :
-                                                    program.code === 'CSBS' ? "/csbs-department" :
-                                                        program.code === 'AI & DS' ? "/ai-ds-department" :
-                                                            program.code === 'CSM' ? "/csm-department" :
-                                                                program.code === 'CSD' ? "/csd-department" :
-                                                                    "/cse-department"
-                                            }
-                                            className="mt-4 w-full bg-blue-600 text-white py-2 px-4 rounded-lg font-semibold hover:bg-blue-700 transition-all duration-300 flex items-center justify-center text-sm"
-                                        >
-                                            Learn More
-                                            <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                            </svg>
-                                        </Link>
-                                    </div>
+                                {/* Program Code & Name */}
+                                <div className="absolute bottom-0 left-0 right-0 p-6">
+                                    <h3 className="text-2xl font-bold text-white mb-1">{program.code}</h3>
+                                    <p className="text-sm text-blue-200 font-semibold">{program.fullName}</p>
                                 </div>
                             </div>
-                        ))}
-                    </div>
+
+                            {/* Program Details - White background */}
+                            <div className="p-6 bg-white">
+                                <p className="text-gray-700 text-sm leading-relaxed h-12 overflow-hidden">{program.description}</p>
+
+                                <Link
+                                    to={
+                                        program.code === 'IT' ? "/it-department" :
+                                            program.code === 'CSBS' ? "/csbs-department" :
+                                                program.code === 'AI & DS' ? "/ai-ds-department" :
+                                                    program.code === 'CSM' ? "/csm-department" :
+                                                        program.code === 'CSD' ? "/csd-department" :
+                                                            "/cse-department"
+                                    }
+                                    className="mt-4 w-full bg-blue-600 text-white py-2 px-4 rounded-lg font-semibold hover:bg-blue-700 transition-all duration-300 flex items-center justify-center text-sm"
+                                >
+                                    Learn More
+                                    <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </Link>
+                            </div>
+                        </div>
+                    ))}
                 </div>
 
                 {/* CTA Section */}
@@ -140,7 +110,7 @@ const CSEProgramOverview: React.FC = () => {
                     <AnimatedElement animation="fade-in" delay={400} className="inline-block">
                         <a
                             href="#"
-                            className="inline-flex items-center px-8 py-3 bg-blue-600 text-white rounded-full font-semibold text-base hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                            className="inline-flex items-center px-6 py-2.5 sm:px-8 sm:py-3 bg-blue-600 text-white rounded-full font-semibold text-sm sm:text-base hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
                         >
                             Download CSE Brochure
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">

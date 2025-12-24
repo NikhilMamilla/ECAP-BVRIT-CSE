@@ -59,42 +59,7 @@ const Home: React.FC = () => {
   }, []);
 
 
-  useEffect(() => {
-    // Scroll animation code
-    const fadeElements = document.querySelectorAll('.fade-in-scroll');
-    fadeElements.forEach(element => {
-      const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.2 });
-
-      observer.observe(element);
-    });
-
-    const staggeredElements = document.querySelectorAll('.staggered-item');
-    staggeredElements.forEach((element, index) => {
-      const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            setTimeout(() => {
-              entry.target.classList.add('visible');
-            }, index * 100);
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.2 });
-
-      observer.observe(element);
-    });
-
-    return () => {
-      // Clean up observers if needed
-    };
-  }, []);
+  // Scroll reveal animations removed to make site static as requested
 
   return (
     <div className="bg-white text-gray-800">

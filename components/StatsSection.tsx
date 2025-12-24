@@ -21,8 +21,9 @@ const statsData = [
 type StatItem = typeof statsData[0];
 
 // StatCard Sub-Component
-const StatCard: React.FC<{ stat: StatItem; inView: boolean; delay: string; index: number }> = ({ stat, inView, index }) => {
-  const count = useCounter(stat.value, 2000, inView, stat.decimals);
+const StatCard: React.FC<{ stat: StatItem; inView: boolean; delay: string; index: number }> = ({ stat, index }) => {
+  // Counters now start immediately as requested
+  const count = useCounter(stat.value, 2000, true, stat.decimals);
 
   return (
     <AnimatedElement

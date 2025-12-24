@@ -131,7 +131,7 @@ const GraceHopperCOE: React.FC = () => {
                     <AnimatedElement animation="fade-in" delay={500} className="inline-block">
                         <button
                             onClick={() => navigate('/cse/grace-hopper')}
-                            className="inline-flex items-center px-10 py-4 bg-blue-600 text-white rounded-full font-semibold text-lg hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl"
+                            className="inline-flex items-center px-6 py-3 sm:px-10 sm:py-4 bg-blue-600 text-white rounded-full font-semibold text-base sm:text-lg hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl"
                         >
                             Explore Grace Hopper COE
                             <svg

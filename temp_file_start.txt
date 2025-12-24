@@ -1,0 +1,1420 @@
+﻿import React, { useState } from 'react';
+import Header from '../Header';
+
+const Placements = () => {
+
+
+  // State for interactive elements
+  const [recruiterIndex, setRecruiterIndex] = useState(0);
+  const [sliderIndex, setSliderIndex] = useState(0);
+  
+  // Functions for interactive elements
+  const recruitersControl = (direction: number) => {
+    // Implement recruiter slider control logic
+    setRecruiterIndex(prev => Math.max(0, Math.min(2, prev + direction)));
+  };
+  
+  const sliderControl = (direction: number) => {
+    // Implement slider control logic
+    setSliderIndex(prev => Math.max(0, Math.min(2, prev + direction)));
+  };
+  
+  const slider = (direction: number) => {
+    // Implement main slider control logic
+    setSliderIndex(prev => Math.max(0, Math.min(2, prev + direction)));
+  };
+
+  return (
+    <div className="w-full overflow-x-hidden bg-white">
+      <Header />
+      {/* Hero Section - Banner with background image */}
+      <div className="w-full h-screen bg-[linear-gradient(135deg,_rgba(17,17,17,0.85)_0%,_rgba(20,20,20,0.7)_100%)] flex flex-col items-center justify-center gap-6 bg-cover bg-center bg-no-repeat bg-fixed pt-16 relative overflow-hidden" style={{backgroundImage: "url('https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=2070&auto=format&fit=crop')"}}>
+        <div className="w-full px-28 flex flex-col items-center justify-center gap-6">
+          <h2 className="text-white text-[3.5rem] font-bold text-center m-0 w-full font-[AlbertusMedium] leading-[1.2] tracking-[-0.5px] text-shadow-[0_2px_10px_rgba(0,0,0,0.3)] relative z-20" style={{fontFamily: "Albertus Medium"}}>
+            1873+ offers in Session 2024â€“25 (CSE Department)
+          </h2>
+          <div className="w-20 h-1 bg-gradient-to-r from-transparent via-blue-500 to-transparent rounded mx-auto my-4 relative z-20"></div>
+          <p className="text-white text-center font-[GTAmericaRegular] text-[1.25rem] font-light leading-[1.6] max-w-[65%] m-0 mx-auto text-shadow-[0_1px_3px_rgba(0,0,0,0.3)] relative z-20" style={{fontFamily: "GT America Regular"}}>
+            At B V Raju Institute of Technology, Narsapur (BVRIT), the Computer Science & Engineering Department is dedicated to building future-ready technology professionals. With a strong focus on core computer science fundamentals, industry-aligned learning, and continuous skill development, our CSE students are empowered to transition seamlessly from academics to successful professional careers.
+          </p>
+        </div>
+      </div>
+      {/* -----------------------body section----------------------------- */}
+      <div className="body-section">
+        <div className="main_content">
+        {/* Placements Statistics Section */}
+      {/* Placements Statistics Section */}
+      <section className="w-full flex flex-col gap-12 pt-12 pb-16 px-28 relative bg-white" id="sec1">
+        <div className="w-full flex flex-col gap-4 relative">
+          <div className="w-full flex justify-between items-center">
+            <h2 className="text-slate-800 text-5xl font-[AlbertusMedium] font-semibold w-1/2 relative inline-block" style={{fontFamily: "Albertus Medium"}}>
+              Placements Statistics (2024-25)
+            </h2>
+          </div>
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-blue-500 to-transparent opacity-30"></div>
+        </div>
+        <div className="overflow-x-hidden">
+          <div className="grid grid-cols-3 gap-6 w-full">
+            <div className="relative aspect-[4/5] w-full max-w-full box-border">
+              <img src="/placeholder-placements/stat-1.jpeg" alt="" className="h-full w-full object-cover" />
+              <div className="absolute bottom-0 left-0 p-8 w-full flex flex-col gap-2 z-10">
+                <div className="flex gap-3 justify-start items-center">
+                  <img src="/placeholder-placements/office-bag.png" className="w-10 h-auto" />
+                  <h2 className="text-white text-4xl font-[AlbertusMedium] font-normal leading-10 word-wrap break-word" style={{fontFamily: "Albertus Medium"}}>
+                    425
+                  </h2>
+                </div>
+                <h2 className="text-white text-2xl font-[GTAmericaBold] font-bold leading-6 word-wrap break-word m-0" style={{fontFamily: "GT America Bold"}}>
+                  COMPANIES
+                </h2>
+                <h3 className="text-white text-base font-[GTAmericaRegular] font-normal word-wrap break-word m-0" style={{fontFamily: "GT America Regular"}}>
+                  For Campus Placements
+                </h3>
+              </div>
+            </div>
+            <div className="relative aspect-[4/5] w-full max-w-full box-border">
+              <img src="/placeholder-placements/stat-2.jpeg" alt="" className="h-full w-full object-cover" />
+              <div className="absolute bottom-0 left-0 p-8 w-full flex flex-col gap-2 z-10">
+                <div className="flex gap-3 justify-start items-center">
+                  <img src="/placeholder-placements/handshake.png" className="w-10 h-auto" />
+                  <h2 className="text-white text-4xl font-[AlbertusMedium] font-normal leading-10 word-wrap break-word" style={{fontFamily: "Albertus Medium"}}>
+                    1873
+                  </h2>
+                </div>
+                <h2 className="text-white text-2xl font-[GTAmericaBold] font-bold leading-6 word-wrap break-word m-0" style={{fontFamily: "GT America Bold"}}>
+                  PLACEMENTS
+                </h2>
+                <h3 className="text-white text-base font-[GTAmericaRegular] font-normal word-wrap break-word m-0" style={{fontFamily: "GT America Regular"}}>
+                  Offered in ABESEC
+                </h3>
+              </div>
+            </div>
+            <div className="relative aspect-[4/5] w-full max-w-full box-border">
+              <img src="/placeholder-placements/stat-3.jpeg" alt="" className="h-full w-full object-cover" />
+              <div className="absolute bottom-0 left-0 p-8 w-full flex flex-col gap-2 z-10">
+                <div className="flex gap-3 justify-start items-center">
+                  <img src="/placeholder-placements/growth.png" className="w-10 h-auto" />
+                  <h2 className="text-white text-4xl font-[AlbertusMedium] font-normal leading-10 word-wrap break-word" style={{fontFamily: "Albertus Medium"}}>
+                    39 LPA
+                  </h2>
+                </div>
+                <h2 className="text-white text-2xl font-[GTAmericaBold] font-bold leading-6 word-wrap break-word m-0" style={{fontFamily: "GT America Bold"}}>
+                  HIGHEST
+                </h2>
+                <h3 className="text-white text-base font-[GTAmericaRegular] font-normal word-wrap break-word m-0" style={{fontFamily: "GT America Regular"}}>
+                  Package Offered
+                </h3>
+              </div>
+            </div>
+          </div>
+          </div>
+      </section>
+      
+      {/* Detailed Placements Statistics Section */}
+      <section className="w-full flex flex-col gap-12 pt-4 pb-16 px-16 relative bg-white" id="sec1b">
+        
+        <div className="text-center mb-8">
+          <p className="text-slate-600 font-[GTAmericaRegular] text-lg font-light leading-6 max-w-[65%] m-0 mx-auto" style={{fontFamily: "GT America Regular"}}>
+            CSE Department â€“ <span className="font-[AlbertusMedium] font-semibold text-slate-800" style={{fontFamily: "Albertus Medium"}}>BVRIT, Narsapur</span><br/>(Batch: <span className="font-[AlbertusMedium] font-semibold text-slate-800" style={{fontFamily: "Albertus Medium"}}>2022â€“2026</span> | Current <span className="font-[AlbertusMedium] font-semibold text-slate-800" style={{fontFamily: "Albertus Medium"}}>IV Year Students</span>)
+          </p>
+        </div>
+        <div className="grid grid-cols-2 gap-8 w-full">
+          <div className="bg-slate-50 border border-slate-200 rounded-lg p-6 shadow-sm">
+            <h3 className="font-[AlbertusMedium] text-xl font-semibold text-slate-800 m-0 mb-4 pb-2 border-b-2 border-blue-500" style={{fontFamily: "Albertus Medium"}}>
+              Student Strength & Eligibility
+            </h3>
+            <div className="flex justify-between py-2 border-b border-dashed border-slate-200">
+              <span className="font-[GTAmericaRegular] text-base text-slate-600 flex-1 mr-4 text-left" style={{fontFamily: "GT America Regular"}}>
+                Total Students on Roll:
+              </span>
+              <span className="font-[AlbertusMedium] text-lg font-semibold text-blue-500 min-w-[60px] text-right" style={{fontFamily: "Albertus Medium"}}>
+                349
+              </span>
+            </div>
+            <div className="flex justify-between py-2 border-b border-dashed border-slate-200">
+              <span className="font-[GTAmericaRegular] text-base text-slate-600 flex-1 mr-4 text-left" style={{fontFamily: "GT America Regular"}}>
+                Students Registered for CRT (Placement Training):
+              </span>
+              <span className="font-[AlbertusMedium] text-lg font-semibold text-blue-500 min-w-[60px] text-right" style={{fontFamily: "Albertus Medium"}}>
+                338
+              </span>
+            </div>
+            <div className="flex justify-between py-2 border-b border-dashed border-slate-200">
+              <span className="font-[GTAmericaRegular] text-base text-slate-600 flex-1 mr-4 text-left" style={{fontFamily: "GT America Regular"}}>
+                Students Eligible for Placements:
+              </span>
+              <span className="font-[AlbertusMedium] text-lg font-semibold text-blue-500 min-w-[60px] text-right" style={{fontFamily: "Albertus Medium"}}>
+                292
+              </span>
+            </div>
+            <div className="flex justify-between py-2 border-b border-dashed border-slate-200">
+              <span className="font-[GTAmericaRegular] text-base text-slate-600 flex-1 mr-4 text-left" style={{fontFamily: "GT America Regular"}}>
+                Students Not Registered for CRT:
+              </span>
+              <span className="font-[AlbertusMedium] text-lg font-semibold text-blue-500 min-w-[60px] text-right" style={{fontFamily: "Albertus Medium"}}>
+                11
+              </span>
+            </div>
+          </div>
+          
+          <div className="bg-slate-50 border border-slate-200 rounded-lg p-6 shadow-sm">
+            <h3 className="font-[AlbertusMedium] text-xl font-semibold text-slate-800 m-0 mb-4 pb-2 border-b-2 border-blue-500" style={{fontFamily: "Albertus Medium"}}>
+              Placement Outcomes
+            </h3>
+            <div className="flex justify-between py-2 border-b border-dashed border-slate-200">
+              <span className="font-[GTAmericaRegular] text-base text-slate-600 flex-1 mr-4 text-left" style={{fontFamily: "GT America Regular"}}>
+                Total Students Placed:
+              </span>
+              <span className="font-[AlbertusMedium] text-lg font-semibold text-blue-500 min-w-[60px] text-right" style={{fontFamily: "Albertus Medium"}}>
+                181
+              </span>
+            </div>
+            <div className="flex justify-between py-2 border-b border-dashed border-slate-200">
+              <span className="font-[GTAmericaRegular] text-base text-slate-600 flex-1 mr-4 text-left" style={{fontFamily: "GT America Regular"}}>
+                Placement Percentage:
+              </span>
+              <span className="font-[AlbertusMedium] text-lg font-semibold text-blue-500 min-w-[60px] text-right" style={{fontFamily: "Albertus Medium"}}>
+                61.99%
+              </span>
+            </div>
+            <div className="flex justify-between py-2 border-b border-dashed border-slate-200">
+              <span className="font-[GTAmericaRegular] text-base text-slate-600 flex-1 mr-4 text-left" style={{fontFamily: "GT America Regular"}}>
+                Students with Multiple Offers:
+              </span>
+              <span className="font-[AlbertusMedium] text-lg font-semibold text-blue-500 min-w-[60px] text-right" style={{fontFamily: "Albertus Medium"}}>
+                258
+              </span>
+            </div>
+            <div className="flex justify-between py-2 border-b border-dashed border-slate-200">
+              <span className="font-[GTAmericaRegular] text-base text-slate-600 flex-1 mr-4 text-left" style={{fontFamily: "GT America Regular"}}>
+                Total Internships Secured:
+              </span>
+              <span className="font-[AlbertusMedium] text-lg font-semibold text-blue-500 min-w-[60px] text-right" style={{fontFamily: "Albertus Medium"}}>
+                52
+              </span>
+            </div>
+          </div>
+          
+          <div className="bg-slate-50 border border-slate-200 rounded-lg p-6 shadow-sm">
+            <h3 className="font-[AlbertusMedium] text-xl font-semibold text-slate-800 m-0 mb-4 pb-2 border-b-2 border-blue-500" style={{fontFamily: "Albertus Medium"}}>
+              Gender-wise Placement Details
+            </h3>
+            <div className="flex justify-between py-2 border-b border-dashed border-slate-200">
+              <span className="font-[GTAmericaRegular] text-base text-slate-600 flex-1 mr-4 text-left" style={{fontFamily: "GT America Regular"}}>
+                Boys Placed:
+              </span>
+              <span className="font-[AlbertusMedium] text-lg font-semibold text-blue-500 min-w-[60px] text-right" style={{fontFamily: "Albertus Medium"}}>
+                98
+              </span>
+            </div>
+            <div className="flex justify-between py-2 border-b border-dashed border-slate-200">
+              <span className="font-[GTAmericaRegular] text-base text-slate-600 flex-1 mr-4 text-left" style={{fontFamily: "GT America Regular"}}>
+                Girls Placed:
+              </span>
+              <span className="font-[AlbertusMedium] text-lg font-semibold text-blue-500 min-w-[60px] text-right" style={{fontFamily: "Albertus Medium"}}>
+                83
+              </span>
+            </div>
+          </div>
+          
+          <div className="bg-slate-50 border border-slate-200 rounded-lg p-6 shadow-sm">
+            <h3 className="font-[AlbertusMedium] text-xl font-semibold text-slate-800 m-0 mb-4 pb-2 border-b-2 border-blue-500" style={{fontFamily: "Albertus Medium"}}>
+              Unplaced Statistics
+            </h3>
+            <div className="flex justify-between py-2 border-b border-dashed border-slate-200">
+              <span className="font-[GTAmericaRegular] text-base text-slate-600 flex-1 mr-4 text-left" style={{fontFamily: "GT America Regular"}}>
+                Total Students Unplaced:
+              </span>
+              <span className="font-[AlbertusMedium] text-lg font-semibold text-blue-500 min-w-[60px] text-right" style={{fontFamily: "Albertus Medium"}}>
+                111
+              </span>
+            </div>
+            <div className="flex justify-between py-2 border-b border-dashed border-slate-200">
+              <span className="font-[GTAmericaRegular] text-base text-slate-600 flex-1 mr-4 text-left" style={{fontFamily: "GT America Regular"}}>
+                Boys Unplaced:
+              </span>
+              <span className="font-[AlbertusMedium] text-lg font-semibold text-blue-500 min-w-[60px] text-right" style={{fontFamily: "Albertus Medium"}}>
+                68
+              </span>
+            </div>
+            <div className="flex justify-between py-2 border-b border-dashed border-slate-200">
+              <span className="font-[GTAmericaRegular] text-base text-slate-600 flex-1 mr-4 text-left" style={{fontFamily: "GT America Regular"}}>
+                Girls Unplaced:
+              </span>
+              <span className="font-[AlbertusMedium] text-lg font-semibold text-blue-500 min-w-[60px] text-right" style={{fontFamily: "Albertus Medium"}}>
+                43
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* Our Valued Patrons Section */}
+      <section className="overflow-x-hidden w-full flex flex-col gap-12 pt-12 pb-16 px-28 relative bg-[#151514] text-white" id="sec2">
+        <div className="heading-with-text-container">
+          <div className="heading-with-text">
+            <h2 className="text-white text-[2.5rem] font-[AlbertusMedium] font-semibold w-1/2 relative inline-block" style={{fontFamily: "Albertus Medium"}}>
+              Our Valued Patrons
+            </h2>
+            <p className="font-[GTAmericaRegular] w-1/2 text-base line-height-1.5" style={{fontFamily: "GT America Regular"}}>
+              <a
+                href="/"
+                target="_blank"
+                className="text-white"
+              >
+                ABES Engineering College
+              </a>{" "}
+              has a vast network of recruiters that includes Fortune 500
+              companies, startups, and various other organizations. Some of our
+              notable recruiters include:
+            </p>
+          </div>
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-blue-500 to-transparent opacity-30"></div>
+        </div>
+        <div className="img-container-full"></div>
+        <div className="mobile-view">
+          <div className="sec30lpa">
+            <div className="w-full flex flex-col gap-4 relative">
+              <div className="w-full flex justify-between items-center">
+                <h2 className="text-white text-[2.5rem] font-[AlbertusMedium] font-semibold w-1/2 relative inline-block" style={{fontFamily: "Albertus Medium"}}>
+                  30LPA+ Offers
+                </h2>
+              </div>
+              <div className="flex flex-wrap justify-center gap-4">
+                <div className="flex items-center justify-center">
+                  <img
+                    src="./assets/recruiters/cognizant.png"
+                    alt="cognizant"
+                    className="max-w-full max-h-full object-contain"
+                  />
+                </div>
+                <div className="flex items-center justify-center">
+                  <img src="./assets/recruiters/Byjus.png" alt="Byjus" className="max-w-full max-h-full object-contain" />
+                </div>
+                <div className="flex items-center justify-center">
+                  <img src="./assets/recruiters/cisco.png" alt="cisco" className="max-w-full max-h-full object-contain" />
+                </div>
+                <div className="flex items-center justify-center">
+                  <img src="./assets/recruiters/adobe.png" alt="adobe" className="max-w-full max-h-full object-contain" />
+                </div>
+                <div className="flex items-center justify-center">
+                  <img src="./assets/recruiters/chetu.png" alt="chetu" className="max-w-full max-h-full object-contain" />
+                </div>
+                <div className="flex items-center justify-center">
+                  <img src="./assets/recruiters/amazon.png" alt="amazon" className="max-w-full max-h-full object-contain" />
+                </div>
+                <div className="flex items-center justify-center">
+                  <img
+                    src="./assets/recruiters/cognizant.png"
+                    alt="cognizant"
+                    className="max-w-full max-h-full object-contain"
+                  />
+                </div>
+                <div className="flex items-center justify-center">
+                  <img src="./assets/recruiters/Byjus.png" alt="Byjus" className="max-w-full max-h-full object-contain" />
+                </div>
+                <div className="flex items-center justify-center">
+                  <img src="./assets/recruiters/cisco.png" alt="cisco" className="max-w-full max-h-full object-contain" />
+                </div>
+                <div className="flex items-center justify-center">
+                  <img src="./assets/recruiters/adobe.png" alt="adobe" className="max-w-full max-h-full object-contain" />
+                </div>
+                <div className="flex items-center justify-center">
+                  <img src="./assets/recruiters/chetu.png" alt="chetu" className="max-w-full max-h-full object-contain" />
+                </div>
+                <div className="flex items-center justify-center">
+                  <img src="./assets/recruiters/amazon.png" alt="amazon" className="max-w-full max-h-full object-contain" />
+                </div>
+              </div>
+              <div className="flex justify-center items-center gap-2 mt-6">
+                <hr />
+                <div className="flex items-center gap-4 m-0">
+                  <div onClick={() => recruitersControl(-1)}>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width={40}
+                      height={40}
+                      viewBox="0 0 40 40"
+                      fill="none"
+                    >
+                      <rect
+                        x="0.75"
+                        y="0.75"
+                        width="38.5"
+                        height="38.5"
+                        rx="19.25"
+                        stroke="#373737"
+                        strokeWidth="1.5"
+                      />
+                      <path
+                        d="M20 27L15 20L20 13"
+                        stroke="#494949"
+                        strokeWidth={2}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </div>
+                  <div onClick={() => recruitersControl(1)}>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width={40}
+                      height={40}
+                      viewBox="0 0 40 40"
+                      fill="none"
+                    >
+                      <rect
+                        x="0.75"
+                        y="0.75"
+                        width="38.5"
+                        height="38.5"
+                        rx="19.25"
+                        stroke="#373737"
+                        strokeWidth="1.5"
+                      />
+                      <path
+                        d="M13 20L20 25L27 20"
+                        stroke="#494949"
+                        strokeWidth={2}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        transform="rotate(-90 20 20)"
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <hr />
+              </div>
+            </div>
+          </div>
+          <div className="placement-highlights" data-aos="fade-left">
+            <div className="grid grid-cols-3 gap-6 w-full overflow-x-hidden">
+              <div className="swiper-slide">
+                <img src="/placeholder-images/Amazon_mysli0.jpg" alt="" className="w-full h-full object-cover" />
+              </div>
+              <div className="swiper-slide">
+                <img src="/placeholder-images/Synopsys.webp" alt="" className="w-full h-full object-cover" />
+              </div>
+              <div className="swiper-slide">
+                <img src="/placeholder-images/cisco.webp" alt="" className="w-full h-full object-cover" />
+              </div>
+            </div>
+            <div className="flex justify-center items-center gap-2 mt-6">
+              <hr />
+              <div className="flex items-center gap-4 m-0">
+                <svg
+                  className="prev-icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width={40}
+                  height={40}
+                  viewBox="0 0 40 40"
+                  fill="none"
+                >
+                  <rect
+                    x="0.75"
+                    y="0.75"
+                    width="38.5"
+                    height="38.5"
+                    rx="19.25"
+                    stroke="#ffffff"
+                    strokeWidth="1.5"
+                  />
+                  <path
+                    d="M20 27L15 20L20 13"
+                    stroke="#ffffff"
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+                <svg
+                  className="next-icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width={40}
+                  height={40}
+                  viewBox="0 0 40 40"
+                  fill="none"
+                >
+                  <rect
+                    x="0.75"
+                    y="0.75"
+                    width="38.5"
+                    height="38.5"
+                    rx="19.25"
+                    stroke="#ffffff"
+                    strokeWidth="1.5"
+                  />
+                  <path
+                    d="M13 20L20 25L27 20"
+                    stroke="#ffffff"
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    transform="rotate(-90 20 20)"
+                  />
+                </svg>
+              </div>
+              <hr />
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* Companies with 20+ LPA and 100+ Offers Section (Inside Our Valued Patrons Section) */}
+      <div className="valued-patrons">
+        <div className="box">
+          <div>
+            <h3 className="sub-heading" style={{fontFamily: "GT America Regular"}}>
+              Companies offering
+            </h3>
+            <h3 className="heading" style={{fontFamily: "Albertus Medium"}}>
+              20+LPA
+            </h3>
+          </div>
+          <div className="companies-container">
+            <div className="flex items-center justify-center">
+              <img
+                src="/placeholder-companies/fluidcloud.png"
+                alt="fluidcloud"
+                className="max-w-[400%] h-auto object-contain max-h-[400%] grayscale"
+              />
+            </div>
+            <div className="flex items-center justify-center">
+              <img src="/placeholder-companies/amazon.png" alt="amazon" className="max-w-[400%] h-auto object-contain max-h-[400%] grayscale" />
+            </div>
+            <div className="flex items-center justify-center">
+              <img
+                src="/placeholder-companies/atlassian.png"
+                alt="atlassian"
+                className="max-w-[400%] h-auto object-contain max-h-[400%] grayscale"
+              />
+            </div>
+            <div className="flex items-center justify-center">
+              <img
+                src="/placeholder-companies/goldman sachs.png"
+                alt="goldman sachs"
+                className="max-w-[400%] h-auto object-contain max-h-[400%] grayscale"
+              />
+            </div>
+            <div className="flex items-center justify-center">
+              <img src="/placeholder-companies/google.png" alt="google" className="max-w-[400%] h-auto object-contain max-h-[400%] grayscale" />
+            </div>
+            <div className="flex items-center justify-center">
+              <img
+                src="/placeholder-companies/microsoft.png"
+                alt="microsoft"
+                className="max-w-[400%] h-auto object-contain max-h-[400%] grayscale"
+              />
+            </div>
+            {/* <img src="/images/placements/"companies/autodesk.png" style="filter: invert(75%) brightness(80%);"
+        alt="autodesk" /> */}
+          </div>
+        </div>
+        <div className="box">
+          <div>
+            <h3 className="sub-heading" style={{fontFamily: "GT America Regular"}}>
+              Companies offering
+            </h3>
+            <h3 className="heading" style={{fontFamily: "Albertus Medium"}}>
+              100+ Offers
+            </h3>
+          </div>
+          <div className="companies-container1">
+            <div className="flex items-center justify-center">
+              <img src="/placeholder-companies/tcs.png" alt="tcs" className="max-w-[400%] h-auto object-contain max-h-[400%] grayscale" />
+            </div>
+            <div className="flex items-center justify-center">
+              <img
+                src="/placeholder-companies/cognizant.png"
+                alt="cognizant"
+                className="max-w-[400%] h-auto object-contain max-h-[400%] grayscale"
+              />
+            </div>
+            <div className="flex items-center justify-center">
+              <img
+                src="/placeholder-companies/infosys.png"
+                alt="infosys"
+                className="max-w-[400%] h-auto object-contain max-h-[400%] grayscale"
+              />
+            </div>
+            <div className="flex items-center justify-center">
+              <img
+                src="/placeholder-companies/accenture.png"
+                alt="accenture"
+                className="max-w-[400%] h-auto object-contain max-h-[400%] grayscale"
+              />
+            </div>
+            <div className="flex items-center justify-center">
+              <img
+                src="/placeholder-companies/capgemini.png"
+                alt="capgemini"
+                className="max-w-[400%] h-auto object-contain max-h-[400%] grayscale"
+              />
+            </div>
+            <div className="flex items-center justify-center">
+              <img
+                src="/placeholder-companies/dxc.png"
+                className="max-w-[400%] h-auto object-contain max-h-[400%] grayscale"
+                style={{ filter: "invert(75%) brightness(80%)" }}
+                alt="dxc"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* Median Salary Section */}
+      <section className="w-full flex flex-col gap-12 pt-12 pb-16 px-28 relative bg-white box-border">
+        <div className="w-full flex flex-col gap-4 relative">
+          <div className="w-full flex justify-between items-center">
+            <h2 className="text-slate-800 text-[2.5rem] font-[AlbertusMedium] font-semibold w-1/2 relative inline-block" style={{fontFamily: "Albertus Medium"}}>
+              Median Salary
+            </h2>
+          </div>
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-blue-500 to-transparent opacity-30"></div>
+        </div>
+        <div className="flex items-center gap-4">
+          <div className="w-1/3 flex flex-col gap-4">
+            <div className="bg-white border-b border-[#E1E7EC] flex items-center">
+              <img src="/placeholder-images/placementBar2021.png" className="w-full" alt="" />
+            </div>
+            <div className="text-0 bg-white py-4 flex flex-col gap-2">
+              <h2 className="m-0 text-black font-[GTAmericaRegular] text-[18px] font-bold leading-[22px] border-b border-[#E1E7EC] px-4 pb-4">Median Salary</h2>
+              <div className="flex justify-between px-4 py-0">
+                <h3 className="text-[#8C97A7] font-[GTAmericaRegular] text-[10px] leading-[12px] m-0">2021</h3>
+                <h4 className="text-black font-[GTAmericaRegular] font-bold text-[18px] m-0">35.00 LPA</h4>
+              </div>
+            </div>
+          </div>
+          <div className="w-1/3 flex flex-col gap-4">
+            <div className="bg-white border-b border-[#E1E7EC] flex items-center">
+              <img src="/placeholder-images/placementBar2022.png" className="w-full" alt="" />
+            </div>
+            <div className="text-0 bg-white py-4 flex flex-col gap-2">
+              <h2 className="m-0 text-black font-[GTAmericaRegular] text-[18px] font-bold leading-[22px] border-b border-[#E1E7EC] px-4 pb-4">Median Salary</h2>
+              <div className="flex justify-between px-4 py-0">
+                <h3 className="text-[#8C97A7] font-[GTAmericaRegular] text-[10px] leading-[12px] m-0">2022</h3>
+                <h4 className="text-black font-[GTAmericaRegular] font-bold text-[18px] m-0">47.20 LPA</h4>
+              </div>
+            </div>
+          </div>
+          <div className="w-1/3 flex flex-col gap-4">
+            <div className="bg-white border-b border-[#E1E7EC] flex items-center">
+              <img src="/placeholder-images/placementBar2023.png" className="w-full" alt="" />
+            </div>
+            <div className="text-0 bg-white py-4 flex flex-col gap-2">
+              <h2 className="m-0 text-black font-[GTAmericaRegular] text-[18px] font-bold leading-[22px] border-b border-[#E1E7EC] px-4 pb-4">Median Salary</h2>
+              <div className="flex justify-between px-4 py-0">
+                <h3 className="text-[#8C97A7] font-[GTAmericaRegular] text-[10px] leading-[12px] m-0">2023</h3>
+                <h4 className="text-black font-[GTAmericaRegular] font-bold text-[18px] m-0">52.00 LPA</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* Packages at ABESEC Section */}
+      <section className="w-full flex flex-col gap-12 pt-12 pb-16 px-28 relative bg-white box-border">
+        <div className="w-full flex flex-col gap-4 relative">
+          <div className="w-full flex justify-between items-center">
+            <h2 className="text-slate-800 text-[2.5rem] font-[AlbertusMedium] font-semibold w-1/2 relative inline-block" style={{fontFamily: "Albertus Medium"}}>
+              Packages at ABESEC
+            </h2>
+          </div>
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-blue-500 to-transparent opacity-30"></div>
+        </div>
+        <div className="overflow-hidden">
+          <div className="flex">
+            <div className="w-full">
+              <div className="flex gap-4">
+                <div className="w-1/3 flex flex-col">
+                  <div className="py-4 border-b border-[#E1E7EC] text-black font-[GTAmericaBold] text-[18px] font-bold leading-[22px] word-wrap break-word">
+                    BTech
+                  </div>
+                  <div className="p-4 flex flex-col">
+                    <div className="mb-4">
+                      <div className="text-[#8C97A7] font-[GTAmericaRegular] text-[10px] leading-[12px] m-0">
+                        Highest Package
+                      </div>
+                      <div className="text-black font-[GTAmericaRegular] text-[18px] font-bold m-0">
+                        35.00 LPA
+                      </div>
+                    </div>
+                    <div className="mb-4">
+                      <div className="text-[#8C97A7] font-[GTAmericaRegular] text-[10px] leading-[12px] m-0">
+                        Average Package
+                      </div>
+                      <div className="text-black font-[GTAmericaRegular] text-[18px] font-bold m-0">
+                        25.00 LPA
+                      </div>
+                    </div>
+                    <div>
+                      <div className="text-[#8C97A7] font-[GTAmericaRegular] text-[10px] leading-[12px] m-0">
+                        Median Package
+                      </div>
+                      <div className="text-black font-[GTAmericaRegular] text-[18px] font-bold m-0">
+                        18.00 LPA
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="w-1/3 flex flex-col">
+                  <div className="py-4 border-b border-[#E1E7EC] text-black font-[GTAmericaBold] text-[18px] font-bold leading-[22px] word-wrap break-word">
+                    MCA
+                  </div>
+                  <div className="p-4 flex flex-col">
+                    <div className="mb-4">
+                      <div className="text-[#8C97A7] font-[GTAmericaRegular] text-[10px] leading-[12px] m-0">
+                        Highest Package
+                      </div>
+                      <div className="text-black font-[GTAmericaRegular] text-[18px] font-bold m-0">
+                        28.00 LPA
+                      </div>
+                    </div>
+                    <div className="mb-4">
+                      <div className="text-[#8C97A7] font-[GTAmericaRegular] text-[10px] leading-[12px] m-0">
+                        Average Package
+                      </div>
+                      <div className="text-black font-[GTAmericaRegular] text-[18px] font-bold m-0">
+                        20.00 LPA
+                      </div>
+                    </div>
+                    <div>
+                      <div className="text-[#8C97A7] font-[GTAmericaRegular] text-[10px] leading-[12px] m-0">
+                        Median Package
+                      </div>
+                      <div className="text-black font-[GTAmericaRegular] text-[18px] font-bold m-0">
+                        15.00 LPA
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="w-1/3 flex flex-col">
+                  <div className="py-4 border-b border-[#E1E7EC] text-black font-[GTAmericaBold] text-[18px] font-bold leading-[22px] word-wrap break-word">
+                    MBA
+                  </div>
+                  <div className="p-4 flex flex-col">
+                    <div className="mb-4">
+                      <div className="text-[#8C97A7] font-[GTAmericaRegular] text-[10px] leading-[12px] m-0">
+                        Highest Package
+                      </div>
+                      <div className="text-black font-[GTAmericaRegular] text-[18px] font-bold m-0">
+                        25.00 LPA
+                      </div>
+                    </div>
+                    <div className="mb-4">
+                      <div className="text-[#8C97A7] font-[GTAmericaRegular] text-[10px] leading-[12px] m-0">
+                        Average Package
+                      </div>
+                      <div className="text-black font-[GTAmericaRegular] text-[18px] font-bold m-0">
+                        18.00 LPA
+                      </div>
+                    </div>
+                    <div>
+                      <div className="text-[#8C97A7] font-[GTAmericaRegular] text-[10px] leading-[12px] m-0">
+                        Median Package
+                      </div>
+                      <div className="text-black font-[GTAmericaRegular] text-[18px] font-bold m-0">
+                        12.00 LPA
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="flex justify-center items-center gap-2 mt-6">
+          <hr className="flex-grow" />
+          <div className="flex items-center gap-4 m-0">
+            <div className="h-10 w-10 rounded-full border border-[#373737] flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="#494949" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M15 18l-6-6 6-6" />
+              </svg>
+            </div>
+            <div className="h-10 w-10 rounded-full border border-[#373737] flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="#494949" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M9 18l6-6-6-6" />
+              </svg>
+            </div>
+          </div>
+          <hr className="flex-grow" />
+        </div>
+      </section>
+      {/* Dream Offers Section */}
+      <section className="w-full flex flex-col gap-12 pt-12 pb-16 px-28 relative bg-white box-border">
+        <div className="w-full flex flex-col gap-4 relative">
+          <div className="w-full flex justify-between items-center">
+            <h2 className="text-slate-800 text-[2.5rem] font-[AlbertusMedium] font-semibold w-1/2 relative inline-block" style={{fontFamily: "Albertus Medium"}}>
+              Dream Offers
+            </h2>
+          </div>
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-blue-500 to-transparent opacity-30"></div>
+        </div>
+        <div className="overflow-x-hidden">
+          <div className="grid grid-cols-3 gap-6 w-full">
+            <div className="min-h-[500px] flex flex-col justify-between gap-4 bg-white">
+              <div className="flex-grow flex items-center justify-center">
+                <img
+                  src="/placeholder-images/Infosys-1.jpg"
+                  className="w-[350px]" 
+                  alt="Infosys"
+                />
+              </div>
+              <div className="p-2 bg-blue-500 justify-between">
+                <h3 className="text-white font-[AlbertusMedium] text-[2rem] font-normal leading-[150%] m-0" style={{fontFamily: "Albertus Medium"}}>
+                  9.5 LPA
+                </h3>
+                <p className="text-white font-[GTAmericaRegular] text-[0.8rem] font-normal leading-[150%] m-0" style={{fontFamily: "GT America Regular"}}>
+                  Batch 2024-25
+                  <br />
+                  No. of Students: 6
+                </p>
+              </div>
+            </div>
+            <div className="min-h-[500px] flex flex-col justify-between gap-4 bg-white">
+              <div className="flex-grow flex items-center justify-center">
+                <img
+                  src="/placeholder-images/TATA-Consultancy-Services-Ltd.jpg"
+                  className="w-[350px]" 
+                  alt="TCS"
+                />
+              </div>
+              <div className="p-2 bg-blue-500 justify-between">
+                <h3 className="text-white font-[AlbertusMedium] text-[2rem] font-normal leading-[150%] m-0" style={{fontFamily: "Albertus Medium"}}>
+                  9 LPA
+                </h3>
+                <p className="text-white font-[GTAmericaRegular] text-[0.8rem] font-normal leading-[150%] m-0" style={{fontFamily: "GT America Regular"}}>
+                  Batch 2024-25 <br />
+                  No. of Students: 2
+                </p>
+              </div>
+            </div>
+            <div className="min-h-[500px] flex flex-col justify-between gap-4 bg-white">
+              <div className="flex-grow flex items-center justify-center">
+                <img
+                  src="/placeholder-images/Veersa-Technologies-Pvt.-ltd.jpg"
+                  className="w-[350px]" 
+                  alt="Veersa Technologies"
+                />
+              </div>
+              <div className="p-2 bg-blue-500 justify-between">
+                <h3 className="text-white font-[AlbertusMedium] text-[2rem] font-normal leading-[150%] m-0" style={{fontFamily: "Albertus Medium"}}>
+                  8.28 LPA
+                </h3>
+                <p className="text-white font-[GTAmericaRegular] text-[0.8rem] font-normal leading-[150%] m-0" style={{fontFamily: "GT America Regular"}}>
+                  Batch 2024-25 <br />
+                  No. of Students: 14
+                </p>
+              </div>
+            </div>
+            <div className="min-h-[500px] flex flex-col justify-between gap-4 bg-white">
+              <div className="flex-grow flex items-center justify-center">
+                <img
+                  src="/placeholder-images/SAMSUNG-R&D.jpg"
+                  className="w-[350px]" 
+                  alt="Samsung R&D"
+                />
+              </div>
+              <div className="p-2 bg-blue-500 justify-between">
+                <h3 className="text-white font-[AlbertusMedium] text-[2rem] font-normal leading-[150%] m-0" style={{fontFamily: "Albertus Medium"}}>
+                  7.65 LPA
+                </h3>
+                <p className="text-white font-[GTAmericaRegular] text-[0.8rem] font-normal leading-[150%] m-0" style={{fontFamily: "GT America Regular"}}>
+                  Batch 2024-25 <br />
+                  No. of Students: 11
+                </p>
+              </div>
+            </div>
+            <div className="min-h-[500px] flex flex-col justify-between gap-4 bg-white">
+              <div className="flex-grow flex items-center justify-center">
+                <img
+                  src="/placeholder-images/amazon.png"
+                  className="w-[350px]" 
+                  alt="Amazon"
+                />
+              </div>
+              <div className="p-2 bg-blue-500 justify-between">
+                <div className="flex justify-between">
+                  <div>
+                    <h3 className="text-white font-[AlbertusMedium] text-[1.2rem] font-normal leading-[145%] m-0" style={{fontFamily: "Albertus Medium"}}>
+                      LPA
+                    </h3>
+                    <h3 className="text-white font-[AlbertusMedium] text-[1.2rem] font-normal leading-[145%] m-0" style={{fontFamily: "Albertus Medium"}}>
+                      Batch
+                    </h3>
+                    <h3 className="text-white font-[AlbertusMedium] text-[1.2rem] font-normal leading-[145%] m-0" style={{fontFamily: "Albertus Medium"}}>
+                      No. of Students:
+                    </h3>
+                  </div>
+                  <div>
+                    <p className="text-white font-[GTAmericaRegular] text-[0.9rem] font-normal leading-[200%] m-0" style={{fontFamily: "GT America Regular"}}>
+                      44<br />44.14<br />35
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-white font-[GTAmericaRegular] text-[0.9rem] font-normal leading-[200%] m-0" style={{fontFamily: "GT America Regular"}}>
+                      2021<br />2022<br />2023
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-white font-[GTAmericaRegular] text-[0.9rem] font-normal leading-[200%] m-0" style={{fontFamily: "GT America Regular"}}>
+                      3<br />26<br />7
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="min-h-[500px] flex flex-col justify-between gap-4 bg-white">
+              <div className="flex-grow flex items-center justify-center">
+                <img
+                  src="/placeholder-images/microsoft.png"
+                  className="w-[350px]" 
+                  alt="Microsoft"
+                />
+              </div>
+              <div className="p-2 bg-blue-500 justify-between">
+                <div className="flex justify-between">
+                  <div>
+                    <h3 className="text-white font-[AlbertusMedium] text-[1.2rem] font-normal leading-[145%] m-0" style={{fontFamily: "Albertus Medium"}}>
+                      LPA
+                    </h3>
+                    <h3 className="text-white font-[AlbertusMedium] text-[1.2rem] font-normal leading-[145%] m-0" style={{fontFamily: "Albertus Medium"}}>
+                      Batch
+                    </h3>
+                    <h3 className="text-white font-[AlbertusMedium] text-[1.2rem] font-normal leading-[145%] m-0" style={{fontFamily: "Albertus Medium"}}>
+                      No. of Students:
+                    </h3>
+                  </div>
+                  <div>
+                    <p className="text-white font-[GTAmericaRegular] text-[0.9rem] font-normal leading-[200%] m-0" style={{fontFamily: "GT America Regular"}}>
+                      49.12<br />47.20
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-white font-[GTAmericaRegular] text-[0.9rem] font-normal leading-[200%] m-0" style={{fontFamily: "GT America Regular"}}>
+                      2024<br />2022
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-white font-[GTAmericaRegular] text-[0.9rem] font-normal leading-[200%] m-0" style={{fontFamily: "GT America Regular"}}>
+                      2<br />1
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="min-h-[500px] flex flex-col justify-between gap-4 bg-white">
+              <div className="flex-grow flex items-center justify-center">
+                <img
+                  src="/placeholder-images/google.png"
+                  className="w-[350px]" 
+                  alt="Google"
+                />
+              </div>
+              <div className="p-2 bg-blue-500 justify-between">
+                <div className="flex justify-between">
+                  <div>
+                    <h3 className="text-white font-[AlbertusMedium] text-[1.2rem] font-normal leading-[145%] m-0" style={{fontFamily: "Albertus Medium"}}>
+                      LPA
+                    </h3>
+                    <h3 className="text-white font-[AlbertusMedium] text-[1.2rem] font-normal leading-[145%] m-0" style={{fontFamily: "Albertus Medium"}}>
+                      Batch
+                    </h3>
+                    <h3 className="text-white font-[AlbertusMedium] text-[1.2rem] font-normal leading-[145%] m-0" style={{fontFamily: "Albertus Medium"}}>
+                      No. of Students:
+                    </h3>
+                  </div>
+                  <div>
+                    <p className="text-white font-[GTAmericaRegular] text-[0.9rem] font-normal leading-[200%] m-0" style={{fontFamily: "GT America Regular"}}>
+                      40.53<br />52
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-white font-[GTAmericaRegular] text-[0.9rem] font-normal leading-[200%] m-0" style={{fontFamily: "GT America Regular"}}>
+                      2024<br />2023
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-white font-[GTAmericaRegular] text-[0.9rem] font-normal leading-[200%] m-0" style={{fontFamily: "GT America Regular"}}>
+                      1<br />1
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="min-h-[500px] flex flex-col justify-between gap-4 bg-white">
+              <div className="flex-grow flex items-center justify-center">
+                <img
+                  src="/placeholder-images/goldman.png"
+                  className="w-[350px]" 
+                  alt="Goldman Sachs"
+                />
+              </div>
+              <div className="p-2 bg-blue-500 justify-between">
+                <div className="flex justify-between">
+                  <div>
+                    <h3 className="text-white font-[AlbertusMedium] text-[1.2rem] font-normal leading-[145%] m-0" style={{fontFamily: "Albertus Medium"}}>
+                      LPA
+                    </h3>
+                    <h3 className="text-white font-[AlbertusMedium] text-[1.2rem] font-normal leading-[145%] m-0" style={{fontFamily: "Albertus Medium"}}>
+                      Batch
+                    </h3>
+                    <h3 className="text-white font-[AlbertusMedium] text-[1.2rem] font-normal leading-[145%] m-0" style={{fontFamily: "Albertus Medium"}}>
+                      No. of Students:
+                    </h3>
+                  </div>
+                  <div>
+                    <p className="text-white font-[GTAmericaRegular] text-[0.9rem] font-normal leading-[200%] m-0" style={{fontFamily: "GT America Regular"}}>
+                      20<br />24
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-white font-[GTAmericaRegular] text-[0.9rem] font-normal leading-[200%] m-0" style={{fontFamily: "GT America Regular"}}>
+                      2022<br />2023
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-white font-[GTAmericaRegular] text-[0.9rem] font-normal leading-[200%] m-0" style={{fontFamily: "GT America Regular"}}>
+                      1<br />2
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="min-h-[500px] flex flex-col justify-between gap-4 bg-white">
+              <div className="flex-grow flex items-center justify-center">
+                <img
+                  src="/placeholder-images/walmart.png"
+                  className="w-[350px]" 
+                  alt="Walmart"
+                />
+              </div>
+              <div className="p-2 bg-blue-500 justify-between">
+                <div className="flex justify-between">
+                  <div>
+                    <h3 className="text-white font-[AlbertusMedium] text-[1.2rem] font-normal leading-[145%] m-0" style={{fontFamily: "Albertus Medium"}}>
+                      LPA
+                    </h3>
+                    <h3 className="text-white font-[AlbertusMedium] text-[1.2rem] font-normal leading-[145%] m-0" style={{fontFamily: "Albertus Medium"}}>
+                      Batch
+                    </h3>
+                    <h3 className="text-white font-[AlbertusMedium] text-[1.2rem] font-normal leading-[145%] m-0" style={{fontFamily: "Albertus Medium"}}>
+                      No. of Students:
+                    </h3>
+                  </div>
+                  <div>
+                    <p className="text-white font-[GTAmericaRegular] text-[0.9rem] font-normal leading-[200%] m-0" style={{fontFamily: "GT America Regular"}}>
+                      23.4<br />20.67
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-white font-[GTAmericaRegular] text-[0.9rem] font-normal leading-[200%] m-0" style={{fontFamily: "GT America Regular"}}>
+                      2022<br />2021
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-white font-[GTAmericaRegular] text-[0.9rem] font-normal leading-[200%] m-0" style={{fontFamily: "GT America Regular"}}>
+                      6<br />1
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="min-h-[500px] flex flex-col justify-between gap-4 bg-white">
+              <div className="flex-grow flex items-center justify-center">
+                <img
+                  src="/placeholder-images/atlassian.png"
+                  className="w-[350px]" 
+                  alt="Atlassian"
+                />
+              </div>
+              <div className="p-2 bg-blue-500 justify-between">
+                <h3 className="text-white font-[AlbertusMedium] text-[2rem] font-normal leading-[150%] m-0" style={{fontFamily: "Albertus Medium"}}>
+                  59.91 LPA
+                </h3>
+                <p className="text-white font-[GTAmericaRegular] text-[0.8rem] font-normal leading-[150%] m-0" style={{fontFamily: "GT America Regular"}}>
+                  Batch 2024 <br />
+                  No. of Students: 1
+                </p>
+              </div>
+            </div>
+            <div className="min-h-[500px] flex flex-col justify-between gap-4 bg-white">
+              <div className="flex-grow flex items-center justify-center">
+                <img
+                  src="/placeholder-images/autodesk.png"
+                  className="w-[350px]" 
+                  alt="Autodesk"
+                />
+              </div>
+              <div className="p-2 bg-blue-500 justify-between">
+                <h3 className="text-white font-[AlbertusMedium] text-[2rem] font-normal leading-[150%] m-0" style={{fontFamily: "Albertus Medium"}}>
+                  36 LPA
+                </h3>
+                <p className="text-white font-[GTAmericaRegular] text-[0.8rem] font-normal leading-[150%] m-0" style={{fontFamily: "GT America Regular"}}>
+                  Batch 2024
+                  <br />
+                  No. of Students: 2
+                </p>
+              </div>
+            </div>
+            <div className="min-h-[500px] flex flex-col justify-between gap-4 bg-white">
+              <div className="flex-grow flex items-center justify-center">
+                <img
+                  src="/placeholder-images/atlan.png"
+                  className="w-[350px]" 
+                  alt="Atlan"
+                />
+              </div>
+              <div className="p-2 bg-blue-500 justify-between">
+                <h3 className="text-white font-[AlbertusMedium] text-[2rem] font-normal leading-[150%] m-0" style={{fontFamily: "Albertus Medium"}}>
+                  20 LPA
+                </h3>
+                <p className="text-white font-[GTAmericaRegular] text-[0.8rem] font-normal leading-[150%] m-0" style={{fontFamily: "GT America Regular"}}>
+                  Batch 2024
+                  <br />
+                  No. of Students: 1
+                </p>
+              </div>
+            </div>
+            <div className="min-h-[500px] flex flex-col justify-between gap-4 bg-white">
+              <div className="flex-grow flex items-center justify-center">
+                <img
+                  src="/placeholder-images/morgonStanley.png"
+                  className="w-[350px]" 
+                  alt="Morgan Stanley"
+                />
+              </div>
+              <div className="p-2 bg-blue-500 justify-between">
+                <h3 className="text-white font-[AlbertusMedium] text-[2rem] font-normal leading-[150%] m-0" style={{fontFamily: "Albertus Medium"}}>
+                  20 LPA
+                </h3>
+                <p className="text-white font-[GTAmericaRegular] text-[0.8rem] font-normal leading-[150%] m-0" style={{fontFamily: "GT America Regular"}}>
+                  Batch 2023 <br />
+                  No. of Students: 1
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="flex justify-center items-center gap-2 mt-6">
+            <hr className="flex-grow" />
+            <div className="flex items-center gap-4 m-0">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width={40}
+                height={40}
+                viewBox="0 0 40 40"
+                fill="none"
+                className="cursor-pointer"
+              >
+                <rect
+                  x="0.75"
+                  y="0.75"
+                  width="38.5"
+                  height="38.5"
+                  rx="19.25"
+                  stroke="#ffffff"
+                  strokeWidth="1.5"
+                  className="stroke-[#373737]"
+                />
+                <path
+                  d="M20 27L15 20L20 13"
+                  className="stroke-[#494949]"
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width={40}
+                height={40}
+                viewBox="0 0 40 40"
+                fill="none"
+                className="cursor-pointer"
+              >
+                <rect
+                  x="0.75"
+                  y="0.75"
+                  width="38.5"
+                  height="38.5"
+                  rx="19.25"
+                  stroke="#ffffff"
+                  strokeWidth="1.5"
+                  className="stroke-[#373737]"
+                />
+                <path
+                  d="M13 20L20 25L27 20"
+                  className="stroke-[#494949]"
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
+            <hr className="flex-grow" />
+          </div>
+        </div>
+      </section>
+      {/* Top Internships Section */}
+      <section className="w-full flex flex-col gap-12 pt-12 pb-16 px-28 relative bg-white box-border">
+        <div className="w-full flex flex-col gap-4 relative">
+          <div className="w-full flex justify-between items-center">
+            <h2 className="text-slate-800 text-[2.5rem] font-[AlbertusMedium] font-semibold w-1/2 relative inline-block" style={{fontFamily: "Albertus Medium"}}>
+              Top Internships
+            </h2>
+            <p className="font-[GTAmericaRegular] w-1/2 text-base line-height-1.5" style={{fontFamily: "GT America Regular"}}>
+              Number of students placed as intern for the following companies
+            </p>
+          </div>
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-blue-500 to-transparent opacity-30"></div>
+        </div>
+        <div className="overflow-x-hidden">
+          <div className="grid grid-cols-3 gap-6 w-full">
+            <div className="flex flex-col justify-between bg-white max-h-[300px]">
+              <div className="p-8 flex-grow flex items-center justify-center">
+                <img
+                  src="/placeholder-images/amazon-internship.png"
+                  className="w-[300px] h-[250px] object-cover"
+                  alt="Amazon"
+                />
+              </div>
+              <div className="flex h-[72px] p-2 justify-center items-center bg-[rgba(0,0,0,0.75)] text-white text-center font-[GTAmericaBold] text-[1.5rem] font-bold leading-[150%]">
+                1
+              </div>
+            </div>
+            <div className="flex flex-col justify-between bg-white max-h-[300px]">
+              <div className="p-8 flex-grow flex items-center justify-center">
+                <img
+                  src="/placeholder-images/atlassian-internship.png"
+                  className="w-[300px] h-[250px] object-cover"
+                  alt="Atlassian"
+                />
+              </div>
+              <div className="flex h-[72px] p-2 justify-center items-center bg-[rgba(0,0,0,0.75)] text-white text-center font-[GTAmericaBold] text-[1.5rem] font-bold leading-[150%]">
+                2
+              </div>
+            </div>
+            <div className="flex flex-col justify-between bg-white max-h-[300px]">
+              <div className="p-8 flex-grow flex items-center justify-center">
+                <img
+                  src="/placeholder-images/autodesk-internship.png"
+                  className="w-[300px] h-[250px] object-cover"
+                  alt="Autodesk"
+                />
+              </div>
+              <div className="flex h-[72px] p-2 justify-center items-center bg-[rgba(0,0,0,0.75)] text-white text-center font-[GTAmericaBold] text-[1.5rem] font-bold leading-[150%]">
+                1
+              </div>
+            </div>
+            <div className="flex flex-col justify-between bg-white max-h-[300px]">
+              <div className="p-8 flex-grow flex items-center justify-center">
+                <img
+                  src="/placeholder-images/axalta_updated.jpg"
+                  className="w-[300px] h-[250px] object-cover"
+                  alt="Axalta"
+                />
+              </div>
+              <div className="flex h-[72px] p-2 justify-center items-center bg-[rgba(0,0,0,0.75)] text-white text-center font-[GTAmericaBold] text-[1.5rem] font-bold leading-[150%]">
+                1
+              </div>
+            </div>
+            <div className="flex flex-col justify-between bg-white max-h-[300px]">
+              <div className="p-8 flex-grow flex items-center justify-center">
+                <img
+                  src="/placeholder-images/geminiSolution.webp"
+                  className="w-[300px] h-[250px] object-cover"
+                  alt="Gemini Solution"
+                />
+              </div>
+              <div className="flex h-[72px] p-2 justify-center items-center bg-[rgba(0,0,0,0.75)] text-white text-center font-[GTAmericaBold] text-[1.5rem] font-bold leading-[150%]">
+                14
+              </div>
+            </div>
+            <div className="flex flex-col justify-between bg-white max-h-[300px]">
+              <div className="p-8 flex-grow flex items-center justify-center">
+                <img
+                  src="/placeholder-images/googleSummer.png"
+                  className="w-[300px] h-[250px] object-cover"
+                  alt="Google Summer"
+                />
+              </div>
+              <div className="flex h-[72px] p-2 justify-center items-center bg-[rgba(0,0,0,0.75)] text-white text-center font-[GTAmericaBold] text-[1.5rem] font-bold leading-[150%]">
+                1
+              </div>
+            </div>
+            <div className="flex flex-col justify-between bg-white max-h-[300px]">
+              <div className="p-8 flex-grow flex items-center justify-center">
+                <img
+                  src="/placeholder-images/google-internship.png"
+                  className="w-[300px] h-[250px] object-cover"
+                  alt="Google"
+                />
+              </div>
+              <div className="flex h-[72px] p-2 justify-center items-center bg-[rgba(0,0,0,0.75)] text-white text-center font-[GTAmericaBold] text-[1.5rem] font-bold leading-[150%]">
+                1
+              </div>
+            </div>
+            <div className="flex flex-col justify-between bg-white max-h-[300px]">
+              <div className="p-8 flex-grow flex items-center justify-center">
+                <img
+                  src="/placeholder-images/koenig_update.jpg"
+                  className="w-[300px] h-[250px] object-cover"
+                  alt="Koenig"
+                />
+              </div>
+              <div className="flex h-[72px] p-2 justify-center items-center bg-[rgba(0,0,0,0.75)] text-white text-center font-[GTAmericaBold] text-[1.5rem] font-bold leading-[150%]">
+                25
+              </div>
+            </div>
+            <div className="flex flex-col justify-between bg-white max-h-[300px]">
+              <div className="p-8 flex-grow flex items-center justify-center">
+                <img
+                  src="/placeholder-images/kpmg_updated.jpg"
+                  className="w-[300px] h-[250px] object-cover"
+                  alt="KPMG"
+                />
+              </div>
+              <div className="flex h-[72px] p-2 justify-center items-center bg-[rgba(0,0,0,0.75)] text-white text-center font-[GTAmericaBold] text-[1.5rem] font-bold leading-[150%]">
+                1
+              </div>
+            </div>
+            <div className="flex flex-col justify-between bg-white max-h-[300px]">
+              <div className="p-8 flex-grow flex items-center justify-center">
+                <img
+                  src="/placeholder-images/Lg.jpg"
+                  className="w-[300px] h-[250px] object-cover"
+                  alt="LG"
+                />
+              </div>
+              <div className="flex h-[72px] p-2 justify-center items-center bg-[rgba(0,0,0,0.75)] text-white text-center font-[GTAmericaBold] text-[1.5rem] font-bold leading-[150%]">
+                2
+              </div>
+            </div>
+            <div className="flex flex-col justify-between bg-white max-h-[300px]">
+              <div className="p-8 flex-grow flex items-center justify-center">
+                <img
+                  src="/placeholder-images/linkedin_updated.jpg"
+                  className="w-[300px] h-[250px] object-cover"
+                  alt="LinkedIn"
+                />
+              </div>
+              <div className="flex h-[72px] p-2 justify-center items-center bg-[rgba(0,0,0,0.75)] text-white text-center font-[GTAmericaBold] text-[1.5rem] font-bold leading-[150%]">
+                3
+              </div>
+            </div>
+            <div className="flex flex-col justify-between bg-white max-h-[300px]">
+              <div className="p-8 flex-grow flex items-center justify-center">
+                <img
+                  src="/placeholder-images/nec.jpg"
+                  className="w-[300px] h-[250px] object-cover"
+                  alt="NEC"
+                />
+              </div>
+              <div className="flex h-[72px] p-2 justify-center items-center bg-[rgba(0,0,0,0.75)] text-white text-center font-[GTAmericaBold] text-[1.5rem] font-bold leading-[150%]">
+                3
+              </div>
+            </div>
+            <div className="flex flex-col justify-between bg-white max-h-[300px]">
+              <div className="p-8 flex-grow flex items-center justify-center">
+                <img
+                  src="/placeholder-images/newgen_update.png"
+                  className="w-[300px] h-[250px] object-cover"
+                  alt="Newgen Software"
+                />
+              </div>
+              <div className="flex h-[72px] p-2 justify-center items-center bg-[rgba(0,0,0,0.75)] text-white text-center font-[GTAmericaBold] text-[1.5rem] font-bold leading-[150%]">
+                7
+              </div>
+            </div>
+            <div className="flex flex-col justify-between bg-white max-h-[300px]">
+              <div className="p-8 flex-grow flex items-center justify-center">
+                <img
+                  src="/placeholder-images/walmart-internship.png"
+                  className="w-[300px] h-[250px] object-cover"
+                  alt="Walmart"
+                />
+              </div>
+              <div className="flex h-[72px] p-2 justify-center items-center bg-[rgba(0,0,0,0.75)] text-white text-center font-[GTAmericaBold] text-[1.5rem] font-bold leading-[150%]">
+                5
+              </div>
+            </div>
+            <div className="flex flex-col justify-between bg-white max-h-[300px]">
+              <div className="p-8 flex-grow flex items-center justify-center">
+                <img
+                  src="/placeholder-images/wayfair_update.jpg"
+                  className="w-[300px] h-[250px] object-cover"
+                  alt="Wayfair"
+                />
+              </div>
+              <div className="flex h-[72px] p-2 justify-center items-center bg-[rgba(0,0,0,0.75)] text-white text-center font-[GTAmericaBold] text-[1.5rem] font-bold leading-[150%]">
+                1
+              </div>
+            </div>
+          </div>
+          <div className="flex justify-center items-center gap-2 mt-6">
+            <hr className="flex-grow" />
+            <div className="flex items-center gap-4 m-0">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width={40}
+                height={40}
+                viewBox="0 0 60 60"
+                fill="none"
+                className="cursor-pointer"
+              >
+                <rect
+                  x="0.75"
+                  y="0.75"
+                  width="58.5"
+                  height="58.5"
+                  rx="29.25"
+                  stroke="#373737"
+                  strokeWidth="1.5"
+                />
+                <path
+                  d="M33 39L24 30L33 21"
+                  stroke="#494949"
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width={40}
+                height={40}
+                viewBox="0 0 60 60"
+                fill="none"
+                className="cursor-pointer"
+              >
+                <rect
+                  x="59.25"
+                  y="59.25"
+                  width="58.5"
+                  height="58.5"
+                  rx="29.25"
+                  transform="rotate(-180 59.25 59.25)"
+                  stroke="#373737"
+                  strokeWidth="1.5"
+                />
+                <path
+                  d="M27 21L36 30L27 39"
+                  stroke="#494949"
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
+            <hr className="flex-grow" />
+          </div>
+        </div>
+      </section>
+      {/* Placement Highlights Section */}
+      <section className="section-8" id="sec4">
+        <div className="heading-with-text-container">
+          <div className="heading-with-text">
+            <h2>Placement Highlights</h2>
+          </div>
+          <hr />
+        </div>
+        <div className="placements-slider overflow-x-hidden overflow-y-hidden">
+          <div className="image-tabs-container overflow-x-hidden">
+            <div  className="image-tab-full">

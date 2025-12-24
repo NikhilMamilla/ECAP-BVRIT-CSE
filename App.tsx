@@ -31,6 +31,7 @@ import ITDepartmentPage from './components/pages/ITDepartmentPage';
 import FacultyAll from './components/FacultyAll';
 import GraceHopperCOEFull from './components/pages/GraceHopperCOEFull';
 import RAndDPage from './components/pages/RAndDPage';
+import Placements from './components/pages/Placements';
 
 // ECAP shared
 import ECAPLogin from './ECAP/ECAPLogin';
@@ -120,6 +121,7 @@ const App: React.FC = () => {
             <Route path="/cse/faculty" element={<FacultyAll />} />
             <Route path="/cse/grace-hopper" element={<GraceHopperCOEFull />} />
             <Route path="/r-and-d" element={<RAndDPage />} />
+            <Route path="/placements" element={<Placements />} />
 
             {/* ECAP auth entry points */}
             <Route path="/ecap/login" element={<ECAPLogin />} />

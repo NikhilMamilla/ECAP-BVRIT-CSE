@@ -84,7 +84,7 @@ const Header: React.FC<HeaderProps> = ({ onLogoClick }) => {
           className="absolute top-0 left-0 h-full right-0 transition-all duration-300"
           style={{
             background: isScrolled ? 'rgba(255, 255, 255, 0.9)' : 'transparent',
-            backdropFilter: 'blur(10px)',
+            backdropFilter: isScrolled ? 'blur(10px)' : 'none',
             boxShadow: isScrolled
               ? '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1)'
               : 'none'

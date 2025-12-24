@@ -16,7 +16,7 @@ const CSEFaculty: React.FC = () => {
         {/* Header */}
         <div className="text-center mb-12 md:mb-16">
           <AnimatedElement animation="slide-down" className="block">
-            <h2 className="text-4xl sm:text-5xl font-extrabold text-gray-900 tracking-tight" style={{ fontFamily: 'Georgia, serif' }}>
+            <h2 className="text-3xl sm:text-5xl font-extrabold text-gray-900 tracking-tight" style={{ fontFamily: 'Georgia, serif' }}>
               Our Distinguished Faculty
             </h2>
           </AnimatedElement>
@@ -47,7 +47,7 @@ const CSEFaculty: React.FC = () => {
         )}
 
         {/* Faculty Grid: 5 columns per row, 2 rows */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 max-w-full mx-auto max-w-screen-xl">
+        <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 gap-8 max-w-full mx-auto max-w-screen-xl">
           {landingFaculty.map((faculty, index) => (
             <AnimatedElement
               key={index}

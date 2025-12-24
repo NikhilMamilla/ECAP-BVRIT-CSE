@@ -38,12 +38,12 @@ const CSEDepartmentPage: React.FC = () => {
                 {/* Content */}
                 <div className="container mx-auto px-4 relative z-10 text-center">
                     <AnimatedElement animation="slide-down" duration={1000}>
-                        <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 tracking-tight drop-shadow-2xl font-serif">
+                        <h1 className="text-3xl md:text-6xl lg:text-7xl font-bold text-white mb-6 tracking-tight drop-shadow-2xl font-serif">
                             Department of <br />
                             <span className="text-cyan-200">Computer Science & Engineering</span>
                         </h1>
                         <div className="w-32 h-1 bg-cyan-400 mx-auto mb-8 rounded-full"></div>
-                        <p className="text-xl md:text-3xl text-cyan-100 font-light tracking-wide max-w-4xl mx-auto">
+                        <p className="text-lg md:text-3xl text-cyan-100 font-light tracking-wide max-w-4xl mx-auto">
                             Innovating the Future through Excellence in Education and Research
                         </p>
                     </AnimatedElement>
@@ -76,7 +76,7 @@ const CSEDepartmentPage: React.FC = () => {
                             { count: '1000+', label: 'Research Papers', icon: <FileText className="w-8 h-8" /> },
                         ].map((stat, index) => (
                             <AnimatedElement key={index} animation="slide-up" delay={index * 100}>
-                                <div className="bg-white p-8 rounded-xl shadow-xl border-2 border-blue-300 text-center hover:-translate-y-2 transition-transform duration-300 group">
+                                <div className="bg-white p-4 md:p-8 rounded-xl shadow-xl border-2 border-blue-300 text-center hover:-translate-y-2 transition-transform duration-300 group">
                                     <div className="text-blue-600 mb-4 flex justify-center group-hover:scale-110 transition-transform duration-300">{stat.icon}</div>
                                     <div className="text-4xl font-bold text-gray-900 mb-2">{stat.count}</div>
                                     <div className="text-sm font-semibold text-gray-500 uppercase tracking-wider">{stat.label}</div>
@@ -88,16 +88,16 @@ const CSEDepartmentPage: React.FC = () => {
             </section>
 
             {/* About Department */}
-            <section className="py-20">
+            <section className="py-10 md:py-20">
                 <div className="container mx-auto px-4">
                     <div className="flex flex-col lg:flex-row gap-16">
                         <div className="lg:w-2/3">
                             <AnimatedElement animation="fade-in">
                                 <div className="flex items-center mb-8">
                                     <div className="w-2 h-10 bg-blue-600 mr-4 rounded-full"></div>
-                                    <h2 className="text-3xl font-bold text-gray-900">About the Department</h2>
+                                    <h2 className="text-2xl md:text-3xl font-bold text-gray-900">About the Department</h2>
                                 </div>
-                                <div className="space-y-6 text-gray-700 leading-relaxed text-lg text-justify">
+                                <div className="space-y-6 text-gray-700 leading-relaxed text-lg text-left">
                                     <p>
                                         The Department of Computer Science and Engineering at BVRIT was started in 1997 with an intake of 40 B.Tech students. Subsequently, the intake was enhanced from 40 to 60 in the academic year 1999-2000, 90 in the academic year 2000-2001, 120 in the academic year 2007-2008, 180 in the academic year 2014-2015, 300 in the academic year 2015-2016, and 540 in the academic year 2024-25. The Department has state-of-the-art infrastructure and computing equipment supported by high-speed internet and wireless networks.
                                     </p>
@@ -141,11 +141,11 @@ const CSEDepartmentPage: React.FC = () => {
             </section>
 
             {/* Vision & Mission */}
-            <section className="py-20">
+            <section className="py-10 md:py-20">
                 <div className="container mx-auto px-4">
                     <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
                         <AnimatedElement animation="slide-right" className="h-full">
-                            <div className="bg-white p-10 rounded-2xl shadow-xl border-t-4 border-blue-600 h-full relative overflow-hidden group">
+                            <div className="bg-white p-6 md:p-10 rounded-2xl shadow-xl border-t-4 border-blue-600 h-full relative overflow-hidden group">
                                 <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
                                     <Target className="w-32 h-32" />
                                 </div>
@@ -162,7 +162,7 @@ const CSEDepartmentPage: React.FC = () => {
                         </AnimatedElement>
 
                         <AnimatedElement animation="slide-left" delay={200} className="h-full">
-                            <div className="bg-white p-10 rounded-2xl shadow-xl border-t-4 border-green-600 h-full relative overflow-hidden group">
+                            <div className="bg-white p-6 md:p-10 rounded-2xl shadow-xl border-t-4 border-green-600 h-full relative overflow-hidden group">
                                 <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
                                     <Lightbulb className="w-32 h-32" />
                                 </div>
@@ -193,13 +193,13 @@ const CSEDepartmentPage: React.FC = () => {
             </section>
 
             {/* Prospects & Future */}
-            <section className="py-20 bg-slate-900 text-white relative overflow-hidden">
+            <section className="py-10 md:py-20 bg-slate-900 text-white relative overflow-hidden">
                 <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1600&h=900&fit=crop')] bg-cover bg-center opacity-10 mix-blend-overlay"></div>
                 <div className="container mx-auto px-4 relative z-10">
                     <div className="grid lg:grid-cols-2 gap-16 items-center">
                         <AnimatedElement animation="slide-right">
                             <h2 className="text-3xl font-bold mb-8 border-l-4 border-blue-400 pl-6">Prospects and Future of CSE</h2>
-                            <div className="space-y-6 text-blue-50 leading-relaxed text-lg text-justify">
+                            <div className="space-y-6 text-blue-50 leading-relaxed text-lg text-left">
                                 <p>
                                     This has been one of the most lucrative and competitive courses to study since its inception. When India’s computer industry created a mark in the world of business and gained super trust and revenue for the nation it also created a large amount of well paid jobs for Computer Engineering students.
                                 </p>
@@ -234,10 +234,10 @@ const CSEDepartmentPage: React.FC = () => {
             </section>
 
             {/* CSE in BVRIT */}
-            <section className="py-20 bg-white">
+            <section className="py-10 md:py-20 bg-white">
                 <div className="container mx-auto px-4">
                     <AnimatedElement animation="slide-down">
-                        <h2 className="text-3xl font-bold text-center text-gray-900 mb-16">Why CSE in BVRIT?</h2>
+                        <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-900 mb-16">Why CSE in BVRIT?</h2>
                     </AnimatedElement>
 
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -261,9 +261,9 @@ const CSEDepartmentPage: React.FC = () => {
             </section>
 
             {/* Collaborations */}
-            <section className="py-20 bg-slate-50">
+            <section className="py-10 md:py-20 bg-slate-50">
                 <div className="container mx-auto px-4 text-center">
-                    <h2 className="text-3xl font-bold text-gray-900 mb-12">Collaborations & MoUs</h2>
+                    <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-12">Collaborations & MoUs</h2>
                     <div className="flex flex-wrap justify-center gap-8 md:gap-16 items-center">
                         {['Microsoft', 'IBM', 'TCS', 'PEGA', 'NASSCOM', 'Virtusa', 'ElevenO1', 'Bennett University', 'Mission R&D'].map((partner, idx) => (
                             <div key={idx} className="text-xl md:text-2xl font-bold text-gray-400 hover:text-blue-600 transition-colors duration-300 cursor-default">
@@ -275,7 +275,7 @@ const CSEDepartmentPage: React.FC = () => {
             </section>
 
             {/* PEOs, POs, PSOs */}
-            <section className="py-20">
+            <section className="py-10 md:py-20">
                 <div className="container mx-auto px-4">
                     <div className="space-y-16">
 

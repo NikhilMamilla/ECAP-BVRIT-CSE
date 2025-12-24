@@ -50,7 +50,7 @@ const clubs: Club[] = [
             'Community building events',
         ],
         logo: '/gdgoc-logo.png',
-        website:'https://gdgoc-bvrit.vercel.app/',
+        website: 'https://gdgoc-bvrit.vercel.app/',
     },
     {
         id: 'fit',
@@ -68,7 +68,7 @@ const clubs: Club[] = [
             'Industry exposure events',
         ],
         logo: '/fit-logo1.png',
-        website:'https://cbb.bvrit.ac.in/co'
+        website: 'https://cbb.bvrit.ac.in/co'
     },
     {
         id: 'src',
@@ -86,7 +86,7 @@ const clubs: Club[] = [
             'Innovation support',
         ],
         logo: '/src-logo.png',
-        website:'https://cbb.bvrit.ac.in/co'
+        website: 'https://cbb.bvrit.ac.in/co'
     },
 ];
 
@@ -163,7 +163,7 @@ const Clubs: React.FC = () => {
                     {clubs.map((club, index) => (
                         <AnimatedElement key={club.id} animation="slide-up" delay={index * 100} className="block h-full">
                             <div
-                                onClick={() =>{
+                                onClick={() => {
                                     setSelectedClub(selectedClub === club.id ? null : club.id);
                                 }}
                                 className={`group relative bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 h-full border border-blue-100 cursor-pointer ${selectedClub === club.id ? 'ring-2 ring-blue-500 ring-offset-2' : ''}`}
@@ -216,7 +216,7 @@ const Clubs: React.FC = () => {
                 {/* Expanded Details Section */}
                 {currentClub && (
                     <AnimatedElement animation="slide-up" className="block">
-                        <div ref={detailsRef} className={`relative rounded-3xl ${colorMap[currentClub.color].lightBg} border-2 ${colorMap[currentClub.color].border} p-8 md:p-12 shadow-2xl overflow-hidden scroll-mt-24`} id="club-details">
+                        <div ref={detailsRef} className={`relative rounded-3xl ${colorMap[currentClub.color].lightBg} border-2 ${colorMap[currentClub.color].border} p-6 md:p-12 shadow-2xl overflow-hidden scroll-mt-24`} id="club-details">
                             {/* Background Logo */}
                             {currentClub.logo && (
                                 <div className="absolute inset-0 opacity-5 pointer-events-none flex items-center justify-center">

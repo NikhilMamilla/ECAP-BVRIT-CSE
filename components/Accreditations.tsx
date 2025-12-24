@@ -52,17 +52,16 @@ const Accreditations: React.FC = () => {
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">
           Accreditations, Approvals & Rankings
         </h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-start">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-8 items-start">
           {accreditations.map((item) => (
             <div key={item.id} className="flex flex-col items-center text-center group h-full">
               {/* Fixed height container for alignment */}
-              <div className="w-40 h-40 mb-4 relative flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
+              <div className="w-28 h-28 sm:w-32 sm:h-32 md:w-40 md:h-40 mb-4 relative flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
                 <img
                   src={item.image}
                   alt={item.title}
-                  className={`max-w-full max-h-full object-contain ${
-                    (item.id === 1 || item.id === 4 || item.id === 6) ? 'scale-125' : ''
-                  }`}
+                  className={`max-w-full max-h-full object-contain ${(item.id === 1 || item.id === 4 || item.id === 6) ? 'scale-125' : ''
+                    }`}
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
                     if (item.fallbackImage && target.src !== window.location.origin + item.fallbackImage) {
@@ -71,7 +70,7 @@ const Accreditations: React.FC = () => {
                   }}
                 />
               </div>
-              <h3 className="text-sm font-bold text-gray-900 mb-1 leading-tight max-w-[160px]">{item.title}</h3>
+              <h3 className="text-xs sm:text-sm font-bold text-gray-900 mb-1 leading-tight max-w-[110px] sm:max-w-[160px]">{item.title}</h3>
             </div>
           ))}
         </div>

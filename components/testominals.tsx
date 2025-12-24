@@ -49,7 +49,7 @@ const Testimonials: React.FC = () => {
   return (
     <>
       {/* Section using your website's background color */}
-      <section className="bg-[#f8f9fa] py-12 sm:py-16 w-full overflow-hidden">
+      <section className="bg-[#f8f9fa] pt-6 pb-12 sm:pt-8 sm:pb-16 w-full overflow-hidden">
         <div className="container mx-auto px-4">
 
           {/* Section Title using your website's text color */}

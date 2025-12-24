@@ -41,12 +41,12 @@ const AIDSDepartmentPage: React.FC = () => {
                 {/* Content */}
                 <div className="container mx-auto px-4 relative z-10 text-center">
                     <AnimatedElement animation="slide-down" duration={1000}>
-                        <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 tracking-tight drop-shadow-2xl font-serif">
+                        <h1 className="text-3xl md:text-6xl lg:text-7xl font-bold text-white mb-6 tracking-tight drop-shadow-2xl font-serif">
                             Department of <br />
                             <span className="text-cyan-200">Artificial Intelligence & Data Science</span>
                         </h1>
                         <div className="w-32 h-1 bg-cyan-400 mx-auto mb-8 rounded-full"></div>
-                        <p className="text-xl md:text-3xl text-cyan-100 font-light tracking-wide max-w-4xl mx-auto">
+                        <p className="text-lg md:text-3xl text-cyan-100 font-light tracking-wide max-w-4xl mx-auto">
                             Shaping the Future with Intelligent Systems and Data-Driven Insights
                         </p>
                     </AnimatedElement>
@@ -78,7 +78,7 @@ const AIDSDepartmentPage: React.FC = () => {
                             { count: '35', label: 'Research Papers', icon: <FileText className="w-8 h-8" /> },
                         ].map((stat, index) => (
                             <AnimatedElement key={index} animation="slide-up" delay={index * 100}>
-                                <div className="bg-white p-8 rounded-xl shadow-xl border-2 border-blue-300 text-center hover:-translate-y-2 transition-transform duration-300 group">
+                                <div className="bg-white p-4 md:p-8 rounded-xl shadow-xl border-2 border-blue-300 text-center hover:-translate-y-2 transition-transform duration-300 group">
                                     <div className="text-blue-600 mb-4 flex justify-center group-hover:scale-110 transition-transform duration-300">{stat.icon}</div>
                                     <div className="text-4xl font-bold text-gray-900 mb-2">{stat.count}</div>
                                     <div className="text-sm font-semibold text-gray-500 uppercase tracking-wider">{stat.label}</div>
@@ -90,16 +90,16 @@ const AIDSDepartmentPage: React.FC = () => {
             </section>
 
             {/* About Department */}
-            <section className="py-20">
+            <section className="py-10 md:py-20">
                 <div className="container mx-auto px-4">
                     <div className="flex flex-col lg:flex-row gap-16">
                         <div className="lg:w-2/3">
                             <AnimatedElement animation="fade-in">
                                 <div className="flex items-center mb-8">
                                     <div className="w-2 h-10 bg-blue-600 mr-4 rounded-full"></div>
-                                    <h2 className="text-3xl font-bold text-gray-900">About the Department</h2>
+                                    <h2 className="text-2xl md:text-3xl font-bold text-gray-900">About the Department</h2>
                                 </div>
-                                <div className="space-y-6 text-gray-700 leading-relaxed text-lg text-justify">
+                                <div className="space-y-6 text-gray-700 leading-relaxed text-lg text-left">
                                     <p>
                                         At BVRIT, Narsapur, the Department of Artificial Intelligence and Data Science began in 2021 with a B.Tech. intake of 60 students. Nowadays, B.Tech in Artificial Intelligence and Data Science is one of the main branches of science, engineering, and technology.
                                     </p>
@@ -139,15 +139,15 @@ const AIDSDepartmentPage: React.FC = () => {
             </section>
 
             {/* Highlights Section */}
-            <section className="py-20 bg-slate-50">
+            <section className="py-10 md:py-20 bg-slate-50">
                 <div className="container mx-auto px-4">
                     <AnimatedElement animation="slide-down">
-                        <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Highlights</h2>
+                        <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-900 mb-12">Highlights</h2>
                     </AnimatedElement>
 
                     <div className="grid md:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
                         <AnimatedElement animation="slide-right">
-                            <div className="space-y-6 text-gray-700 leading-relaxed text-lg text-justify">
+                            <div className="space-y-6 text-gray-700 leading-relaxed text-lg text-left">
                                 <p>
                                     As a student of data science and artificial intelligence, you’ll learn how to approach current problems in these important subjects. The Artificial Intelligence and Data Science Programme will help students with the knowledge and abilities to perform intelligent data analysis, which is essential to many real-world applications.
                                 </p>
@@ -182,10 +182,10 @@ const AIDSDepartmentPage: React.FC = () => {
             </section>
 
             {/* Benefits Section */}
-            <section className="py-20 bg-white">
+            <section className="py-10 md:py-20 bg-white">
                 <div className="container mx-auto px-4">
                     <AnimatedElement animation="slide-down">
-                        <h2 className="text-3xl font-bold text-center text-gray-900 mb-16">Benefits of AI & DS</h2>
+                        <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-900 mb-16">Benefits of AI & DS</h2>
                     </AnimatedElement>
 
                     <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
