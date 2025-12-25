@@ -40,111 +40,130 @@ const FacultyAll: React.FC = () => {
     : [activeCategory].filter(cat => groupedFaculty[cat]?.length > 0);
 
   return (
-    <div className="min-h-screen bg-white font-sans text-gray-800">
+    <div className="min-h-screen bg-[#fafbfc] font-inter text-gray-800 antialiased">
       <Header />
 
-      <section className="bg-white pt-32 pb-10">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="pt-24 pb-20">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-12">
 
-          {/* Page Title */}
-          <div className="text-center mb-10">
+          {/* Page Banner - Minimal & Professional */}
+          <div className="text-center mb-12 sm:mb-16">
             <AnimatedElement animation="slide-down" className="block">
-              <h2 className="text-4xl sm:text-5xl font-extrabold text-gray-900 tracking-tight" style={{ fontFamily: 'Georgia, serif' }}>
+              <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-900 tracking-tight leading-tight" style={{ fontFamily: 'Georgia, serif' }}>
                 Complete Faculty Directory
-              </h2>
+              </h1>
+              <div className="w-20 h-1 bg-blue-600 mx-auto mt-6 rounded-full opacity-80"></div>
             </AnimatedElement>
-            <AnimatedElement animation="fade-in" delay={200} className="block">
-              <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
-                Meet all the teaching and non-teaching staff of the CSE department.
+            <AnimatedElement animation="fade-in" delay={200} className="block mt-4">
+              <p className="text-lg text-gray-500 max-w-2xl mx-auto font-medium">
+                Our world-class faculty members are dedicated to fostering innovation and excellence in engineering.
               </p>
             </AnimatedElement>
           </div>
 
-          {/* Sticky Search & Filter Header */}
-          <div className="sticky top-20 z-30 bg-white/90 backdrop-blur-md py-4 border-b border-gray-100 shadow-sm mb-10 -mx-4 px-4 md:mx-0 md:px-0 md:rounded-xl">
-            <div className="flex flex-col md:flex-row gap-4 items-center justify-between max-w-6xl mx-auto">
+          {/* Integrated Search & Filter - No Scrollers, Wrapping Layout */}
+          <div className="max-w-5xl mx-auto mb-16">
+            <div className="flex flex-col gap-10">
 
-              {/* Search Bar */}
-              <div className="relative w-full md:w-96 group">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Search className="h-5 w-5 text-gray-400 group-focus-within:text-blue-600 transition-colors" />
+              {/* Search Field - Centered & Elegant */}
+              <div className="relative max-w-2xl mx-auto w-full group">
+                <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                  <Search className="h-5 w-5 text-gray-400 group-focus-within:text-blue-500 transition-colors" />
                 </div>
                 <input
                   type="text"
-                  className="block w-full pl-10 pr-3 py-2.5 border border-gray-200 rounded-lg leading-5 bg-gray-50 placeholder-gray-500 focus:outline-none focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-                  placeholder="Search by name or designation..."
+                  className="block w-full pl-14 pr-6 py-4 bg-white border border-gray-200 rounded-2xl text-gray-900 placeholder-gray-400 shadow-sm focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 focus:shadow-md transition-all duration-300 outline-none text-lg"
+                  placeholder="Find a faculty member by name, role or expertise..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
               </div>
 
-              {/* Category Tabs */}
-              <div className="flex overflow-x-auto pb-2 md:pb-0 w-full md:w-auto gap-2 no-scrollbar">
-                {allCategories.map((category) => (
-                  <button
-                    key={category}
-                    onClick={() => setActiveCategory(category)}
-                    className={`whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${activeCategory === category
-                      ? 'bg-blue-600 text-white shadow-md transform scale-105'
-                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-900'
-                      }`}
-                  >
-                    {category}
-                  </button>
-                ))}
+              {/* Filter Tabs - Wrapping Layout (No Scroll) */}
+              <div className="flex flex-wrap justify-center gap-3">
+                {allCategories.map((category) => {
+                  const count = category === 'All'
+                    ? filteredFaculty.length
+                    : FacultyData.filter(f => f.category === category).length;
+
+                  return (
+                    <button
+                      key={category}
+                      onClick={() => setActiveCategory(category)}
+                      className={`px-5 py-2.5 rounded-full text-sm font-bold transition-all duration-300 flex items-center gap-2 border ${activeCategory === category
+                        ? 'bg-gray-900 text-white border-gray-900 shadow-md'
+                        : 'bg-white text-gray-500 border-gray-200 hover:border-gray-300 hover:bg-gray-50'
+                        }`}
+                    >
+                      {category}
+                      <span className={`inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 rounded-md text-[10px] font-black ${activeCategory === category ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-400'}`}>
+                        {count}
+                      </span>
+                    </button>
+                  );
+                })}
               </div>
             </div>
           </div>
 
-          {/* Results Area */}
-          <div className="min-h-[400px]">
+          {/* Results Grid - Professional Proportions */}
+          <div className="min-h-[500px]">
             {displayCategories.length === 0 ? (
-              <div className="text-center py-20">
-                <div className="inline-block p-6 bg-gray-50 rounded-full mb-4">
-                  <Filter className="w-12 h-12 text-gray-300" />
+              <AnimatedElement animation="fade-in" className="flex flex-col items-center justify-center py-24 text-center">
+                <div className="w-24 h-24 bg-gray-50 rounded-full flex items-center justify-center mb-6">
+                  <Filter className="w-10 h-10 text-gray-200" />
                 </div>
-                <h3 className="text-xl font-medium text-gray-900 mb-2">No faculty found</h3>
-                <p className="text-gray-500">Try adjusting your search or filter criteria.</p>
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">No Matching Records</h3>
+                <p className="text-gray-500 mb-8">Refine your search parameters to find the faculty you're looking for.</p>
                 <button
                   onClick={() => { setSearchQuery(''); setActiveCategory('All'); }}
-                  className="mt-6 text-blue-600 font-semibold hover:underline"
+                  className="px-8 py-3 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition-all shadow-lg hover:shadow-blue-200"
                 >
-                  Clear all filters
+                  Reset Filter Controls
                 </button>
-              </div>
+              </AnimatedElement>
             ) : (
-              displayCategories.map(category => (
-                <div key={category} className="mb-16">
-                  <div className="flex items-center mb-8">
-                    <h3 className="text-2xl md:text-3xl font-bold text-gray-900 border-l-4 border-blue-600 pl-4">{category}</h3>
-                    <div className="flex-grow h-px bg-gray-200 ml-6"></div>
-                    <span className="text-sm font-medium text-gray-400 ml-4 whitespace-nowrap">
-                      {groupedFaculty[category]?.length} Members
+              displayCategories.map((category) => (
+                <div key={category} className="mb-20 last:mb-0">
+                  <div className="flex items-center gap-4 mb-10">
+                    <h2 className="text-2xl font-black text-gray-900 uppercase tracking-tight">{category}</h2>
+                    <div className="h-[2px] bg-gradient-to-r from-blue-600/50 to-transparent flex-1 rounded-full"></div>
+                    <span className="text-xs font-black text-gray-400 uppercase tracking-[0.2em]">
+                      {groupedFaculty[category]?.length} Professionals
                     </span>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-x-6 gap-y-10">
                     {groupedFaculty[category]?.map((faculty, idx) => (
-                      <AnimatedElement key={`${category}-${idx}`} animation="slide-up" delay={idx * 50} className="h-full">
-                        <div className="group bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-blue-100 flex flex-col items-center text-center h-full transform hover:-translate-y-1">
-                          <div className="relative mb-5">
-                            <div className="absolute inset-0 bg-teal-100 rounded-full transform scale-0 group-hover:scale-110 transition-transform duration-300 opacity-50"></div>
+                      <AnimatedElement
+                        key={`${category}-${idx}`}
+                        animation="slide-up"
+                        delay={idx % 5 * 50}
+                        className="h-full"
+                      >
+                        <div className="group flex flex-col items-center">
+                          {/* Portrait Container - Enhanced Circular Style */}
+                          <div className="relative w-full aspect-square max-w-[180px] rounded-full overflow-hidden mb-5 border-4 border-white shadow-xl shadow-gray-200 transition-all duration-500 group-hover:shadow-blue-100 group-hover:scale-105">
+                            {/* Colorful Base Image */}
                             <img
-                              src={faculty.image || 'https://randomuser.me/api/portraits/lego/1.jpg'}
+                              src={faculty.image || 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=500&fit=crop'}
                               alt={faculty.name}
-                              className="relative w-28 h-28 object-cover object-top rounded-full border-4 border-white shadow-sm group-hover:border-blue-50 transition-colors duration-300"
+                              className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110"
                             />
+                            {/* Subtle Blue Glow on hover */}
+                            <div className="absolute inset-0 ring-4 ring-blue-500/0 group-hover:ring-blue-500/10 transition-all duration-500 rounded-full"></div>
                           </div>
 
-                          <h4 className="text-lg font-bold text-gray-900 mb-1 group-hover:text-blue-700 transition-colors duration-300 line-clamp-2 min-h-[3.5rem] flex items-center justify-center">
-                            {faculty.name}
-                          </h4>
-
-                          <div className="w-12 h-1 bg-teal-100 rounded-full mb-3 group-hover:bg-teal-500 transition-colors duration-300"></div>
-
-                          <p className="text-sm font-semibold text-blue-600 mb-3 uppercase tracking-wide text-xs">
-                            {faculty.designation}
-                          </p>
+                          {/* Refined Identity Block */}
+                          <div className="text-center px-1">
+                            <h4 className="text-base md:text-lg font-bold text-gray-800 tracking-tight leading-tight mb-2 group-hover:text-blue-700 transition-colors">
+                              {faculty.name}
+                            </h4>
+                            <div className="w-5 h-0.5 bg-gray-200 mx-auto mb-2 group-hover:w-10 group-hover:bg-blue-500 transition-all duration-500"></div>
+                            <p className="text-[10px] md:text-xs font-black text-gray-400 uppercase tracking-[0.1em] leading-tight px-2">
+                              {faculty.designation}
+                            </p>
+                          </div>
                         </div>
                       </AnimatedElement>
                     ))}

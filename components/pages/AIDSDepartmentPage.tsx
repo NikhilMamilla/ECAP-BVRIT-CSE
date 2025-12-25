@@ -21,9 +21,16 @@ const AIDSDepartmentPage: React.FC = () => {
         window.scrollTo(0, 0);
     }, []);
 
+    const aidsLinks = [
+        { id: 'Stats', label: 'Overview' },
+        { id: 'About', label: 'About' },
+        { id: 'Highlights', label: 'Highlights' },
+        { id: 'Benefits', label: 'Benefits' },
+    ];
+
     return (
         <div className="min-h-screen bg-white font-sans text-gray-800">
-            <Header />
+            <Header customLinks={aidsLinks} />
 
             {/* Hero Section */}
             <section className="relative h-screen flex items-center justify-center overflow-hidden">
@@ -69,7 +76,7 @@ const AIDSDepartmentPage: React.FC = () => {
             </section>
 
             {/* Stats Section */}
-            <section className="py-12 -mt-20 relative z-20">
+            <section id="Stats" className="py-12 -mt-20 relative z-20 scroll-mt-24">
                 <div className="container mx-auto px-4">
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
                         {[
@@ -90,7 +97,7 @@ const AIDSDepartmentPage: React.FC = () => {
             </section>
 
             {/* About Department */}
-            <section className="py-10 md:py-20">
+            <section id="About" className="py-10 md:py-20 scroll-mt-24">
                 <div className="container mx-auto px-4">
                     <div className="flex flex-col lg:flex-row gap-16">
                         <div className="lg:w-2/3">
@@ -139,7 +146,7 @@ const AIDSDepartmentPage: React.FC = () => {
             </section>
 
             {/* Highlights Section */}
-            <section className="py-10 md:py-20 bg-slate-50">
+            <section id="Highlights" className="py-10 md:py-20 bg-slate-50 scroll-mt-24">
                 <div className="container mx-auto px-4">
                     <AnimatedElement animation="slide-down">
                         <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-900 mb-12">Highlights</h2>
@@ -182,7 +189,7 @@ const AIDSDepartmentPage: React.FC = () => {
             </section>
 
             {/* Benefits Section */}
-            <section className="py-10 md:py-20 bg-white">
+            <section id="Benefits" className="py-10 md:py-20 bg-white scroll-mt-24">
                 <div className="container mx-auto px-4">
                     <AnimatedElement animation="slide-down">
                         <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-900 mb-16">Benefits of AI & DS</h2>

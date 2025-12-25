@@ -101,9 +101,23 @@ const Placements = () => {
     { sno: 13, name: 'KUSUMLATA BHATT', branch: 'CSE', company: 'Google India Pvt. Ltd.', salary: '52,00,000', designation: 'SDE' },
   ];
 
+  // Placement Page Links
+  // Placement Page Links
+  const placementLinks = [
+    { id: 'Stats', label: 'Overview' },
+    { id: 'DetailedStats', label: 'Detailed Stats' },
+    { id: 'Recruiters', label: 'Recruiters' },
+    { id: 'SalaryStats', label: 'Salary' },
+    { id: 'DreamOffers', label: 'Dream Offers' },
+    { id: 'Internships', label: 'Internships' },
+    { id: 'Highlights', label: 'Highlights' },
+    { id: 'HallOfFame', label: 'Hall of Fame' },
+    { id: 'Glimpses', label: 'Glimpses' },
+  ];
+
   return (
     <div className="w-full overflow-x-hidden bg-white">
-      <Header />
+      <Header customLinks={placementLinks} />
 
       {/* Hero Section */}
       <div
@@ -149,7 +163,7 @@ const Placements = () => {
       </div>
 
       {/* Main Statistics Section */}
-      <section className="w-full py-16 px-8 md:px-28 bg-white">
+      <section id="Stats" className="w-full py-16 px-8 md:px-28 bg-white scroll-mt-24">
         <div className="max-w-7xl mx-auto">
           <div className="mb-12">
             <h2 className="text-slate-800 text-3xl md:text-4xl font-bold">
@@ -211,7 +225,7 @@ const Placements = () => {
       </section>
 
       {/* Detailed Statistics Section */}
-      <section className="w-full py-12 px-8 md:px-16 bg-slate-50">
+      <section id="DetailedStats" className="w-full py-12 px-8 md:px-16 bg-slate-50 scroll-mt-24">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-10 px-4">
             <p className="text-slate-600 text-sm md:text-base leading-relaxed">
@@ -306,7 +320,7 @@ const Placements = () => {
       </section>
 
       {/* Our Valued Patrons (Top Recruiters Carousel) */}
-      <section className="w-full py-20 px-8 md:px-28 bg-slate-900 text-white overflow-hidden">
+      <section id="Recruiters" className="w-full py-20 px-8 md:px-28 bg-slate-900 text-white overflow-hidden scroll-mt-24">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">Our Valued Patrons</h2>
@@ -409,7 +423,7 @@ const Placements = () => {
       </section>
 
       {/* Median Salary & Packages Section */}
-      <section className="w-full py-16 md:py-20 px-6 md:px-28 bg-white">
+      <section id="SalaryStats" className="w-full py-16 md:py-20 px-6 md:px-28 bg-white scroll-mt-24">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
             {/* Median Salary (B.Tech Only) */}
@@ -613,7 +627,7 @@ const Placements = () => {
 
 
       {/* Dream Offers Section */}
-      <section className="w-full min-h-screen flex items-center py-20 px-8 md:px-28 bg-slate-900">
+      <section id="DreamOffers" className="w-full min-h-screen flex items-center py-20 px-8 md:px-28 bg-slate-900 scroll-mt-24">
         <div className="max-w-7xl mx-auto w-full">
           <div className="text-center mb-10 md:mb-12">
             <h2 className="text-white text-4xl md:text-5xl font-bold mb-6">Dream Offers</h2>
@@ -703,7 +717,7 @@ const Placements = () => {
       </section>
 
       {/* Top Internships Section */}
-      <section className="w-full min-h-screen flex items-center py-24 px-8 md:px-28 bg-white relative overflow-hidden">
+      <section id="Internships" className="w-full min-h-screen flex items-center py-24 px-8 md:px-28 bg-white relative overflow-hidden scroll-mt-24">
         {/* Subtle Background Glow */}
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-50/50 rounded-full blur-[120px] -z-10 translate-x-1/2 -translate-y-1/2"></div>
         <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-slate-50 rounded-full blur-[120px] -z-10 -translate-x-1/2 translate-y-1/2"></div>
@@ -778,7 +792,7 @@ const Placements = () => {
       </section>
 
       {/* Placement Highlights Section */}
-      <section className="w-full py-20 px-6 md:px-28 bg-gradient-to-br from-slate-50 to-blue-50/50">
+      <section id="Highlights" className="w-full py-20 px-6 md:px-28 bg-gradient-to-br from-slate-50 to-blue-50/50 scroll-mt-24">
         <div className="max-w-7xl mx-auto w-full">
           <div className="mb-10 md:mb-12 text-center md:text-left">
             <h2 className="text-slate-800 text-3xl md:text-5xl font-bold mb-4 md:mb-6 leading-tight">Placement Highlights</h2>
@@ -813,7 +827,7 @@ const Placements = () => {
       </section>
 
       {/* Hall of Fame Table Section */}
-      <section className="w-full py-16 md:py-24 px-6 md:px-28 bg-white overflow-hidden">
+      <section id="HallOfFame" className="w-full py-16 md:py-24 px-6 md:px-28 bg-white overflow-hidden scroll-mt-24">
         <div className="max-w-7xl mx-auto">
           <div className="mb-10 md:mb-12 text-center md:text-left">
             <h2 className="text-slate-800 text-3xl md:text-5xl font-bold mb-4 md:mb-6 italic leading-tight">Hall of Fame</h2>
@@ -860,7 +874,7 @@ const Placements = () => {
       </section>
 
       {/* Placement Glimpses 2024 - Compact Viewport Fit Grid */}
-      <section className="w-full bg-[#050505] overflow-hidden lg:h-[calc(100vh-80px)] flex items-center">
+      <section id="Glimpses" className="w-full bg-[#050505] overflow-hidden lg:h-[calc(100vh-80px)] flex items-center scroll-mt-24">
         <div className="max-w-[1500px] mx-auto flex flex-col lg:flex-row w-full h-full">
           {/* Left Title Area - Fixed width to ensure no clipping */}
           <div className="lg:w-[420px] p-8 md:p-12 flex items-center bg-[#050505] relative shrink-0">

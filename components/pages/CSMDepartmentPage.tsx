@@ -17,9 +17,17 @@ const CSMDepartmentPage: React.FC = () => {
         window.scrollTo(0, 0);
     }, []);
 
+    const csmLinks = [
+        { id: 'Stats', label: 'Overview' },
+        { id: 'About', label: 'About' },
+        { id: 'WhyCSM', label: 'Why CSM?' },
+        { id: 'Advantages', label: 'Advantages' },
+        { id: 'Future', label: 'Future' },
+    ];
+
     return (
         <div className="min-h-screen bg-white font-sans text-gray-800">
-            <Header />
+            <Header customLinks={csmLinks} />
 
             {/* Hero Section */}
             <section className="relative h-screen flex items-center justify-center overflow-hidden">
@@ -65,7 +73,7 @@ const CSMDepartmentPage: React.FC = () => {
             </section>
 
             {/* Stats Section */}
-            <section className="py-12 -mt-20 relative z-20">
+            <section id="Stats" className="py-12 -mt-20 relative z-20 scroll-mt-24">
                 <div className="container mx-auto px-4">
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
                         {[
@@ -86,7 +94,7 @@ const CSMDepartmentPage: React.FC = () => {
             </section>
 
             {/* About Department */}
-            <section className="py-10 md:py-20">
+            <section id="About" className="py-10 md:py-20 scroll-mt-24">
                 <div className="container mx-auto px-4">
                     <div className="flex flex-col lg:flex-row gap-16">
                         <div className="lg:w-2/3">
@@ -152,7 +160,7 @@ const CSMDepartmentPage: React.FC = () => {
             </section>
 
             {/* Why Study & Focus */}
-            <section className="py-10 md:py-20 bg-slate-50">
+            <section id="WhyCSM" className="py-10 md:py-20 bg-slate-50 scroll-mt-24">
                 <div className="container mx-auto px-4">
                     <div className="grid md:grid-cols-2 gap-12">
                         {/* Left: Why Study */}
@@ -197,7 +205,7 @@ const CSMDepartmentPage: React.FC = () => {
             </section>
 
             {/* Advantages */}
-            <section className="py-10 md:py-20 bg-white">
+            <section id="Advantages" className="py-10 md:py-20 bg-white scroll-mt-24">
                 <div className="container mx-auto px-4">
                     <AnimatedElement animation="slide-down">
                         <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-900 mb-16">Advantages</h2>
@@ -229,7 +237,7 @@ const CSMDepartmentPage: React.FC = () => {
             </section>
 
             {/* Career Prospects */}
-            <section className="py-10 md:py-20 bg-slate-900 text-white relative overflow-hidden">
+            <section id="Future" className="py-10 md:py-20 bg-slate-900 text-white relative overflow-hidden scroll-mt-24">
                 <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=1600&h=900&fit=crop')] bg-cover bg-center opacity-10 mix-blend-overlay"></div>
                 <div className="container mx-auto px-4 relative z-10">
                     <AnimatedElement animation="slide-up">

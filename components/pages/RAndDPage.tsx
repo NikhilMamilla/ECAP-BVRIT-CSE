@@ -87,9 +87,16 @@ const RAndDPage: React.FC = () => {
         "Virtusa-Pega University Lab"
     ];
 
+    const rAndDLinks = [
+        { id: 'About', label: 'About' },
+        { id: 'Resources', label: 'Resources' },
+        { id: 'ThrustAreas', label: 'Thrust Areas' },
+        { id: 'ResearchCenters', label: 'Centers & Labs' },
+    ];
+
     return (
         <div className="min-h-screen bg-white font-sans text-gray-800">
-            <Header />
+            <Header customLinks={rAndDLinks} />
 
             {/* Hero Section */}
             <section className="relative h-screen flex items-center justify-center overflow-hidden">
@@ -135,7 +142,7 @@ const RAndDPage: React.FC = () => {
             </section>
 
             {/* About R&D */}
-            <section className="py-10 md:py-20">
+            <section id="About" className="py-10 md:py-20 scroll-mt-24">
                 <div className="container mx-auto px-4">
                     <div className="max-w-5xl mx-auto">
                         <AnimatedElement animation="fade-in">
@@ -157,7 +164,7 @@ const RAndDPage: React.FC = () => {
             </section>
 
             {/* PDF Links Grid */}
-            <section className="py-10 md:py-16 bg-slate-50">
+            <section id="Resources" className="py-10 md:py-16 bg-slate-50 scroll-mt-24">
                 <div className="container mx-auto px-4">
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {pdfLinks.map((item, index) => (
@@ -188,7 +195,7 @@ const RAndDPage: React.FC = () => {
             </section>
 
             {/* Thrust Areas */}
-            <section className="py-10 md:py-20">
+            <section id="ThrustAreas" className="py-10 md:py-20 scroll-mt-24">
                 <div className="container mx-auto px-4">
                     <AnimatedElement animation="slide-down">
                         <div className="flex items-center mb-12 justify-center">
@@ -211,7 +218,7 @@ const RAndDPage: React.FC = () => {
             </section>
 
             {/* Research Centers & Special Labs */}
-            <section className="py-10 md:py-20 bg-white text-gray-800 relative overflow-hidden">
+            <section id="ResearchCenters" className="py-10 md:py-20 bg-white text-gray-800 relative overflow-hidden scroll-mt-24">
                 <div className="container mx-auto px-4 relative z-10">
                     <div className="grid lg:grid-cols-2 gap-16">
 

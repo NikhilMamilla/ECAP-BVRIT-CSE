@@ -18,9 +18,18 @@ const CSBSDepartmentPage: React.FC = () => {
         window.scrollTo(0, 0);
     }, []);
 
+    const csbsLinks = [
+        { id: 'Stats', label: 'Overview' },
+        { id: 'About', label: 'About' },
+        { id: 'Prospects', label: 'Prospects' },
+        { id: 'VisionMission', label: 'Vision' },
+        { id: 'Collaborations', label: 'Collaborations' },
+        { id: 'PEOs', label: 'Outcomes' },
+    ];
+
     return (
         <div className="min-h-screen bg-white font-sans text-gray-800">
-            <Header />
+            <Header customLinks={csbsLinks} />
 
             {/* Hero Section */}
             <section className="relative h-screen flex items-center justify-center overflow-hidden">
@@ -66,7 +75,7 @@ const CSBSDepartmentPage: React.FC = () => {
             </section>
 
             {/* Stats Section */}
-            <section className="py-12 -mt-20 relative z-20">
+            <section id="Stats" className="py-12 -mt-20 relative z-20 scroll-mt-24">
                 <div className="container mx-auto px-4">
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
                         {[
@@ -87,7 +96,7 @@ const CSBSDepartmentPage: React.FC = () => {
             </section>
 
             {/* About Department */}
-            <section className="py-10 md:py-20">
+            <section id="About" className="py-10 md:py-20 scroll-mt-24">
                 <div className="container mx-auto px-4">
                     <div className="flex flex-col lg:flex-row gap-16">
                         <div className="lg:w-2/3">
@@ -133,7 +142,7 @@ const CSBSDepartmentPage: React.FC = () => {
             </section>
 
             {/* Prospects & Future */}
-            <section className="py-10 md:py-20 bg-slate-50">
+            <section id="Prospects" className="py-10 md:py-20 bg-slate-50 scroll-mt-24">
                 <div className="container mx-auto px-4">
                     <AnimatedElement animation="slide-down">
                         <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-900 mb-12">Prospects and Future of CSBS</h2>
@@ -181,7 +190,7 @@ const CSBSDepartmentPage: React.FC = () => {
             </section>
 
             {/* Vision & Mission */}
-            <section className="py-20">
+            <section id="VisionMission" className="py-20 scroll-mt-24">
                 <div className="container mx-auto px-4">
                     <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
                         <AnimatedElement animation="slide-right" className="h-full">
@@ -233,7 +242,7 @@ const CSBSDepartmentPage: React.FC = () => {
             </section>
 
             {/* Collaborations & Training */}
-            <section className="py-10 md:py-20 bg-slate-900 text-white relative overflow-hidden">
+            <section id="Collaborations" className="py-10 md:py-20 bg-slate-900 text-white relative overflow-hidden scroll-mt-24">
                 <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1600&h=900&fit=crop')] bg-cover bg-center opacity-10 mix-blend-overlay"></div>
                 <div className="container mx-auto px-4 relative z-10">
                     <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -267,7 +276,7 @@ const CSBSDepartmentPage: React.FC = () => {
             </section>
 
             {/* PEOs, POs, PSOs */}
-            <section className="py-20 bg-white">
+            <section id="PEOs" className="py-20 bg-white scroll-mt-24">
                 <div className="container mx-auto px-4">
                     <div className="space-y-16">
 

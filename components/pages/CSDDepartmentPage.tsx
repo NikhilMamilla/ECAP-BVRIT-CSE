@@ -16,9 +16,17 @@ const CSDDepartmentPage: React.FC = () => {
         window.scrollTo(0, 0);
     }, []);
 
+    const csdLinks = [
+        { id: 'Stats', label: 'Overview' },
+        { id: 'About', label: 'About' },
+        { id: 'Significance', label: 'Significance' },
+        { id: 'Highlights', label: 'Highlights' },
+        { id: 'Future', label: 'Future' },
+    ];
+
     return (
         <div className="min-h-screen bg-white font-sans text-gray-800">
-            <Header />
+            <Header customLinks={csdLinks} />
 
             {/* Hero Section */}
             <section className="relative h-screen flex items-center justify-center overflow-hidden">
@@ -64,7 +72,7 @@ const CSDDepartmentPage: React.FC = () => {
             </section>
 
             {/* Stats Section */}
-            <section className="py-12 -mt-20 relative z-20">
+            <section id="Stats" className="py-12 -mt-20 relative z-20 scroll-mt-24">
                 <div className="container mx-auto px-4">
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
                         {[
@@ -85,7 +93,7 @@ const CSDDepartmentPage: React.FC = () => {
             </section>
 
             {/* About Department */}
-            <section className="py-10 md:py-20">
+            <section id="About" className="py-10 md:py-20 scroll-mt-24">
                 <div className="container mx-auto px-4">
                     <div className="flex flex-col lg:flex-row gap-16">
                         {/* Left (text) */}
@@ -140,7 +148,7 @@ const CSDDepartmentPage: React.FC = () => {
             </section>
 
             {/* Data Science Significance */}
-            <section className="py-10 md:py-20 bg-slate-50">
+            <section id="Significance" className="py-10 md:py-20 bg-slate-50 scroll-mt-24">
                 <div className="container mx-auto px-4">
                     <div className="grid md:grid-cols-2 gap-12 items-center">
                         <AnimatedElement animation="slide-right">
@@ -182,7 +190,7 @@ const CSDDepartmentPage: React.FC = () => {
             </section>
 
             {/* Program Highlights */}
-            <section className="py-10 md:py-20 bg-white">
+            <section id="Highlights" className="py-10 md:py-20 bg-white scroll-mt-24">
                 <div className="container mx-auto px-4">
                     <AnimatedElement animation="slide-down">
                         <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-900 mb-16">Program Highlights</h2>
@@ -213,7 +221,7 @@ const CSDDepartmentPage: React.FC = () => {
             </section>
 
             {/* Career Prospects */}
-            <section className="py-10 md:py-20 bg-slate-900 text-white relative overflow-hidden">
+            <section id="Future" className="py-10 md:py-20 bg-slate-900 text-white relative overflow-hidden scroll-mt-24">
                 <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1518186285589-2f7649de83e0?w=1600&h=900&fit=crop')] bg-cover bg-center opacity-10 mix-blend-overlay"></div>
                 <div className="container mx-auto px-4 relative z-10">
                     <AnimatedElement animation="slide-up">

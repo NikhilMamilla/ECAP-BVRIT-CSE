@@ -22,9 +22,18 @@ const ITDepartmentPage: React.FC = () => {
         window.scrollTo(0, 0);
     }, []);
 
+    const itLinks = [
+        { id: 'Stats', label: 'Overview' },
+        { id: 'About', label: 'About' },
+        { id: 'ResearchAreas', label: 'Research Areas' },
+        { id: 'VisionMission', label: 'Vision' },
+        { id: 'WhyIT', label: 'Why IT?' },
+        { id: 'PEOs', label: 'Outcomes' },
+    ];
+
     return (
         <div className="min-h-screen bg-white font-sans text-gray-800">
-            <Header />
+            <Header customLinks={itLinks} />
 
             {/* Hero Section */}
             <section className="relative h-screen flex items-center justify-center overflow-hidden">
@@ -70,7 +79,7 @@ const ITDepartmentPage: React.FC = () => {
             </section>
 
             {/* Stats Section */}
-            <section className="py-12 -mt-20 relative z-20">
+            <section id="Stats" className="py-12 -mt-20 relative z-20 scroll-mt-24">
                 <div className="container mx-auto px-4">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                         {[
@@ -92,7 +101,7 @@ const ITDepartmentPage: React.FC = () => {
             </section>
 
             {/* About Department */}
-            <section className="py-10 md:py-20">
+            <section id="About" className="py-10 md:py-20 scroll-mt-24">
                 <div className="container mx-auto px-4">
                     <div className="flex flex-col lg:flex-row gap-16">
                         <div className="lg:w-2/3">
@@ -145,7 +154,7 @@ const ITDepartmentPage: React.FC = () => {
             </section>
 
             {/* Research Areas */}
-            <section className="py-10 md:py-20 bg-slate-50">
+            <section id="ResearchAreas" className="py-10 md:py-20 bg-slate-50 scroll-mt-24">
                 <div className="container mx-auto px-4">
                     <AnimatedElement animation="slide-down">
                         <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-900 mb-12">Major Research Areas</h2>
@@ -170,7 +179,7 @@ const ITDepartmentPage: React.FC = () => {
             </section>
 
             {/* Vision & Mission */}
-            <section className="py-10 md:py-20">
+            <section id="VisionMission" className="py-10 md:py-20 scroll-mt-24">
                 <div className="container mx-auto px-4">
                     <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
                         <AnimatedElement animation="slide-right" className="h-full">
@@ -222,7 +231,7 @@ const ITDepartmentPage: React.FC = () => {
             </section>
 
             {/* Why IT in BVRIT */}
-            <section className="py-10 md:py-20 bg-white">
+            <section id="WhyIT" className="py-10 md:py-20 bg-white scroll-mt-24">
                 <div className="container mx-auto px-4">
                     <AnimatedElement animation="slide-down">
                         <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-900 mb-16">Why Information Technology is a Good Career?</h2>
@@ -263,7 +272,7 @@ const ITDepartmentPage: React.FC = () => {
             </section>
 
             {/* PEOs, POs, PSOs */}
-            <section className="py-10 md:py-20 bg-slate-50">
+            <section id="PEOs" className="py-10 md:py-20 bg-slate-50 scroll-mt-24">
                 <div className="container mx-auto px-4">
                     <div className="space-y-16">
 

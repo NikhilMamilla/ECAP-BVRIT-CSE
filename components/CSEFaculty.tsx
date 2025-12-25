@@ -10,44 +10,52 @@ const CSEFaculty: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <section className="bg-white py-16 md:py-20">
+    <section className="bg-white py-20 md:py-28 overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
 
-        {/* Header */}
+        {/* Section Header */}
         <div className="text-center mb-12 md:mb-16">
           <AnimatedElement animation="slide-down" className="block">
             <h2 className="text-3xl sm:text-5xl font-extrabold text-gray-900 tracking-tight" style={{ fontFamily: 'Georgia, serif' }}>
               Our Distinguished Faculty
             </h2>
           </AnimatedElement>
-          <AnimatedElement animation="fade-in" delay={200} className="block">
-            <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
-              Learn from the best minds in computer science and engineering
-            </p>
-          </AnimatedElement>
         </div>
 
-        {/* HOD Card */}
+        {/* HOD Profile - Compact Premium Card */}
         {hod && (
-          <AnimatedElement animation="fade-in" className="block mb-12">
-            <div className="bg-white rounded-2xl p-8 md:p-10 shadow-lg border border-gray-200 max-w-xl mx-auto text-center">
-              <div className="relative mb-6 inline-block">
-                <div className="absolute inset-0 bg-teal-100 rounded-full transform scale-105 opacity-50"></div>
-                <img
-                  src={hod.image || 'https://randomuser.me/api/portraits/men/32.jpg'}
-                  alt={hod.name}
-                  className="relative w-32 h-32 object-cover object-top rounded-full border-4 border-white shadow-md mx-auto"
-                />
+          <AnimatedElement animation="fade-in" className="block mb-16 md:mb-20">
+            <div className="relative max-w-4xl mx-auto">
+              <div className="bg-white rounded-2xl overflow-hidden shadow-xl border border-gray-100 flex flex-col md:flex-row items-center">
+                {/* HOD Portrait */}
+                <div className="w-full md:w-1/3 h-64 md:h-80 relative overflow-hidden">
+                  <img
+                    src={hod.image || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&fit=crop'}
+                    alt={hod.name}
+                    className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-700"
+                  />
+                </div>
+
+                {/* HOD Info Content */}
+                <div className="w-full md:w-2/3 p-6 md:p-10 text-left">
+                  <span className="text-blue-600 font-bold uppercase tracking-wider text-xs mb-2 block">Head of Department</span>
+                  <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+                    {hod.name}
+                  </h3>
+                  <p className="text-lg text-blue-600 font-semibold mb-4">
+                    {hod.designation}
+                  </p>
+                  <p className="text-base text-gray-700 italic leading-relaxed border-l-4 border-blue-600 pl-4">
+                    "Dedicated to fostering a culture of technical excellence and research-driven innovation."
+                  </p>
+                </div>
               </div>
-              <h3 className="text-3xl font-bold text-gray-900 mb-1">{hod.name}</h3>
-              <p className="text-blue-600 font-semibold mb-4">{hod.designation}</p>
-              <p className="text-gray-700 leading-relaxed italic">"Committed to excellence and innovation."</p>
             </div>
           </AnimatedElement>
         )}
 
-        {/* Faculty Grid: 5 columns per row, 2 rows */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 gap-8 max-w-full mx-auto max-w-screen-xl">
+        {/* Faculty Grid - 5 columns, compact aligned images */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 max-w-7xl mx-auto">
           {landingFaculty.map((faculty, index) => (
             <AnimatedElement
               key={index}
@@ -55,42 +63,40 @@ const CSEFaculty: React.FC = () => {
               delay={index * 100}
               className="h-full"
             >
-              <div className="group bg-white rounded-xl shadow-lg transition-all duration-300 transform hover:-translate-y-2 border border-gray-200 p-6 text-center h-full flex flex-col items-center">
-                <div className="relative mb-4 mt-2">
-                  <div className="absolute inset-0 bg-teal-100 rounded-full transform scale-0 group-hover:scale-110 transition-transform duration-300 opacity-50"></div>
+              <div className="group h-full flex flex-col items-center text-center">
+                {/* Compact Portrait Container */}
+                <div className="relative w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden mb-4 shadow-md border-4 border-white group-hover:border-blue-50 transition-all duration-300">
                   <img
-                    src={faculty.image || 'https://randomuser.me/api/portraits/lego/1.jpg'}
+                    src={faculty.image || 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&fit=crop'}
                     alt={faculty.name}
-                    className="relative w-24 h-24 object-cover object-top rounded-full border-4 border-white shadow-sm group-hover:border-blue-50 transition-colors duration-300"
+                    className="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-500"
                   />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-1 min-h-[3.5rem] flex items-center justify-center">{faculty.name}</h3>
-                <p className="text-blue-600 font-semibold mb-2">{faculty.designation}</p>
+
+                {/* Aligned Text Content */}
+                <div className="flex flex-col flex-1">
+                  <h3 className="text-base md:text-lg font-bold text-gray-900 mb-1 leading-snug">
+                    {faculty.name}
+                  </h3>
+                  <p className="text-xs font-semibold text-blue-600 uppercase tracking-tighter">
+                    {faculty.designation}
+                  </p>
+                </div>
               </div>
             </AnimatedElement>
           ))}
         </div>
 
-        {/* View All Faculty Button */}
-        <div className="text-center mt-12">
+        {/* Professional Call to Action */}
+        <div className="text-center mt-12 md:mt-16">
           <AnimatedElement animation="fade-in" delay={400} className="inline-block">
             <button
               onClick={() => navigate('/cse/faculty')}
-              className="inline-flex items-center px-8 py-3 bg-blue-600 text-white rounded-full font-semibold text-base hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+              className="inline-flex items-center gap-2 px-8 py-3 bg-blue-600 text-white rounded-full font-bold text-sm hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 shadow-lg"
             >
               View All Faculty
-              <svg
-                className="w-5 h-5 ml-2"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M17 8l4 4m0 0l-4 4m4-4H3"
-                />
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
             </button>
           </AnimatedElement>

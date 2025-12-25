@@ -21,18 +21,43 @@ const adminPanelLinks: AdminLink[] = [
 
 ];
 
-interface HeaderProps {
-  onLogoClick?: () => void;
+// Navigation Link key interface
+interface LinkItem {
+  id: string;
+  label: string;
 }
 
-const Header: React.FC<HeaderProps> = ({ onLogoClick }) => {
+const defaultLinks: LinkItem[] = [
+  { id: 'About', label: 'About' },
+  { id: 'Accreditations', label: 'Accreditations' },
+  { id: 'CSEPrograms', label: 'Programs' },
+  { id: 'CSEStats', label: 'Stats' },
+  { id: 'Faculty', label: 'Faculty' },
+  { id: 'GraceHopper', label: 'COE' },
+  { id: 'Clubs', label: 'Clubs' },
+  { id: 'RAndD', label: 'R&D' },
+  { id: 'Placements', label: 'Placements' },
+  { id: 'Testimonials', label: 'Testimonials' },
+  { id: 'Footer', label: 'Contact' },
+];
+
+interface HeaderProps {
+  onLogoClick?: () => void;
+  customLinks?: LinkItem[];
+}
+
+const Header: React.FC<HeaderProps> = ({ onLogoClick, customLinks }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isAdminPanelOpen, setIsAdminPanelOpen] = useState(false);
   const [isMobileAdminPanelOpen, setIsMobileAdminPanelOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const mobileAdminPanelRef = useRef<HTMLDivElement>(null);
   const adminMenuTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const { playVideo } = useVideo();
   const navigate = useNavigate();
+
+  // Determine which links to use
+  const navLinks = customLinks || defaultLinks;
 
   useEffect(() => {
     let ticking = false;
@@ -80,29 +105,16 @@ const Header: React.FC<HeaderProps> = ({ onLogoClick }) => {
   };
 
   useEffect(() => {
-    const sections = [
-      'About',
-      'Accreditations',
-      'CSEPrograms',
-      'CSEStats',
-      'Faculty',
-      'GraceHopper',
-      'Clubs',
-      'Placements',
-      'Testimonials',
-      'Footer',
-    ];
-
     const handleScrollSpy = () => {
       const scrollPos = window.scrollY + window.innerHeight / 3;
-      for (const id of sections) {
-        const section = document.getElementById(id);
+      for (const link of navLinks) {
+        const section = document.getElementById(link.id);
         if (
           section &&
           section.offsetTop <= scrollPos &&
           section.offsetTop + section.offsetHeight > scrollPos
         ) {
-          setActiveSection(id);
+          setActiveSection(link.id);
           break;
         }
       }
@@ -120,7 +132,7 @@ const Header: React.FC<HeaderProps> = ({ onLogoClick }) => {
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+  }, [navLinks]);
 
   const handleAdminPanelEnter = () => {
     if (adminMenuTimeoutRef.current) clearTimeout(adminMenuTimeoutRef.current);
@@ -175,18 +187,7 @@ const Header: React.FC<HeaderProps> = ({ onLogoClick }) => {
             {/* Desktop Navigation Links */}
             <div className="hidden lg:flex flex-grow justify-center">
               <ul className="flex items-center gap-6 text-sm font-medium text-gray-700">
-                {[
-                  { id: 'About', label: 'About' },
-                  { id: 'Accreditations', label: 'Accreditations' },
-                  { id: 'CSEPrograms', label: 'Programs' },
-                  { id: 'CSEStats', label: 'Stats' },
-                  { id: 'Faculty', label: 'Faculty' },
-                  { id: 'GraceHopper', label: 'COE' },
-                  { id: 'Clubs', label: 'Clubs' },
-                  { id: 'Placements', label: 'Placements' },
-                  { id: 'Testimonials', label: 'Testimonials' },
-                  { id: 'Footer', label: 'Contact' },
-                ].map((item) => (
+                {navLinks.map((item) => (
                   <li key={item.id}>
                     <a
                       href={`#${item.id}`}
@@ -312,7 +313,43 @@ const Header: React.FC<HeaderProps> = ({ onLogoClick }) => {
                     </div>
                   </div>
                 </div>
-                {/* (You may add a hamburger/mobile menu here if needed) */}
+                {/* Custom Hamburger Menu for Navigation */}
+                <div className="relative">
+                  <button
+                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                    className={`p-2 rounded-lg transition-colors duration-300 focus:outline-none ${isMobileMenuOpen ? 'bg-slate-200' : 'hover:bg-slate-100'}`}
+                  >
+                    <svg className="h-7 w-7 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      {isMobileMenuOpen ? (
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      ) : (
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                      )}
+                    </svg>
+                  </button>
+
+                  {/* Standard Navigation Mobile Dropdown */}
+                  {isMobileMenuOpen && (
+                    <div className="absolute top-full right-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-slate-200 overflow-hidden animate-slideInRight z-50">
+                      <div className="py-2">
+                        {navLinks.map((item) => (
+                          <a
+                            key={item.id}
+                            href={`#${item.id}`}
+                            onClick={(e) => {
+                              handleScrollToSection(e, item.id);
+                              setIsMobileMenuOpen(false);
+                            }}
+                            className={`block px-4 py-3 text-sm font-medium transition-colors border-b border-slate-50 last:border-0 ${activeSection === item.id ? 'bg-blue-50 text-blue-600' : 'text-slate-700 hover:bg-slate-50'
+                              }`}
+                          >
+                            {item.label}
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>

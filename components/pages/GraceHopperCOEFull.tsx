@@ -404,9 +404,19 @@ const GraceHopperCOEFull: React.FC = () => {
         { title: 'Medium Writing', description: 'Write technical blogs for professional presence', icon: FileText }
     ];
 
+    // Custom Navigation Links for Grace Hopper Page
+    const graceHopperLinks = [
+        { id: 'VisionMission', label: 'Vision & Mission' },
+        { id: 'FacultyTeam', label: 'Faculty' },
+        { id: 'IndustryProjects', label: 'Projects' },
+        { id: 'StudentAchievements', label: 'Achievements' },
+        { id: 'Certifications', label: 'Certifications' },
+        { id: 'MasteryAreas', label: 'Mastery Areas' },
+    ];
+
     return (
         <div className="min-h-screen flex flex-col">
-            <Header />
+            <Header customLinks={graceHopperLinks} />
 
             <main className="flex-grow">
                 {/* Hero Section */}
@@ -527,7 +537,7 @@ const GraceHopperCOEFull: React.FC = () => {
                 </section >
 
                 {/* Vision & Mission Section */}
-                < section className="bg-gradient-to-br from-gray-50 to-blue-50 py-16 md:py-20" >
+                <section id="VisionMission" className="bg-gradient-to-br from-gray-50 to-blue-50 py-16 md:py-20 scroll-mt-24">
                     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
                             {/* Vision */}
@@ -584,7 +594,7 @@ const GraceHopperCOEFull: React.FC = () => {
                 </section >
 
                 {/* Faculty Team Section */}
-                < section className="bg-white py-16 md:py-20" >
+                <section id="FacultyTeam" className="bg-white py-16 md:py-20 scroll-mt-24">
                     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                         <AnimatedElement animation="slide-down">
                             <h2 className="text-4xl sm:text-5xl font-extrabold text-gray-900 text-center mb-12" style={{ fontFamily: 'Georgia, serif' }}>
@@ -613,7 +623,7 @@ const GraceHopperCOEFull: React.FC = () => {
                 </section >
 
                 {/* Industry Project Engagements Section */}
-                < section className="bg-gradient-to-br from-gray-50 to-blue-50 py-16 md:py-20 overflow-hidden" >
+                <section id="IndustryProjects" className="bg-gradient-to-br from-gray-50 to-blue-50 py-16 md:py-20 overflow-hidden scroll-mt-24">
                     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                         <AnimatedElement animation="slide-down">
                             <h2
@@ -704,7 +714,7 @@ const GraceHopperCOEFull: React.FC = () => {
                 </section >
 
                 {/* Student Achievements Section - Sticky Scroll Reveal */}
-                <section className="bg-white py-16 md:py-20">
+                <section id="StudentAchievements" className="bg-white py-16 md:py-20 scroll-mt-24">
                     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                         <AnimatedElement animation="slide-down">
                             <h2
@@ -802,7 +812,7 @@ const GraceHopperCOEFull: React.FC = () => {
                 </section>
 
                 {/* Student Certifications Section - REDESIGNED */}
-                <section className="bg-gradient-to-br from-gray-50 to-blue-50 py-16 md:py-20">
+                <section id="Certifications" className="bg-gradient-to-br from-gray-50 to-blue-50 py-16 md:py-20 scroll-mt-24">
                     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                         <AnimatedElement animation="slide-down">
                             <h2
@@ -900,7 +910,7 @@ const GraceHopperCOEFull: React.FC = () => {
 
 
                 {/* Mastery Areas Section */}
-                < section className="bg-white py-16 md:py-20" >
+                <section id="MasteryAreas" className="bg-white py-16 md:py-20 scroll-mt-24">
                     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                         <AnimatedElement animation="slide-down">
                             <h2 className="text-4xl sm:text-5xl font-extrabold text-gray-900 text-center mb-12" style={{ fontFamily: 'Georgia, serif' }}>
