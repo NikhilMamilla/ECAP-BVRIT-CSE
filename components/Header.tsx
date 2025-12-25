@@ -63,6 +63,65 @@ const Header: React.FC<HeaderProps> = ({ onLogoClick }) => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [mobileAdminPanelRef]);
 
+  // Navigation Logic
+  const [activeSection, setActiveSection] = useState<string>('');
+
+  const handleScrollToSection = (e: React.MouseEvent, sectionId: string) => {
+    e.preventDefault();
+    const section = document.getElementById(sectionId);
+    // Header is fixed, approx 64px (h-16)
+    const offset = 64;
+
+    if (section) {
+      const y = section.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+      setActiveSection(sectionId);
+    }
+  };
+
+  useEffect(() => {
+    const sections = [
+      'About',
+      'Accreditations',
+      'CSEPrograms',
+      'CSEStats',
+      'Faculty',
+      'GraceHopper',
+      'Clubs',
+      'Placements',
+      'Testimonials',
+      'Footer',
+    ];
+
+    const handleScrollSpy = () => {
+      const scrollPos = window.scrollY + window.innerHeight / 3;
+      for (const id of sections) {
+        const section = document.getElementById(id);
+        if (
+          section &&
+          section.offsetTop <= scrollPos &&
+          section.offsetTop + section.offsetHeight > scrollPos
+        ) {
+          setActiveSection(id);
+          break;
+        }
+      }
+    };
+
+    let ticking = false;
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          handleScrollSpy();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   const handleAdminPanelEnter = () => {
     if (adminMenuTimeoutRef.current) clearTimeout(adminMenuTimeoutRef.current);
     setIsAdminPanelOpen(true);
@@ -112,6 +171,35 @@ const Header: React.FC<HeaderProps> = ({ onLogoClick }) => {
                 />
               </div>
             </div>
+
+            {/* Desktop Navigation Links */}
+            <div className="hidden lg:flex flex-grow justify-center">
+              <ul className="flex items-center gap-6 text-sm font-medium text-gray-700">
+                {[
+                  { id: 'About', label: 'About' },
+                  { id: 'Accreditations', label: 'Accreditations' },
+                  { id: 'CSEPrograms', label: 'Programs' },
+                  { id: 'CSEStats', label: 'Stats' },
+                  { id: 'Faculty', label: 'Faculty' },
+                  { id: 'GraceHopper', label: 'COE' },
+                  { id: 'Clubs', label: 'Clubs' },
+                  { id: 'Placements', label: 'Placements' },
+                  { id: 'Testimonials', label: 'Testimonials' },
+                  { id: 'Footer', label: 'Contact' },
+                ].map((item) => (
+                  <li key={item.id}>
+                    <a
+                      href={`#${item.id}`}
+                      onClick={(e) => handleScrollToSection(e, item.id)}
+                      className={`transition-colors ${activeSection === item.id ? 'text-blue-600 font-semibold' : 'hover:text-blue-500'}`}
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
             <div className="flex items-center">
               <div
                 className="hidden lg:flex h-full items-center justify-center relative ml-4"
@@ -146,7 +234,7 @@ const Header: React.FC<HeaderProps> = ({ onLogoClick }) => {
                             {link.name.substring(0, 1)}
                           </div>
                           <div className="flex-1">
-                            <div className="text-base font-medium text-slate-800 group-hover:text-red-600">{link.name}</div>
+                            <div className="text-base font-medium text-slate-800 group-hover:text-blue-600">{link.name}</div>
                             <div className="text-xs text-slate-500">{link.desc}</div>
                           </div>
                           <svg
@@ -201,14 +289,14 @@ const Header: React.FC<HeaderProps> = ({ onLogoClick }) => {
                               {link.name.substring(0, 1)}
                             </div>
                             <div className="flex-1">
-                              <div className="text-sm font-medium text-slate-800 group-hover:text-red-600">
+                              <div className="text-sm font-medium text-slate-800 group-hover:text-blue-600">
                                 {link.name}
                               </div>
                               <div className="text-xs text-slate-500">{link.desc}</div>
                             </div>
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
-                              className="h-4 w-4 text-slate-400 group-hover:text-red-500 group-hover:translate-x-1 transition-transform"
+                              className="h-4 w-4 text-slate-400 group-hover:text-blue-500 group-hover:translate-x-1 transition-transform"
                               viewBox="0 0 20 20"
                               fill="currentColor"
                             >

@@ -1,9 +1,6 @@
-// import React from 'react';
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import Header from './Header';
-import Hero from './Hero';
 import About from './About';
-import Pagenav from './Pagenav';
 import StatsSection from './StatsSection';
 import CSEProgramOverview from './CSEProgramOverview';
 import CSEFaculty from './CSEFaculty';
@@ -11,79 +8,22 @@ import PlacementsSection from './PlacementsSection';
 import GraceHopperCOE from './GraceHopperCOE';
 import Clubs from './Clubs';
 import RAndDHomeSection from './RAndDHomeSection';
-
 import Testimonials from './testominals';
 import Footer from './Footer';
 import Accreditations from './Accreditations';
 
 const Home: React.FC = () => {
-  const [showPagenav, setShowPagenav] = useState(false);
-  const heroRef = useRef<HTMLElement | null>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        // If Hero is not visible (scrolled past it), show Pagenav
-        setShowPagenav(!entry.isIntersecting);
-      },
-      {
-        root: null,
-        threshold: 0.1, // trigger when hero is barely out of view
-      }
-    );
-
-    if (heroRef.current) {
-      observer.observe(heroRef.current);
-    }
-
-    return () => {
-      if (heroRef.current) {
-        observer.unobserve(heroRef.current);
-      }
-    };
-  }, []);
-
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-
-    handleResize(); // run once on mount
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
-
-  // Scroll reveal animations removed to make site static as requested
 
   return (
     <div className="bg-white text-gray-800">
+      <Header />
 
-      {/* Keep original header visible initially
-      {!showPagenav && <Header />}
-
-      {/* /* PageNav replaces Header only AFTER hero scroll  */}
-      {/* {showPagenav && (
-        <div className="fixed top-0 w-full z-50 bg-white shadow-md transition-all duration-300">
-          <Pagenav />
-        </div>
-      )}  */}
-      {(isMobile || !showPagenav) && <Header />}
-      {!isMobile && showPagenav && (
-        <div className="fixed top-0 w-full z-50 bg-white shadow-md transition-all duration-300">
-          <Pagenav />
-        </div>
-      )}
-
-      <main className="space-y-0">
-        <section id="Hero" ref={heroRef}>
-          <Hero />
-        </section>
+      {/* 
+        Add margin-top to main or first section to account for fixed header if needed.
+        Header is usually h-16 (4rem) or similar. 
+        The 'About' section might need top padding.
+      */}
+      <main className="space-y-0 pt-20">
         <section id='About'><About /></section>
         <section id="Accreditations"><Accreditations /></section>
         <section id="CSEPrograms"><CSEProgramOverview /></section>
@@ -101,8 +41,6 @@ const Home: React.FC = () => {
       </main>
 
     </div>
-
-
   );
 };
 
