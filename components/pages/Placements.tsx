@@ -6,6 +6,174 @@ import { FaBriefcase, FaHandshake, FaTrophy, FaUsers, FaChartLine, FaGraduationC
 
 const Placements = () => {
   const [currentInternship, setCurrentInternship] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const studentsPerPage = 15;
+
+  // Real 2024 Batch Placement Data - BVRIT CSE Department
+  const placementData2024 = [
+    { sno: 1, rno: '20211A0501', name: 'A PRAGATHI', offers: 'ACCENTUREHACK-DIVA & CAPGEMINI-SOFTWARE-ENGINEER' },
+    { sno: 2, rno: '20211A0506', name: 'ABRABOINA RISHIKESH', offers: 'VERIZON & RENAULT NISSAN' },
+    { sno: 3, rno: '20211A0508', name: 'ADHUGIRI.SRI CHANDANA', offers: 'BANK OF AMERICA & KPIT' },
+    { sno: 4, rno: '20211A0514', name: 'ALLURI SUPRIYA REDDY', offers: 'ACMEGRADE' },
+    { sno: 5, rno: '20211A0517', name: 'ANNAVAJJULA SOMITH', offers: 'TECH MAHINDRA & REALPAGE' },
+    { sno: 6, rno: '20211A0519', name: 'ANUMANDLA SANNITH REDDY', offers: 'ACCENTURE-ASE & VERIZON & DARWINBOX-TECHNICAL ANALYST INTERN' },
+    { sno: 7, rno: '20211A0520', name: 'ARE SONIA', offers: 'BANK OF AMERICA' },
+    { sno: 8, rno: '20211A0521', name: 'ARKA PRABHA CHOWDHURY', offers: 'ACCENTURE-ASE & RTCAMP OFFCAMPUS' },
+    { sno: 9, rno: '20211A0522', name: 'ARRA PRAGATHI', offers: 'ACCENTURE-ASE' },
+    { sno: 10, rno: '20211A0524', name: 'ASIFA NAZNEEN', offers: 'CAPGEMINI-SOFTWARE-ENGINEER' },
+    { sno: 11, rno: '20211A0526', name: 'BAIRI TEJASHWINI', offers: 'KPIT' },
+    { sno: 12, rno: '20211A0527', name: 'TARUN KUMAR BALERAO', offers: 'TECH MAHINDRA & TCS-DIGITAL' },
+    { sno: 13, rno: '20211A0530', name: 'BANDEWALE', offers: 'BYTES OF INDIA-PHASE 1' },
+    { sno: 14, rno: '20211A0531', name: 'BATCHU KANAKA DURGA PRIYANKA', offers: 'BANK OF AMERICA & STATE STREET' },
+    { sno: 15, rno: '20211A0532', name: 'BEGARI PRISKILLA', offers: 'ACCENTURE-ASE' },
+    { sno: 16, rno: '20211A0537', name: 'BOGA GAGAN CHANDRA', offers: 'TEJAS NETWORKS & ACCENTURE-ASE' },
+    { sno: 17, rno: '20211A0538', name: 'NEHA BOMMA', offers: 'ACCENTUREHACK-DIVA & CAPGEMINI-SOFTWARE-ENGINEER' },
+    { sno: 18, rno: '20211A0539', name: 'B. VINAY SAGAR', offers: 'INTELLIPAAT' },
+    { sno: 19, rno: '20211A0540', name: 'BUSSA GIRISH', offers: 'LTI-MINDTREE' },
+    { sno: 20, rno: '20211A0541', name: 'SHIVANI CHERUPALLY', offers: 'ACCENTURE-ASE & VERIZON' },
+    { sno: 21, rno: '20211A0545', name: 'CHAVVA AKSHITHA', offers: 'ACMEGRADE & LTI-MINDTREE' },
+    { sno: 22, rno: '20211A0546', name: 'CHERUKU KIRAN PRIYA REDDY', offers: 'SIFY' },
+    { sno: 23, rno: '20211A0547', name: 'CHERUKU SHREYA REDDY', offers: 'BANK OF AMERICA & TECH MAHINDRA & ACCENTUREHACK-DIVA' },
+    { sno: 24, rno: '20211A0548', name: 'CHETTY SAICHARAN', offers: 'ACCENTURE-ASE' },
+    { sno: 25, rno: '20211A0549', name: 'CHINTAPALATI ANIRUDH VARMA', offers: 'ACCENTURE-ASE' },
+    { sno: 26, rno: '20211A0550', name: 'CHINTAM SURYA PRATEEK NAIDU', offers: 'FORAGE-AI' },
+    { sno: 27, rno: '20211A0551', name: 'CHINTAPATLA ABHIRAM', offers: 'REALPAGE' },
+    { sno: 28, rno: '20211A0552', name: 'CHINTIRALA LAKSHMI TEJASWINI', offers: 'SKILL DUNIYA' },
+    { sno: 29, rno: '20211A0553', name: 'RUSHIKESH REDDY', offers: 'TECH MAHINDRA' },
+    { sno: 30, rno: '20211A0554', name: 'CHITYALA NANDHINI', offers: 'KPIT' },
+    { sno: 31, rno: '20211A0557', name: 'CHOURIGARI NAVEEN KUMAR', offers: 'STATE STREET' },
+    { sno: 32, rno: '20211A0559', name: 'D VASAVI REDDY', offers: 'RENAULT NISSAN & PORTER' },
+    { sno: 33, rno: '20211A0560', name: 'DAGGUPALLI. CHANDRADEEP SRI SAI', offers: 'TCSNINJA-HACKQUEST' },
+    { sno: 34, rno: '20211A0561', name: 'DAKEY BHAVYA SREE', offers: 'UST GLOBAL' },
+    { sno: 35, rno: '20211A0562', name: 'SRI MOURYA DANTHALA', offers: 'VERISK2 & ACCENTURE-ASE' },
+    { sno: 36, rno: '20211A0563', name: 'VIGHNESHWARA DASOJU', offers: 'VERISK2' },
+    { sno: 37, rno: '20211A0567', name: 'ADVAITHA DESHPANDE', offers: 'TECH MAHINDRA & UST GLOBAL' },
+    { sno: 38, rno: '20211A0569', name: 'DEVENDAR CHOUDHARY', offers: 'ACCENTURE-ASE' },
+    { sno: 39, rno: '20211A0571', name: 'DHARAVATH NITHISH NAYAK', offers: 'ACMEGRADE & EVERGENT TECHNOLOGIES' },
+    { sno: 40, rno: '20211A0573', name: 'DHATRIKA KAVYA', offers: 'ACCENTURE-ASE' },
+    { sno: 41, rno: '20211a0574', name: 'SAHASRI DIMMULA', offers: 'REALPAGE' },
+    { sno: 42, rno: '20211A0575', name: 'DONTHULA THANUSRI', offers: 'LTI-MINDTREE' },
+    { sno: 43, rno: '20211A0577', name: 'G.SAI KIRAN', offers: 'TCS-DIGITAL' },
+    { sno: 44, rno: '20211A0578', name: 'G. SINDHU', offers: 'ACMEGRADE & WIPRO1' },
+    { sno: 45, rno: '20211A0579', name: 'HARI DEEP GADDAM', offers: 'REALPAGE' },
+    { sno: 46, rno: '20211A0580', name: 'GADDE ANIL', offers: 'UST GLOBAL & TECHMAHINDRA-PHASE 1' },
+    { sno: 47, rno: '20211A0582', name: 'GAJAM BHAVAN', offers: 'ACCENTURE-ASE & RENAULT NISSAN' },
+    { sno: 48, rno: '20211A0583', name: 'GELLA RAHUL YADAV', offers: 'EVERGENT TECHNOLOGIES' },
+    { sno: 49, rno: '20211A0585', name: 'GARNEPUDI AKANKSHA', offers: 'BANK OF AMERICA' },
+    { sno: 50, rno: '20211A0591', name: 'GOLLENA SATHVIKA', offers: 'BANK OF AMERICA & KPIT & OPTUM1-PHASE2' },
+    { sno: 51, rno: '20211A0592', name: 'GOLLI JITHENDRAVENKATA MAHESH SATYAANUDEEP', offers: 'MODAK & EPAM' },
+    { sno: 52, rno: '20211A0593', name: 'GORILA KRISHNA', offers: 'ACCENTURE-ASE & COGNIZANT-GENC' },
+    { sno: 53, rno: '20211A0597', name: 'GUNTUKU NARESH', offers: 'SECHAY' },
+    { sno: 54, rno: '20211A0598', name: 'SOUMYA GURAJAPU', offers: 'ACCENTURE-ASE & TCS-DIGITAL' },
+    { sno: 55, rno: '20211A05A1', name: 'GUTHULA SAIRAMA KRISHNACHAITANYA', offers: 'EPAM & WIPRO1' },
+    { sno: 56, rno: '20211A05A4', name: 'INDUKURI UDAY KUMAR REDDY', offers: 'TECH MAHINDRA & REALPAGE' },
+    { sno: 57, rno: '20211A05A5', name: 'ITIKYALA LAKSHMI VENKATA SHISHIR', offers: 'TECH MAHINDRA & TCS-PRIME' },
+    { sno: 58, rno: '20211A05A7', name: 'JAKKARIGARI PREETHI CHRISTINA', offers: 'CAPGEMINI-SOFTWARE-ENGINEER & EKA MOBILITY' },
+    { sno: 59, rno: '20211A05A8', name: 'CHAITRA SAI JALDA', offers: 'SYNOPSYS' },
+    { sno: 60, rno: '20211A05A9', name: 'JAMPANI ABHILASH', offers: 'COGNIZANT-GENC' },
+    { sno: 61, rno: '20211A05B0', name: 'JANGAM GREESHMA', offers: 'ACCENTURE-ASE' },
+    { sno: 62, rno: '20211A05B1', name: 'JAVVAJI DIVYA SREE', offers: 'TECH MAHINDRA & REALPAGE' },
+    { sno: 63, rno: '20211A05B2', name: 'JELLA SREEJA', offers: 'UST GLOBAL & CAPGEMINI-SOFTWARE-ENGINEER & TCS-DIGITAL' },
+    { sno: 64, rno: '20211A05B4', name: 'JOGINI SHRUTHI', offers: 'UST GLOBAL' },
+    { sno: 65, rno: '20211A05B5', name: 'SIRISHA JOGU', offers: 'EVERGENT-QA' },
+    { sno: 66, rno: '20211A05B6', name: 'SHREEYA JUKANTI', offers: 'EVERGENT-QA' },
+    { sno: 67, rno: '20211A05B7', name: 'K CHANDANA', offers: 'ACCENTURE-ASE & TCS-PRIME' },
+    { sno: 68, rno: '20211A05B9', name: 'TEJESH VARMA KALIDINDI', offers: 'SIDS FARM' },
+    { sno: 69, rno: '20211A05C2', name: 'KARRA SUCHETHAN REDDY', offers: 'TCS-DIGITAL' },
+    { sno: 70, rno: '20211A05C4', name: 'ARCHANA KASAM', offers: 'OPTUM1-PHASE2' },
+    { sno: 71, rno: '20211A05C9', name: 'KOGILA SHIRISHA', offers: 'TCS-DIGITAL' },
+    { sno: 72, rno: '20211A05D0', name: 'KOLAMURI BHARGAV', offers: 'VERIZON & TECH MAHINDRA' },
+    { sno: 73, rno: '20211A05D2', name: 'KOMANPALLY RAKSHITH', offers: 'UST GLOBAL' },
+    { sno: 74, rno: '20211A05D5', name: 'KONDA VARSHA', offers: 'ACMEGRADE & UST GLOBAL & BEL' },
+    { sno: 75, rno: '20211A05D6', name: 'KONDAKALLA BHOOMIKA', offers: 'MOVIDU' },
+    { sno: 76, rno: '20211A05D8', name: 'KONDURU SAMBHAVI', offers: 'BYTES OF INDIA-PHASE 1' },
+    { sno: 77, rno: '20211A05D9', name: 'SAI NIHAL KONDUTI', offers: 'TECH MAHINDRA' },
+    { sno: 78, rno: '20211A05E0', name: 'KOPPOLU DHEERAJ KUMAR REDDY', offers: 'COGNIZANT-GENC & TCS-DIGITAL' },
+    { sno: 79, rno: '20211A05E1', name: 'K LIKHITHA PRIYANKA', offers: 'ACMEGRADE' },
+    { sno: 80, rno: '20211A05E3', name: 'KOTLA GOWTHAM KUMAR REDDY', offers: 'UST GLOBAL & TECHMAHINDRA-PHASE 1 & TCS-DIGITAL' },
+    { sno: 81, rno: '20211A05E6', name: 'LAKAVATH VIJAY KUMAR', offers: 'EVERGENT-QA' },
+    { sno: 82, rno: '20211A05E8', name: 'M PRASHANTH RAO', offers: 'TECH MAHINDRA & SECHAY & UST GLOBAL & REALPAGE' },
+    { sno: 83, rno: '20211A05F4', name: 'MADUPATHI BASAVA PRASAD', offers: 'EVERGENT TECHNOLOGIES' },
+    { sno: 84, rno: '20211A05F5', name: 'MAHIJITH PUNNANI', offers: 'UST GLOBAL' },
+    { sno: 85, rno: '20211A05F8', name: 'MALI PASHUPATHI', offers: 'MOVIDU & TCS-NINJA' },
+    { sno: 86, rno: '20211A05F9', name: 'MALLAIAHGARI ROHITH', offers: 'ACCENTURE-ASE' },
+    { sno: 87, rno: '20211A05G0', name: 'SAMHITHA MALLANNAGARI', offers: 'MICROSOFT' },
+    { sno: 88, rno: '20211A05G3', name: 'MAMIDIMADA SRINITHA', offers: 'RENAULT NISSAN & OPTUM1-PHASE2' },
+    { sno: 89, rno: '20211A05G4', name: 'MAMILLA MANOJ KUMAR', offers: 'TEJAS NETWORKS & TECH MAHINDRA' },
+    { sno: 90, rno: '20211A05G8', name: 'MANTINA PRANEETH VARMA', offers: 'TCS-DIGITAL & BLUE COPA' },
+    { sno: 91, rno: '20211A05H0', name: 'MD ALTAF ZAMEER', offers: 'RENAULT NISSAN' },
+    { sno: 92, rno: '20211A05H2', name: 'Medi Bhavani', offers: 'KPIT' },
+    { sno: 93, rno: '20211A05H3', name: 'Medi Hemanth Kumar', offers: 'WIPRO1' },
+    { sno: 94, rno: '20211A05H4', name: 'TRINATH MEDURI', offers: 'COGNIZANT-GENC & TCS-NINJA' },
+    { sno: 95, rno: '20211A05H5', name: 'MEKALA CHINNA RAJU', offers: 'EVERGENT-QA' },
+    { sno: 96, rno: '20211A05H6', name: 'VISHLESHANA MEKALA', offers: 'REALPAGE' },
+    { sno: 97, rno: '20211A05H7', name: 'MENUGU RAJESHWARI', offers: 'BANK OF AMERICA & TECH MAHINDRA' },
+    { sno: 98, rno: '20211A05H8', name: 'MOHAMMED ASLAM', offers: 'RENAULT NISSAN & TECH MAHINDRA' },
+    { sno: 99, rno: '20211A05J1', name: 'MOHAMMED WASEEM UDDIN', offers: 'VIGOCARE' },
+    { sno: 100, rno: '20211A05J8', name: 'NALLAKUNTA YAMINI', offers: 'UST GLOBAL' },
+    { sno: 101, rno: '20211A05K1', name: 'NAVATHE SIDDHARTHA', offers: 'SAGARSOFT' },
+    { sno: 102, rno: '20211A05K2', name: 'VARSHINI NEERUDI', offers: 'ACCENTURE-ASE' },
+    { sno: 103, rno: '20211A05K4', name: 'Nirudi Sai Karthikeya', offers: 'BYTES OF INDIA-HAM' },
+    { sno: 104, rno: '20211A05K9', name: 'POLASI SAI THARUN', offers: 'MOVIDU & VIGOCARE' },
+    { sno: 105, rno: '20211A05L1', name: 'PAGADIRAI HANOCK RAJU', offers: 'SECHAY' },
+    { sno: 106, rno: '20211A05L2', name: 'PALAGUMMI YASWANTH SAI', offers: 'EVERGENT-QA & LTI-MINDTREE' },
+    { sno: 107, rno: '20211A05L3', name: 'P.RUSHIKESH REDDY', offers: 'ACMEGRADE' },
+    { sno: 108, rno: '20211A05L4', name: 'PALNATI VENKATA YASHWANTH REDDY', offers: 'ACCENTURE-ASE & TCS-DIGITAL' },
+    { sno: 109, rno: '20211A05L5', name: 'PALPUNURI RAVALIKA', offers: 'SIFY' },
+    { sno: 110, rno: '20211A05L7', name: 'PARSHAPALLI GLORY', offers: 'WIPRO1' },
+    { sno: 111, rno: '20211A05L8', name: 'AVINASH REDDY PASAM', offers: 'ACCENTURE-ASE' },
+    { sno: 112, rno: '20211A05L9', name: 'PATHLOTH GAGANA SRI', offers: 'BANK OF AMERICA & KPIT' },
+    { sno: 113, rno: '20211A05M0', name: 'PATHLOTH SANTHOSH', offers: 'EKA MOBILITY' },
+    { sno: 114, rno: '20211A05M2', name: 'PEDDIREDDY ANISH REDDY', offers: 'RENAULT NISSAN & TECH MAHINDRA' },
+    { sno: 115, rno: '20211A05M3', name: 'PENTI MANAS', offers: 'TECH MAHINDRA & UST GLOBAL' },
+    { sno: 116, rno: '20211A05M4', name: 'PENUMATCHA BHAVANA', offers: 'SIFY' },
+    { sno: 117, rno: '20211A05M8', name: 'PONNAM SAI TEJA', offers: 'MODAK & TECH MAHINDRA & INFOSYS' },
+    { sno: 118, rno: '20211A05M9', name: 'PONUGOTI YESHWITHA', offers: 'ACCENTURE-ASE' },
+    { sno: 119, rno: '20211A05N4', name: 'PULUGAM HARSHITHA', offers: 'CAPGEMINI-SOFTWARE-ENGINEER' },
+    { sno: 120, rno: '20211A05N5', name: 'RACHAMALLI SREENIVAS', offers: 'ACCENTURE-ASE' },
+    { sno: 121, rno: '20211A05N7', name: 'RAMA SRIJAN', offers: 'ACMEGRADE' },
+    { sno: 122, rno: '20211A05N8', name: 'Ramgari Revanth', offers: 'RISAMSOFT-OFF CAMPUS' },
+    { sno: 123, rno: '20211A05N9', name: 'RAMUNI NIKHIL SAI', offers: 'TCS-DIGITAL' },
+    { sno: 124, rno: '20211A05P0', name: 'RANABOTHU CHANDANA', offers: 'QUALIZEAL & PORTER' },
+    { sno: 125, rno: '20211A05P5', name: 'RUDRA MOHAN', offers: 'ACCENTURE-ASE' },
+    { sno: 126, rno: '20211A05P8', name: 'SALUKUTI SAI CHARAN REDDY', offers: 'TCS-DIGITAL' },
+    { sno: 127, rno: '20211A05P9', name: 'SANA NIKHIL', offers: 'LTI-MINDTREE' },
+    { sno: 128, rno: '20211A05Q6', name: 'SEEMALA SAI KUMAR', offers: 'UST GLOBAL & TECHMAHINDRA-PHASE 1' },
+    { sno: 129, rno: '20211A05Q7', name: 'SHAIK MUNEER PASHA', offers: 'UST GLOBAL' },
+    { sno: 130, rno: '20211A05Q8', name: 'SHANABOINA NIHARIKA', offers: 'CAPGEMINI-SOFTWARE-ENGINEER' },
+    { sno: 131, rno: '20211A05R2', name: 'SIVANOLLU DINESH', offers: 'UST GLOBAL' },
+    { sno: 132, rno: '20211A05R3', name: 'SIVARATRI TEJA', offers: 'BYTES OF INDIA-HAM' },
+    { sno: 133, rno: '20211A05R6', name: 'SYAMALA CHAITANYA', offers: 'ACCENTURE-ASE & VERIZON & TECH MAHINDRA' },
+    { sno: 134, rno: '20211A05R7', name: 'TALLA NITHIN', offers: 'UST GLOBAL & TCS-DIGITAL' },
+    { sno: 135, rno: '20211A05R8', name: 'TANALA MADHAVA SRI KRISHNA PAVAN', offers: 'UST GLOBAL & TCS-DIGITAL' },
+    { sno: 136, rno: '20211A05R9', name: 'TANGIRALA ABHISHEK', offers: 'LTI-MINDTREE' },
+    { sno: 137, rno: '20211A05T1', name: 'SHRAVIKA THAMMISHETTI', offers: 'BANK OF AMERICA & RENAULT NISSAN' },
+    { sno: 138, rno: '20211A05T2', name: 'THANNEERU YOGA NANDHINI', offers: 'TCS-PEGA & BANK OF AMERICA & TECH MAHINDRA' },
+    { sno: 139, rno: '20211A05T4', name: 'THIRUMALA RAJA VENKATA SAI KUMAR', offers: 'TCS-NINJA' },
+    { sno: 140, rno: '20211A05T7', name: 'THOUTI PRANAV', offers: 'ACCENTURE-ADVANCED-ASE & DARWINBOX-TECHNICAL ANALYST INTERN' },
+    { sno: 141, rno: '20211A05T8', name: 'Thumma Hanushka', offers: 'MOVIDU & UST GLOBAL & CAPGEMINI-SOFTWARE-ENGINEER' },
+    { sno: 142, rno: '20211A05U5', name: 'VADLA VAISHNAVI', offers: 'SIFY' },
+    { sno: 143, rno: '20211A05V1', name: 'VARADA CHANDU', offers: 'BYTES OF INDIA-PHASE 1' },
+    { sno: 144, rno: '20211A05V3', name: 'VEBUTHI NAVEEN', offers: 'MIVADA' },
+    { sno: 145, rno: '20211A05V4', name: 'VEGESNA SAI TEJA VARMA', offers: 'COGNIZANT-GENC' },
+    { sno: 146, rno: '20211A05V7', name: 'VELPULA SRAVYA', offers: 'CAPGEMINI-SOFTWARE-ENGINEER' },
+    { sno: 147, rno: '20211A05V8', name: 'VEMULA ABHINAYA', offers: 'ACCENTUREHACK-DIVA' },
+    { sno: 148, rno: '20211A05W3', name: 'VUSUVANDLA BASANTHI', offers: 'CAPGEMINI-SOFTWARE-ENGINEER & TCS-DIGITAL' },
+    { sno: 149, rno: '20211A05W5', name: 'YANAMALA PRANATHI', offers: 'MODAK & TECH MAHINDRA' },
+    { sno: 150, rno: '20211A05W6', name: 'YARLAGADDA PRAGATHI KRISHNA', offers: 'BANK OF AMERICA' },
+    { sno: 151, rno: '20211A05W7', name: 'YELATI VISHNU VARDHAN REDDY', offers: 'COGNIZANT-GENC' },
+    { sno: 152, rno: '20211A05X0', name: 'YERRAMSETTY. SHIVA RAMA KRISHNA', offers: 'EVERGENT-QA' },
+    { sno: 153, rno: '21215A0501', name: 'ABHILASH KONDA', offers: 'MOVIDU & SECHAY' },
+    { sno: 154, rno: '21215A0508', name: 'KOYALKAR GOPIKRISHNA', offers: 'EPAM' },
+    { sno: 155, rno: '21215a0509', name: 'JANGAM HASINI', offers: 'KPIT' },
+    { sno: 156, rno: '21215A0516', name: 'NAKIRTHI MOUNIKA', offers: 'MOVIDU & KPIT' },
+    { sno: 157, rno: '21215A0521', name: 'CHENNOJU SATHVIKA', offers: 'KPIT' },
+    { sno: 158, rno: '21215A0522', name: 'PEDDAGOLLA SHIREESHA', offers: 'CAPGEMINI-SOFTWARE-ENGINEER' },
+    { sno: 159, rno: '21215A0525', name: 'VUTKURI VARSHA', offers: 'SIFY' },
+    { sno: 160, rno: '21215A0526', name: 'GOVIND VARSHITHA', offers: 'KPIT' },
+    { sno: 161, rno: '21215A0527', name: 'APPALA VASU HEMANTH', offers: 'TCS-PEGA' },
+    { sno: 162, rno: '21215A0530', name: 'PATTANKAR VINAY PRAKASH', offers: 'UST GLOBAL & TCS-DIGITAL' },
+  ];
 
   // Internship data
   const internshipData = [
@@ -27,81 +195,97 @@ const Placements = () => {
     return () => clearInterval(timer);
   }, [internshipData.length]);
 
-  // Statistics data
+  // Statistics data - Updated for 2024 Batch
   const stats = [
     {
       icon: FaBriefcase,
-      number: '425',
+      number: '163',
       label: 'COMPANIES',
-      subtitle: 'For Campus Placements',
+      subtitle: 'Visited for Placements',
       gradient: 'from-blue-500 to-blue-600'
     },
     {
       icon: FaHandshake,
-      number: '1873',
-      label: 'PLACEMENTS',
-      subtitle: 'Offered in 2024-25',
+      number: '181',
+      label: 'STUDENTS PLACED',
+      subtitle: 'Batch 2024 (2021-25)',
       gradient: 'from-blue-600 to-blue-700'
     },
     {
       icon: FaTrophy,
-      number: '39 LPA',
+      number: '49.12 LPA',
       label: 'HIGHEST',
-      subtitle: 'Package Offered',
+      subtitle: 'Package - Microsoft',
       gradient: 'from-blue-700 to-blue-800'
     }
   ];
 
   // Dream offers data
   const dreamOffers = [
-    { company: 'Infosys', salary: '9.5 LPA', students: 6, batch: '2024-25', logo: '/images/companies/Infosys_logo.png' },
-    { company: 'TCS', salary: '9 LPA', students: 2, batch: '2024-25', logo: '/images/companies/TCS_logo.png' },
-    { company: 'Cognizant', salary: '8.28 LPA', students: 14, batch: '2024-25', logo: '/images/companies/Cognizant_logo.png' },
-    { company: 'Akrivia HCM', salary: '7.65 LPA', students: 11, batch: '2024-25', logo: '/images/companies/AkriviaHCM_logo.png' },
-    { company: 'Amazon', salary: '44 LPA', students: 35, batch: '2021-23', logo: '/images/companies/Amazon_logo.webp' },
-    { company: 'Wipro', salary: '12 LPA', students: 25, batch: '2023-24', logo: '/images/companies/Wipro_logo.jpg' },
-    { company: 'Deloitte', salary: '52 LPA', students: 2, batch: '2023-24', logo: '/images/companies/Deloitte_logo.png' },
-    { company: 'Accenture', salary: '15 LPA', students: 18, batch: '2024', logo: '/images/companies/Accenture_logo.png' },
+    { company: 'Microsoft', salary: '49.12 LPA', students: 1, batch: '2024', logo: '/images/companies/microsoft.webp' },
+    { company: 'Synopsys', salary: '18 LPA', students: 1, batch: '2024', logo: '/images/companies/synopsys.png' },
+    { company: 'Bank of America', salary: '12 LPA', students: 12, batch: '2024', logo: '/images/companies/bankofamerica.png' },
+    { company: 'EPAM', salary: '10 LPA', students: 3, batch: '2024', logo: '/images/companies/Epam.jpg' },
+    { company: 'UST Global', salary: '8 LPA', students: 25, batch: '2024', logo: '/images/companies/ustglobal.png' },
+    { company: 'Tech Mahindra', salary: '7.5 LPA', students: 22, batch: '2024', logo: '/images/companies/techmahindra.png' },
+    { company: 'TCS Digital', salary: '7 LPA', students: 18, batch: '2024', logo: '/images/companies/TCS_logo.png' },
+    { company: 'Accenture', salary: '6.5 LPA', students: 28, batch: '2024', logo: '/images/companies/Accenture_logo.png' },
   ];
 
-  // Placement highlights
+  // Placement highlights - Top performers from 2024 batch
   const placementHighlights = [
-    { name: 'AYUSKA SINGH', package: '40 LPA', company: 'Amazon', year: '2024-25', image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500&h=500&fit=crop' },
-    { name: 'ANUKRATI AGARWAL', package: '40 LPA', company: 'Amazon', year: '2024-25', image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=500&h=500&fit=crop' },
-    { name: 'SEJAL MAHESHWARI', package: '59.9 LPA', company: 'Atlassian India LLP', year: '2023-24', image: 'https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=500&h=500&fit=crop' },
-    { name: 'PRAKHAR TANDON', package: '49 LPA', company: 'Microsoft India (R & D) Pvt. Ltd.', year: '2023-24', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=500&fit=crop' },
-    { name: 'PRAKHAR PANDEY', package: '49 LPA', company: 'Microsoft India (R & D) Pvt. Ltd.', year: '2023-24', image: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=500&h=500&fit=crop' },
-    { name: 'KUSUMLATA BHATT', package: '52 LPA', company: 'Google India Pvt. Ltd.', year: '2022-23', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&h=500&fit=crop' },
+    { name: 'SAMHITHA MALLANNAGARI', package: '49.12 LPA', company: 'Microsoft', year: '2024', image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500&h=500&fit=crop' },
+    { name: 'CHAITRA SAI JALDA', package: '18 LPA', company: 'Synopsys', year: '2024', image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=500&h=500&fit=crop' },
+    { name: 'BATCHU KANAKA DURGA PRIYANKA', package: '12 LPA', company: 'Bank of America', year: '2024', image: 'https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=500&h=500&fit=crop' },
+    { name: 'KOYALKAR GOPIKRISHNA', package: '10 LPA', company: 'EPAM', year: '2024', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=500&fit=crop' },
+    { name: 'JELLA SREEJA', package: '8 LPA', company: 'UST Global', year: '2024', image: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=500&h=500&fit=crop' },
+    { name: 'MENUGU RAJESHWARI', package: '7.5 LPA', company: 'Tech Mahindra', year: '2024', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&h=500&fit=crop' },
   ];
 
   // Top recruiters
   const topRecruiters = [
-    'https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?w=400&h=200&fit=crop',
-    'https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=400&h=200&fit=crop',
-    'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=200&fit=crop',
-    'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=200&fit=crop',
-    'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=200&fit=crop',
-    'https://images.unsplash.com/photo-1523474253046-8cd2748b5fd2?w=400&h=200&fit=crop',
+    { name: 'Accenture', logo: '/images/companies/Accenture_logo.png' },
+    { name: 'Amazon', logo: '/images/companies/Amazon_logo.webp' },
+    { name: 'Bank of America', logo: '/images/companies/bankofamerica.png' },
+    { name: 'BEL', logo: '/images/companies/bel.svg' },
+    { name: 'Capgemini', logo: '/images/companies/capgemini.png' },
+    { name: 'Cisco', logo: '/images/companies/Cisco_logo.png' },
+    { name: 'Cognizant', logo: '/images/companies/Cognizant_logo.png' },
+    { name: 'Darwinbox', logo: '/images/companies/darwin.webp' },
+    { name: 'Deloitte', logo: '/images/companies/Deloitte_logo.png' },
+    { name: 'EPAM', logo: '/images/companies/Epam.jpg' },
+    { name: 'Evergent', logo: '/images/companies/evergent.png' },
+    { name: 'Forage – AI', logo: '/images/companies/forage.png' },
+    { name: 'Infosys', logo: '/images/companies/Infosys_logo.png' },
+    { name: 'Intellipaat', logo: '/images/companies/intellipaat.png' },
+    { name: 'KPIT', logo: '/images/companies/Kpit.png' },
+    { name: 'LTI Mindtree', logo: '/images/companies/Lti-mindtree.png' },
+    { name: 'Microsoft', logo: '/images/companies/microsoft.webp' },
+    { name: 'Mivada', logo: '/images/companies/mivada.jpeg' },
+    { name: 'Movidu', logo: '/images/companies/movidu.webp' },
+    { name: 'Optum', logo: '/images/companies/optum.png' },
+    { name: 'Porter', logo: '/images/companies/porter.png' },
+    { name: 'Qualizeal', logo: '/images/companies/qualizeal.png' },
+    { name: 'RealPage', logo: '/images/companies/realpage.png' },
+    { name: 'Renault Nissan', logo: '/images/companies/renault.jpg' },
+    { name: 'Risamsoft', logo: '/images/companies/risamsoft.png' },
+    { name: 'Sagarsoft', logo: '/images/companies/sagarsoft.png' },
+    { name: 'Sechay', logo: '/images/companies/sechay.png' },
+    { name: 'Sids Farm', logo: '/images/companies/sidsfarm.png' },
+    { name: 'Sify', logo: '/images/companies/sify.png' },
+    { name: 'Skill Duniya', logo: '/images/companies/skilldunia.png' },
+    { name: 'State Street', logo: '/images/companies/statestreet.png' },
+    { name: 'Synopsys', logo: '/images/companies/synopsys.png' },
+    { name: 'TCS', logo: '/images/companies/TCS_logo.png' },
+    { name: 'TAS', logo: '/images/companies/TAS_logo.jpg' },
+    { name: 'Tech Mahindra', logo: '/images/companies/techmahindra.png' },
+    { name: 'Tejas Networks', logo: '/images/companies/tejasnetwork.jpeg' },
+    { name: 'UST Global', logo: '/images/companies/ustglobal.png' },
+    { name: 'Verizon', logo: '/images/companies/verizon.png' },
+    { name: 'Verisk', logo: '/images/companies/verisk.png' },
+    { name: 'Wipro', logo: '/images/companies/Wipro_logo.jpg' },
   ];
 
-  // Hall of Fame Data
-  const hallOfFameData = [
-    { sno: 1, name: 'DAYA SINGH', branch: 'CS', company: 'Amazon India LLP', salary: '40,00,000', designation: 'SDE' },
-    { sno: 2, name: 'UTIKARSH SINGH', branch: 'CSE(DS)', company: 'Deloitte', salary: '25,00,000', designation: 'SDE' },
-    { sno: 3, name: 'YASH GARG', branch: 'IT', company: 'Zscaler', salary: '23,00,000', designation: 'Intern Q.A.' },
-    { sno: 4, name: 'NISHITA SAXENA', branch: 'CSE(AIML)', company: 'Playtech', salary: '21,00,000', designation: 'Software Development' },
-    { sno: 5, name: 'DIVYANSH SAXENA', branch: 'CSE', company: 'Playtech', salary: '21,00,000', designation: 'Software Development' },
-    { sno: 6, name: 'ARYAN SAXENA', branch: 'CS', company: 'Playtech', salary: '21,00,000', designation: 'DEVELOPER SUPPORT ENGINEER' },
-    { sno: 7, name: 'MANI PRATAP SINGH', branch: 'CS', company: 'CISCO', salary: '17,44,055', designation: 'Technical intern' },
-    { sno: 8, name: 'SHASHI MISHRA', branch: 'CSE(DS)', company: 'PLAYBOOK INC', salary: '20,00,000', designation: 'Software Engineer' },
-    { sno: 9, name: 'AYUSKA SINGH', branch: 'CSE', company: 'Amazon', salary: '40,00,000', designation: 'Software Dev Engineer Intern' },
-    { sno: 10, name: 'ANUKRATI AGARWAL', branch: 'CSE', company: 'Amazon', salary: '40,00,000', designation: 'Software Dev Engineer Intern' },
-    { sno: 11, name: 'MANVI TYAGI', branch: 'CSE', company: 'Amazon', salary: '40,00,000', designation: 'Software Dev Engineer Intern' },
-    { sno: 12, name: 'SEJAL MAHESHWARI', branch: 'CSE', company: 'Atlassian India LLP', salary: '59,91,000', designation: 'SDE' },
-    { sno: 13, name: 'KUSUMLATA BHATT', branch: 'CSE', company: 'Google India Pvt. Ltd.', salary: '52,00,000', designation: 'SDE' },
-  ];
-
-  // Placement Page Links
   // Placement Page Links
   const placementLinks = [
     { id: 'Stats', label: 'Overview' },
@@ -111,7 +295,7 @@ const Placements = () => {
     { id: 'DreamOffers', label: 'Dream Offers' },
     { id: 'Internships', label: 'Internships' },
     { id: 'Highlights', label: 'Highlights' },
-    { id: 'HallOfFame', label: 'Hall of Fame' },
+    { id: 'PlacementData', label: '2024 Placements' },
     { id: 'Glimpses', label: 'Glimpses' },
   ];
 
@@ -136,8 +320,8 @@ const Placements = () => {
         <div className="relative z-10 px-6 md:px-28 max-w-7xl mx-auto text-center">
           <div className="animate-fadeIn">
             <h1 className="text-white text-4xl md:text-7xl font-bold leading-tight tracking-tight mb-6 drop-shadow-2xl">
-              1873+ Offers in Session
-              <span className="block text-blue-400 mt-2">2024-25</span>
+              181 Students Placed
+              <span className="block text-blue-400 mt-2">Batch 2024 (2021-25)</span>
             </h1>
             <div className="w-24 md:w-32 h-1 bg-gradient-to-r from-transparent via-white to-transparent mx-auto my-6 md:my-8"></div>
             <p className="text-white text-base md:text-xl font-light leading-relaxed max-w-4xl mx-auto drop-shadow-lg px-2">
@@ -339,7 +523,7 @@ const Placements = () => {
               }
               .scroll-container {
                 display: flex;
-                animation: scroll-left 30s linear infinite;
+                animation: scroll-left 50s linear infinite;
               }
               .scroll-container:hover {
                 animation-play-state: paused;
@@ -348,16 +532,33 @@ const Placements = () => {
 
             <div className="flex overflow-hidden">
               <div className="scroll-container">
-                {[...topRecruiters, ...topRecruiters].map((logo, index) => (
+                {[...topRecruiters, ...topRecruiters].map((company, index) => (
                   <div
                     key={index}
-                    className="flex-shrink-0 w-64 h-40 mx-4 bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
+                    className="flex-shrink-0 w-64 h-40 mx-4 bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center p-6 border border-slate-700/30"
                   >
-                    <img
-                      src={logo}
-                      alt={`Recruiter ${index + 1}`}
-                      className="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-500"
-                    />
+                    {company.logo ? (
+                      <img
+                        src={company.logo}
+                        alt={company.name}
+                        className="max-w-full max-h-full object-contain filter grayscale hover:grayscale-0 transition-all duration-500"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.style.display = 'none';
+                          const parent = target.parentElement;
+                          if (parent) {
+                            const span = document.createElement('span');
+                            span.className = 'text-slate-800 font-bold text-center px-4 break-words';
+                            span.innerText = company.name;
+                            parent.appendChild(span);
+                          }
+                        }}
+                      />
+                    ) : (
+                      <span className="text-slate-800 font-bold text-center px-4 break-words">
+                        {company.name}
+                      </span>
+                    )}
                   </div>
                 ))}
               </div>
@@ -380,7 +581,7 @@ const Placements = () => {
                   { name: 'Cognizant', logo: '/images/companies/Cognizant_logo.png' },
                   { name: 'Deloitte', logo: '/images/companies/Deloitte_logo.png' },
                   { name: 'Infosys', logo: '/images/companies/Infosys_logo.png' },
-                  { name: 'SAP', logo: '/images/companies/SAP_logo.png' }
+                  { name: 'Synopsys', logo: '/images/companies/synopsys.png' }
                 ].map((company, idx) => (
                   <div key={idx} className="bg-white rounded-lg p-3 md:p-4 hover:shadow-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center h-20 md:h-24">
                     <img
@@ -404,9 +605,9 @@ const Placements = () => {
                   { name: 'TCS', logo: '/images/companies/TCS_logo.png' },
                   { name: 'Accenture', logo: '/images/companies/Accenture_logo.png' },
                   { name: 'Wipro', logo: '/images/companies/Wipro_logo.jpg' },
-                  { name: 'Meesho', logo: '/images/companies/Meesho_logo.png' },
-                  { name: 'HDFC Life', logo: '/images/companies/HDFC-Life_logo.png' },
-                  { name: 'CRED', logo: '/images/companies/CRED_logo.webp' }
+                  { name: 'LTI Mindtree', logo: '/images/companies/Lti-mindtree.png' },
+                  { name: 'KPIT', logo: '/images/companies/Kpit.png' },
+                  { name: 'Capgemini', logo: '/images/companies/capgemini.png' }
                 ].map((company, idx) => (
                   <div key={idx} className="bg-white rounded-lg p-3 md:p-4 hover:shadow-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center h-20 md:h-24">
                     <img
@@ -668,17 +869,17 @@ const Placements = () => {
                 { company: 'Infosys', salary: '9.5 LPA', students: 6, batch: '2024-25', logo: '/images/companies/Infosys_logo.png' },
                 { company: 'TCS', salary: '9 LPA', students: 2, batch: '2024-25', logo: '/images/companies/TCS_logo.png' },
                 { company: 'Cognizant', salary: '8.28 LPA', students: 14, batch: '2024-25', logo: '/images/companies/Cognizant_logo.png' },
-                { company: 'Samsung R&D', salary: '7.65 LPA', students: 11, batch: '2024-25', logo: 'https://upload.wikimedia.org/wikipedia/commons/2/23/Samsung_Logo.svg' },
+                { company: 'Evergent', salary: '7.65 LPA', students: 11, batch: '2024-25', logo: '/images/companies/evergent.png' },
                 { company: 'Amazon', salary: '44 LPA', students: 35, batch: '2021-23', logo: '/images/companies/Amazon_logo.webp' },
-                { company: 'Microsoft', salary: '49.12 LPA', students: 3, batch: '2022-24', logo: 'https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg' },
+                { company: 'Microsoft', salary: '49.12 LPA', students: 3, batch: '2022-24', logo: '/images/companies/microsoft.webp' },
                 { company: 'Deloitte', salary: '52 LPA', students: 2, batch: '2023-24', logo: '/images/companies/Deloitte_logo.png' },
                 { company: 'Accenture', salary: '59.91 LPA', students: 1, batch: '2024', logo: '/images/companies/Accenture_logo.png' },
                 { company: 'Infosys', salary: '9.5 LPA', students: 6, batch: '2024-25', logo: '/images/companies/Infosys_logo.png' },
                 { company: 'TCS', salary: '9 LPA', students: 2, batch: '2024-25', logo: '/images/companies/TCS_logo.png' },
                 { company: 'Cognizant', salary: '8.28 LPA', students: 14, batch: '2024-25', logo: '/images/companies/Cognizant_logo.png' },
-                { company: 'Samsung R&D', salary: '7.65 LPA', students: 11, batch: '2024-25', logo: 'https://upload.wikimedia.org/wikipedia/commons/2/23/Samsung_Logo.svg' },
+                { company: 'Evergent', salary: '7.65 LPA', students: 11, batch: '2024-25', logo: '/images/companies/evergent.png' },
                 { company: 'Amazon', salary: '44 LPA', students: 35, batch: '2021-23', logo: '/images/companies/Amazon_logo.webp' },
-                { company: 'Microsoft', salary: '49.12 LPA', students: 3, batch: '2022-24', logo: 'https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg' },
+                { company: 'Microsoft', salary: '49.12 LPA', students: 3, batch: '2022-24', logo: '/images/companies/microsoft.webp' },
                 { company: 'Deloitte', salary: '52 LPA', students: 2, batch: '2023-24', logo: '/images/companies/Deloitte_logo.png' },
                 { company: 'Accenture', salary: '59.91 LPA', students: 1, batch: '2024', logo: '/images/companies/Accenture_logo.png' },
               ].map((offer, index) => (
@@ -826,53 +1027,6 @@ const Placements = () => {
         </div>
       </section>
 
-      {/* Hall of Fame Table Section */}
-      <section id="HallOfFame" className="w-full py-16 md:py-24 px-6 md:px-28 bg-white overflow-hidden scroll-mt-24">
-        <div className="max-w-7xl mx-auto">
-          <div className="mb-10 md:mb-12 text-center md:text-left">
-            <h2 className="text-slate-800 text-3xl md:text-5xl font-bold mb-4 md:mb-6 italic leading-tight">Hall of Fame</h2>
-            <div className="w-full h-px bg-slate-200"></div>
-          </div>
-
-          {/* Modern Table Container */}
-          <div className="relative overflow-x-auto rounded-xl border border-slate-200 shadow-lg bg-white">
-            <div className="min-w-[800px]">
-              <table className="w-full text-left border-collapse">
-                <thead>
-                  <tr className="bg-slate-950 text-white border-b border-slate-800">
-                    <th className="px-6 py-5 text-xs font-bold uppercase tracking-widest whitespace-nowrap">S.no</th>
-                    <th className="px-6 py-5 text-xs font-bold uppercase tracking-widest whitespace-nowrap">Student Name</th>
-                    <th className="px-6 py-5 text-xs font-bold uppercase tracking-widest whitespace-nowrap">Br.</th>
-                    <th className="px-6 py-5 text-xs font-bold uppercase tracking-widest whitespace-nowrap">Company Name</th>
-                    <th className="px-6 py-5 text-xs font-bold uppercase tracking-widest whitespace-nowrap">Salary (INR)</th>
-                    <th className="px-6 py-5 text-xs font-bold uppercase tracking-widest whitespace-nowrap">Designation</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-100">
-                  {hallOfFameData.map((row, index) => (
-                    <tr key={index} className="hover:bg-blue-50/50 transition-colors duration-200 group">
-                      <td className="px-6 py-4 text-sm font-medium text-slate-500">{row.sno}</td>
-                      <td className="px-6 py-4 text-sm font-bold text-slate-800 group-hover:text-blue-600 transition-colors">{row.name}</td>
-                      <td className="px-6 py-4 text-xs font-semibold text-slate-600">{row.branch}</td>
-                      <td className="px-6 py-4">
-                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-blue-700 border border-blue-100 uppercase">
-                          {row.company}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 text-sm font-black text-slate-800 tracking-tight">₹{row.salary}</td>
-                      <td className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-tighter">{row.designation}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div className="mt-8 text-center text-slate-400 text-[10px] md:text-xs font-medium tracking-widest uppercase px-4">
-            Swipe horizontally to view full table details
-          </div>
-        </div>
-      </section>
-
       {/* Placement Glimpses 2024 - Compact Viewport Fit Grid */}
       <section id="Glimpses" className="w-full bg-[#050505] overflow-hidden lg:h-[calc(100vh-80px)] flex items-center scroll-mt-24">
         <div className="max-w-[1500px] mx-auto flex flex-col lg:flex-row w-full h-full">
@@ -933,6 +1087,147 @@ const Placements = () => {
                 <p className="text-[9px] md:text-[10px] font-bold text-slate-500 leading-tight">(CTC Between &lt;= 6.99 LPA &amp; &gt;= 5.00 LPA)</p>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 2024 Batch Placement Data Section */}
+      <section id="PlacementData" className="w-full py-16 md:py-20 px-6 md:px-28 bg-slate-50 scroll-mt-24">
+        <div className="max-w-7xl mx-auto">
+          {/* Header */}
+          <div className="mb-10 md:mb-12 text-center">
+            <h2 className="text-slate-800 text-3xl md:text-5xl font-bold leading-tight mb-4">
+              2024 Batch Placements
+            </h2>
+            <p className="text-slate-600 text-base md:text-lg max-w-3xl mx-auto">
+              Complete placement records for CSE Department - Batch 2024 (2021-25)
+            </p>
+            <div className="w-32 h-1 bg-blue-600 mx-auto mt-6 rounded-full"></div>
+          </div>
+
+          {/* Statistics Summary */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+            <div className="bg-white p-6 rounded-lg shadow-sm border border-slate-200 text-center">
+              <p className="text-3xl md:text-4xl font-bold text-blue-600 mb-2">258</p>
+              <p className="text-sm text-slate-600 font-medium">Total Students</p>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-sm border border-slate-200 text-center">
+              <p className="text-3xl md:text-4xl font-bold text-green-600 mb-2">181</p>
+              <p className="text-sm text-slate-600 font-medium">Students Placed</p>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-sm border border-slate-200 text-center">
+              <p className="text-3xl md:text-4xl font-bold text-purple-600 mb-2">61.99%</p>
+              <p className="text-sm text-slate-600 font-medium">Placement Rate</p>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-sm border border-slate-200 text-center">
+              <p className="text-3xl md:text-4xl font-bold text-orange-600 mb-2">161</p>
+              <p className="text-sm text-slate-600 font-medium">Total Offers</p>
+            </div>
+          </div>
+
+          {/* Placement Data Table */}
+          <div className="bg-white rounded-lg shadow-lg overflow-hidden border border-slate-200">
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead className="bg-gradient-to-r from-blue-600 to-blue-700 text-white">
+                  <tr>
+                    <th className="px-4 py-4 text-left text-xs md:text-sm font-bold uppercase tracking-wider">S.No</th>
+                    <th className="px-4 py-4 text-left text-xs md:text-sm font-bold uppercase tracking-wider">Roll No</th>
+                    <th className="px-4 py-4 text-left text-xs md:text-sm font-bold uppercase tracking-wider">Name</th>
+                    <th className="px-4 py-4 text-left text-xs md:text-sm font-bold uppercase tracking-wider">Company Offers</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-200">
+                  {(() => {
+                    const indexOfLastStudent = currentPage * studentsPerPage;
+                    const indexOfFirstStudent = indexOfLastStudent - studentsPerPage;
+                    const currentStudents = placementData2024.slice(indexOfFirstStudent, indexOfLastStudent);
+
+                    return currentStudents.map((student, index) => (
+                      <tr
+                        key={student.sno}
+                        className={`${index % 2 === 0 ? 'bg-white' : 'bg-slate-50'} hover:bg-blue-50 transition-colors duration-150`}
+                      >
+                        <td className="px-4 py-3 text-sm text-slate-900 font-medium">{student.sno}</td>
+                        <td className="px-4 py-3 text-sm text-slate-700 font-mono">{student.rno}</td>
+                        <td className="px-4 py-3 text-sm text-slate-900 font-semibold">{student.name}</td>
+                        <td className="px-4 py-3 text-sm text-slate-700">{student.offers}</td>
+                      </tr>
+                    ));
+                  })()}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Pagination Controls */}
+          <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="text-sm text-slate-600">
+              Showing {((currentPage - 1) * studentsPerPage) + 1} to {Math.min(currentPage * studentsPerPage, placementData2024.length)} of {placementData2024.length} students
+            </div>
+
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                disabled={currentPage === 1}
+                className={`px-4 py-2 rounded-lg font-semibold text-sm transition-all duration-200 ${currentPage === 1
+                  ? 'bg-slate-200 text-slate-400 cursor-not-allowed'
+                  : 'bg-blue-600 text-white hover:bg-blue-700 shadow-md hover:shadow-lg'
+                  }`}
+              >
+                Previous
+              </button>
+
+              <div className="flex items-center gap-2">
+                {(() => {
+                  const totalPages = Math.ceil(placementData2024.length / studentsPerPage);
+                  const pages = [];
+
+                  for (let i = 1; i <= totalPages; i++) {
+                    if (
+                      i === 1 ||
+                      i === totalPages ||
+                      (i >= currentPage - 1 && i <= currentPage + 1)
+                    ) {
+                      pages.push(
+                        <button
+                          key={i}
+                          onClick={() => setCurrentPage(i)}
+                          className={`w-10 h-10 rounded-lg font-semibold text-sm transition-all duration-200 ${currentPage === i
+                            ? 'bg-blue-600 text-white shadow-md'
+                            : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                            }`}
+                        >
+                          {i}
+                        </button>
+                      );
+                    } else if (i === currentPage - 2 || i === currentPage + 2) {
+                      pages.push(<span key={i} className="text-slate-400">...</span>);
+                    }
+                  }
+
+                  return pages;
+                })()}
+              </div>
+
+              <button
+                onClick={() => setCurrentPage(prev => Math.min(prev + 1, Math.ceil(placementData2024.length / studentsPerPage)))}
+                disabled={currentPage === Math.ceil(placementData2024.length / studentsPerPage)}
+                className={`px-4 py-2 rounded-lg font-semibold text-sm transition-all duration-200 ${currentPage === Math.ceil(placementData2024.length / studentsPerPage)
+                  ? 'bg-slate-200 text-slate-400 cursor-not-allowed'
+                  : 'bg-blue-600 text-white hover:bg-blue-700 shadow-md hover:shadow-lg'
+                  }`}
+              >
+                Next
+              </button>
+            </div>
+          </div>
+
+          {/* Note */}
+          <div className="mt-8 text-center">
+            <p className="text-slate-500 text-sm italic">
+              * 2025 Placement data will be updated soon
+            </p>
           </div>
         </div>
       </section>

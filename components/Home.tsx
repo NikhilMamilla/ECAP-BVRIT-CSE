@@ -3,7 +3,6 @@ import Header from './Header';
 import About from './About';
 import StatsSection from './StatsSection';
 import CSEProgramOverview from './CSEProgramOverview';
-import CSEFaculty from './CSEFaculty';
 import PlacementsSection from './PlacementsSection';
 import GraceHopperCOE from './GraceHopperCOE';
 import Clubs from './Clubs';
@@ -28,7 +27,6 @@ const Home: React.FC = () => {
         <section id="Accreditations" className="scroll-mt-24"><Accreditations /></section>
         <section id="CSEPrograms" className="scroll-mt-24"><CSEProgramOverview /></section>
         <section id="CSEStats" className="scroll-mt-24"><StatsSection /></section>
-        <section id="Faculty" className="scroll-mt-24"><CSEFaculty /></section>
         <section id="GraceHopper" className="scroll-mt-24">
           <GraceHopperCOE />
         </section>

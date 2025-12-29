@@ -7,6 +7,7 @@ import { useCounter } from '../hooks/useCounter';
 import { AnimatedElement } from './AnimatedElement';
 import { useContext } from 'react';
 import { StoreContext } from '../storeContext/StoreContext';
+import CSEFaculty from './CSEFaculty';
 
 // --- DATA ---
 // const highlights = [
@@ -339,33 +340,46 @@ const PlacementsSection: React.FC = () => {
             <div className="logos-slide">
               {(() => {
                 const companies = [
-                  { name: 'Infosys', logoSrc: '/images/companies/Infosys_logo.png' },
-                  { name: 'Accenture', logoSrc: '/images/companies/Accenture_logo.png' },
-                  { name: 'Cognizant', logoSrc: '/images/companies/Cognizant_logo.png' },
-                  { name: 'Wipro', logoSrc: '/images/companies/Wipro_logo.jpg' },
-                  { name: 'Amazon', logoSrc: '/images/companies/Amazon_logo.webp' },
-                  { name: 'Cisco', logoSrc: '/images/companies/Cisco_logo.png' },
-                  { name: 'SAP Labs', logoSrc: '/images/companies/SAP_logo.png' },
-                  { name: 'Deloitte', logoSrc: '/images/companies/Deloitte_logo.png' },
-                  { name: 'Inncircles', logoSrc: '/images/companies/Inncircles_logo.png' },
-                  { name: 'Meesho', logoSrc: '/images/companies/Meesho_logo.png' },
-                  { name: 'TCS', logoSrc: '/images/companies/TCS_logo.png' },
-                  { name: 'M2P', logoSrc: '/images/companies/M2P_logo.webp' },
-                  { name: 'Distacart', logoSrc: '/images/companies/Distacart_logo.jpg' },
-                  { name: 'Intellipaat', logoSrc: '/images/companies/R.png' },
-                  { name: 'HDFC Life', logoSrc: '/images/companies/HDFC-Life_logo.png' },
-                  { name: 'D-mart', logoSrc: '/images/companies/DMart_logo.jpg' },
-                  { name: 'Akrivia HCM', logoSrc: '/images/companies/AkriviaHCM_logo.png' },
-                  { name: 'CRED', logoSrc: '/images/companies/CRED_logo.webp' },
-                  { name: 'Mercari', logoSrc: '/images/companies/Mercari_logo.png' },
-                  { name: 'Moschip', logoSrc: '/images/companies/Moschip_logo.png' },
-                  { name: 'Infinite', logoSrc: '/images/companies/Infinite_logo.jpg' },
-                  { name: 'TAS', logoSrc: '/images/companies/TAS_logo.jpg' },
-                  { name: 'Teejay', logoSrc: '/images/companies/Teejay_logo.png' },
-                  { name: 'Imeg', logoSrc: '/images/companies/Imeg_logo.png' },
-                  { name: 'Teachnook', logoSrc: '/images/companies/Teachnook_logo.png' },
-                  { name: 'Pfizer', logoSrc: '/images/companies/Pfizer_logo.png' },
-                  { name: 'Pavision', logoSrc: '/images/companies/Pavision_logo.jpeg' },
+                  { name: 'Accenture', logo: '/images/companies/Accenture_logo.png' },
+                  { name: 'Amazon', logo: '/images/companies/Amazon_logo.webp' },
+                  { name: 'Bank of America', logo: '/images/companies/bankofamerica.png' },
+                  { name: 'BEL', logo: '/images/companies/bel.svg' },
+                  { name: 'Capgemini', logo: '/images/companies/capgemini.png' },
+                  { name: 'Cisco', logo: '/images/companies/Cisco_logo.png' },
+                  { name: 'Cognizant', logo: '/images/companies/Cognizant_logo.png' },
+                  { name: 'Darwinbox', logo: '/images/companies/darwin.webp' },
+                  { name: 'Deloitte', logo: '/images/companies/Deloitte_logo.png' },
+                  { name: 'EPAM', logo: '/images/companies/Epam.jpg' },
+                  { name: 'Evergent', logo: '/images/companies/evergent.png' },
+                  { name: 'Forage – AI', logo: '/images/companies/forage.png' },
+                  { name: 'Infosys', logo: '/images/companies/Infosys_logo.png' },
+                  { name: 'Intellipaat', logo: '/images/companies/intellipaat.png' },
+                  { name: 'KPIT', logo: '/images/companies/Kpit.png' },
+                  { name: 'LTI Mindtree', logo: '/images/companies/Lti-mindtree.png' },
+                  { name: 'Microsoft', logo: '/images/companies/microsoft.webp' },
+                  { name: 'Mivada', logo: '/images/companies/mivada.jpeg' },
+                  { name: 'Movidu', logo: '/images/companies/movidu.webp' },
+                  { name: 'Optum', logo: '/images/companies/optum.png' },
+                  { name: 'Porter', logo: '/images/companies/porter.png' },
+                  { name: 'Qualizeal', logo: '/images/companies/qualizeal.png' },
+                  { name: 'RealPage', logo: '/images/companies/realpage.png' },
+                  { name: 'Renault Nissan', logo: '/images/companies/renault.jpg' },
+                  { name: 'Risamsoft', logo: '/images/companies/risamsoft.png' },
+                  { name: 'Sagarsoft', logo: '/images/companies/sagarsoft.png' },
+                  { name: 'Sechay', logo: '/images/companies/sechay.png' },
+                  { name: 'Sids Farm', logo: '/images/companies/sidsfarm.png' },
+                  { name: 'Sify', logo: '/images/companies/sify.png' },
+                  { name: 'Skill Duniya', logo: '/images/companies/skilldunia.png' },
+                  { name: 'State Street', logo: '/images/companies/statestreet.png' },
+                  { name: 'Synopsys', logo: '/images/companies/synopsys.png' },
+                  { name: 'TCS', logo: '/images/companies/TCS_logo.png' },
+                  { name: 'TAS', logo: '/images/companies/TAS_logo.jpg' },
+                  { name: 'Tech Mahindra', logo: '/images/companies/techmahindra.png' },
+                  { name: 'Tejas Networks', logo: '/images/companies/tejasnetwork.jpeg' },
+                  { name: 'UST Global', logo: '/images/companies/ustglobal.png' },
+                  { name: 'Verizon', logo: '/images/companies/verizon.png' },
+                  { name: 'Verisk', logo: '/images/companies/verisk.png' },
+                  { name: 'Wipro', logo: '/images/companies/Wipro_logo.jpg' },
                 ];
 
                 return [...Array(2)].map((_, i) => (
@@ -373,7 +387,7 @@ const PlacementsSection: React.FC = () => {
                     {companies.map((company, index) => (
                       <div key={`${i}-${index}`} className="logo">
                         <img
-                          src={company.logoSrc}
+                          src={company.logo}
                           alt={company.name}
                           title={company.name}
                         />
@@ -386,6 +400,9 @@ const PlacementsSection: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* --- FACULTY SECTION --- */}
+      <CSEFaculty />
     </section>
   );
 };
