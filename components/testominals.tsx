@@ -4,39 +4,39 @@ import React from 'react';
 const testimonials = [
   {
     id: 1,
-    name: "Kiran Kumar S.",
-    details: "B.Tech CSE, Placed at Amazon",
-    quote: "The CSE department at BVRIT provided exceptional training in algorithms and data structures. The faculty's guidance and placement cell support helped me crack Amazon's rigorous interview process."
+    name: "Thada Revanth",
+    details: "B.Tech CSE, Placed at Flipkart (32 LPA)",
+    quote: "The comprehensive curriculum and rigorous coding practice sessions at BVRIT were crucial in helping me crack the Flipkart interview. The support from faculty was outstanding."
   },
   {
     id: 2,
-    name: "Priya Reddy",
-    details: "B.Tech CSE (AI/ML), Placed at Google",
-    quote: "  The AI/ML specialization gave me hands-on experience with cutting-edge technologies. The research opportunities and industry collaborations prepared me perfectly for my role at Google."
+    name: "Pininti Jhansi",
+    details: "B.Tech CSE, Placed at Optum (18.56 LPA)",
+    quote: "BVRIT provided me with the perfect platform to enhance my technical skills. The placement training and mock interviews played a significant role in my selection at Optum."
   },
   {
     id: 3,
-    name: "Rahul Verma",
-    details: "B.Tech CSE, Software Engineer at Microsoft",
-    quote: "BVRIT's CSE labs are world-class. The practical experience I gained through projects and hackathons was instrumental in landing my dream job at Microsoft."
+    name: "Chirumani Shravan Kumar",
+    details: "B.Tech CSE, Placed at Porter (17 LPA)",
+    quote: "The hands-on projects and industry-aligned workshops offered by the CSE department gave me the confidence to tackle real-world problems and succeed in my manufacturing interview."
   },
   {
     id: 4,
-    name: "Sneha Patel",
-    details: "B.Tech CSE (Data Science), Data Scientist at Flipkart",
-    quote: "The Data Science specialization equipped me with statistical modeling and big data skills. The industry-relevant curriculum made my transition to Flipkart seamless."
+    name: "Pothireddy Bhavya Reddy",
+    details: "B.Tech CSE, Placed at Optum (18.56 LPA)",
+    quote: "I am grateful to the BVRIT CSE department for their constant encouragement. The peer learning culture and expert mentorship were key to securing this offer."
   },
   {
     id: 5,
-    name: "Arjun Singh",
-    details: "B.Tech CSE (Cyber Security), Security Analyst at Cisco",
-    quote: "The Cyber Security program at BVRIT is top-notch. Real-world case studies and ethical hacking labs prepared me for the challenges in my current role at Cisco."
+    name: "Samhitha Mallannagari",
+    details: "B.Tech CSE, Placed at Microsoft (49.12 LPA)",
+    quote: "Landing a dream job at Microsoft wouldn't have been possible without the world-class infrastructure and guidance provided by BVRIT. It truly shapes your future."
   },
   {
     id: 6,
-    name: "Anjali Sharma",
-    details: "B.Tech IT, Full Stack Developer at TCS",
-    quote: "The coding culture at BVRIT CSE is exceptional. Weekly coding contests and peer learning helped me become a confident full-stack developer."
+    name: "Chaitra Sai Jalda",
+    details: "B.Tech CSE, Placed at Synopsys (18 LPA)",
+    quote: "The department's focus on fundamental concepts and advanced technologies helped me build a strong foundation. I would like to thank the placement cell for this opportunity."
   }
 ];
 
