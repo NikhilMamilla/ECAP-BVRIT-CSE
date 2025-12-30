@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import Header from '../Header';
 import Footer from '../Footer';
 import AnimatedElement from '../AnimatedElement';
-import { StickyScroll } from '../ui/sticky-scroll-reveal';
 import {
     Target,
     Lightbulb,
@@ -21,398 +20,328 @@ import {
     Activity,
     ArrowDown,
     ChevronLeft,
-    ChevronRight
+    ChevronRight,
+    BookOpen,
+    ExternalLink
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 
+// Faculty Team Data
+const facultyTeam = [
+    { name: 'Dr. Ch. Madhu Babu', designation: 'Faculty Coordinator', image: '/COEFaculty/madhubabu.jpeg' },
+    { name: 'Dr. Lanke Pallavi', designation: 'Faculty Member', image: '/COEFaculty/pallavi (2).jpeg' },
+    { name: 'Mr. D. Jagadeesh', designation: 'Faculty Member', image: '/COEFaculty/jagadeesh.jpeg' },
+    { name: 'Mr. P. Bhaskar Rao', designation: 'Faculty Member', image: '/COEFaculty/baskarao (2).jpeg' },
+    { name: 'Mrs. Ch. Sreedevi', designation: 'Faculty Member', image: '/COEFaculty/sreedevi.jpeg' },
+    { name: 'Mr. S. Srinuvasarao', designation: 'Faculty Member', image: '/COEFaculty/srinivas (2).jpeg' },
+    { name: 'Mr. PSRB Shashank', designation: 'Faculty Member', image: '/faculty/shashank.webp' },
+    { name: 'Mr. M. Manzoor Hussain', designation: 'Faculty Member', image: '/COEFaculty/manzoorhussian.jpeg' }
+];
+
+// Industry Partners Data
+const industryProjects = [
+    { company: 'Hexagon R&D', projects: 2, status: 'Completed', description: 'Real-time projects on cutting-edge technologies', image: '/images/companies/hexagon.png' },
+    { company: 'One Convergence', projects: 2, status: 'Completed', description: 'Cloud and networking solutions', image: '/images/companies/oneconvergence.png' },
+    { company: 'Qualizeal', projects: 2, status: 'Completed', description: 'Software testing and quality assurance', image: '/images/companies/qualizeal.png' },
+    { company: 'ForageAI', projects: 2, status: 'Completed', description: 'AI-driven solutions and analytics', image: '/images/companies/forage.png' },
+    { company: 'BHEA-Simple Skills', projects: 1, status: 'Completed', description: 'CRM Implementation using SugarCRM', image: '/images/companies/bhea.png' },
+    { company: 'Smart Falcon LLP', projects: 1, status: 'Ongoing', description: 'SmartCard Operating System Development', image: '/images/companies/smartfalcon.png' },
+];
+
+// Achievements & Collaborations Hub Data
+const allAchievements = [
+    {
+        title: 'IEEE YESIST12 Best Project',
+        description: 'Students won the "Best Project" award at IEEE YESIST12 2024 for "Medical Imaging in GANs".',
+        image: '/assets/grace-hopper/achievements/ieee-yesist12-winner.jpg',
+        span: 'large', // 2x2
+        category: 'Award',
+        icon: Award
+    },
+    {
+        title: 'Project Drona - Infosys',
+        description: 'Industry-aligned training empower students with cutting-edge tech skills at Infosys Springboard.',
+        image: '/assets/grace-hopper/achievements/project-drona-ceremony.jpg',
+        span: 'wide', // 2x1
+        category: 'Recognition',
+        icon: Rocket
+    },
+    {
+        title: 'RBI90 Quiz State Finalists',
+        description: 'Reached the State Level Round of the prestigious knowledge competition by RBI.',
+        image: '/assets/grace-hopper/achievements/rbi-quiz-team.jpg',
+        span: 'small', // 1x1
+        category: 'Achievement',
+        icon: Award
+    },
+    {
+        title: 'Project Drona Kickoff',
+        description: 'Long-standing success celebration with TGCHE Chairman and industry leaders.',
+        image: '/assets/grace-hopper/achievements/project-drona-kickoff.jpg',
+        span: 'small', // 1x1
+        category: 'Event',
+        icon: Handshake
+    },
+    {
+        title: 'Campus Collaborations',
+        description: 'Interdisciplinary projects between CSE, ECE, BME, and CHE batches.',
+        image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80',
+        span: 'wide', // 2x1
+        category: 'Collaboration',
+        icon: Users
+    },
+    {
+        title: 'TIHAN – IIT Hyderabad',
+        description: 'Research projects on drones, autonomous vehicles, and smart mobility solutions.',
+        image: 'https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=800&q=80',
+        span: 'small', // 1x1
+        category: 'Research',
+        icon: Rocket
+    },
+    {
+        title: 'ICRISAT AI Models',
+        description: 'Building sustainable AI models for crop prediction and climate research.',
+        image: 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=800&q=80',
+        span: 'small', // 1x1
+        category: 'Agri-Tech',
+        icon: Lightbulb
+    },
+    {
+        title: 'DRDO Excellence',
+        description: 'Exclusive research opportunities and internships at defense labs.',
+        image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80',
+        span: 'small', // 1x1
+        category: 'Defense',
+        icon: Target
+    },
+    {
+        title: 'IIITH Fellowship',
+        description: 'Engagement with Swecha Telangana for Telugu AI & language technology models.',
+        image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80',
+        span: 'small', // 1x1
+        category: 'Fellowship',
+        icon: Globe
+    },
+    {
+        title: 'IISc - NIAS Internships',
+        description: 'Exposure to national-level science and technology projects through research internships.',
+        image: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=800&q=80',
+        span: 'small', // 1x1
+        category: 'Science',
+        icon: FileText
+    },
+    {
+        title: 'IIT Bombay FOSSEE',
+        description: 'Open-source contributions and digital learning modules for technical mastery.',
+        image: 'https://images.unsplash.com/photo-1580894732444-8ecded7900cd?w=800&q=80',
+        span: 'small', // 1x1
+        category: 'OpenSource',
+        icon: Code
+    }
+];
+
+// Research & Publications Data (11 IEEE Papers)
+const researchPapers = [
+    {
+        title: "AuraCheck: An AI-Powered Platform for Real-Time Mental Health Insights and Support",
+        authors: "Srinuvasarao Sanapala, M. Nikhil, P. Anusha, P. Rikwith Reddy, P. Akshay, L. Pallavi",
+        link: "https://xplorestaging.ieee.org/document/11176774",
+        FullPaper: "https://drive.google.com/file/d/1WePEx6iM7ezhhT9rudd9U2JBa-mmllMP/view?usp=sharing",
+    },
+    {
+        title: "PARIJANA, an AI-based Humanoid agent for Enhancing Consumer Experience in Insurance Claims.",
+        authors: "Ch. Madhu Babu, L. Pallavi, Mukundh Dubasi, Divyanshi Ontipuli, Kaki Vaishnavi, Kvvn Sai Bhargav",
+        link: "https://ieeexplore.ieee.org/document/11176629",
+        FullPaper: "https://drive.google.com/file/d/1tkR43Dm8Ifcj9xdY1n1CnAzX65YbBuuj/view?usp=drive_link",
+    },
+    {
+        title: "YOLO-Powered Deep Learning Framework for Smart Drone Surveillance in Emergency Rescue Operation",
+        authors: "R. Pitchai, T. Subba Reddy, Boddu Sanjana, Rishi Sri Dopathi, Dannaram Videeksha, Challagolla Sravya Chowdary",
+        link: "https://ieeexplore.ieee.org/document/11089883",
+        FullPaper: "https://drive.google.com/file/d/1Y4PXqVwY5FjHrtl18WOi190JTBtMzypt/view?usp=drivesdk",
+    },
+    {
+        title: "CARE CONNECT: Revolutionizing Healthcare through AI",
+        authors: "Ch. Madhu Babu, Nuthanakanti Bhaskar, Bondalakunta Bhavika, Amara Shivateja, Varun Annabeemoju, Swetha Chowdari",
+        link: "https://ieeexplore.ieee.org/document/11176716",
+        FullPaper: "https://drive.google.com/file/d/11PvgB_4AEnEnGXYpd5oHBT369_NPuCCV/view?usp=drivesdk",
+    },
+    {
+        title: "A Text-Based AI Chatbot for Emotional Support in Student Mental Health",
+        authors: "Satish Babu Thunuguntla, Poduri Sesha Sai Sathwik, Nannapaneni Lalitya, Penumatcha Jaya Surya, Kaluvala Sai Kiran, L. Pallavi",
+        link: "https://ieeexplore.ieee.org/document/11089562",
+        FullPaper: "https://drive.google.com/file/d/1fHmDJ3Te0B_Y2LvR2048itZwj4iF5oAq/view?usp=drivesdk",
+    },
+    {
+        title: "BookXchange-An AI Driven Book Trade Hub",
+        authors: "Jagadeesh Dandu, Gadila Sowmya, U. Eesha Priya, Gopireddy SreeMouna, Indukuri Tejasree",
+        link: "https://xplorestaging.ieee.org/document/11176598",
+        FullPaper: "https://drive.google.com/file/d/1ROPFfxXPLFvsEypEonDlUupyUSpelfNI/view?usp=drivesdk",
+    },
+    {
+        title: "Enhanced ResNet Model for Classification of Liver Tumor in CT Scan",
+        authors: "Md. Shabbeer, Somepalli Gopi Sai Mahesh, Tarapatla Sushanth, Vadagle Sunny Paul, Chevella Sreeja",
+        link: "https://ieeexplore.ieee.org/document/11170777",
+        FullPaper: "https://drive.google.com/file/d/1FIC8NWNw6p-6EIXEbSerTANA-vTO8NCC/view?usp=sharinga",
+    },
+    {
+        title: "Personalized AI-Enhanced Alumni Association Platform",
+        authors: "D. Jagadeesh, Beere Adbhutha, Buddineni Sai Sree, Beeti Yashwanth Raj, Bellamkonda Chandra Siddhartha, Pallavi Lanke",
+        link: "https://ieeexplore.ieee.org/document/11176562",
+        FullPaper: "https://drive.google.com/file/d/1njxEMAOLKt4UDEokQpg33fxTtLDRj0n_/view?usp=sharing",
+    },
+    {
+        title: "A Novel Vision Transformer Approach with Adaptive Segmentation for Early Plant Disease Detection",
+        authors: "D. Vivek, Vallepu Sai Soumya, Yadla Yogesh, Veruva Venkata Naga Vaishnavi, Madas Vivek",
+        link: "https://ieeexplore.ieee.org/document/11140639",
+        FullPaper: "https://drive.google.com/file/d/1HGMtJRqtTqa9fnUICqclXFxdnpmbRi0I/view?usp=drivesdk",
+    },
+    {
+        title: "Building an Enhanced Task-Role Based Access Control (E-TRBAC) Model to Secure Cloud Services",
+        authors: "Enukonda Siri Chandana, Ganguru Sandeep Kumar, Ediga Sai Murari Goud, Balaji K",
+        link: "https://ieeexplore.ieee.org/document/11233364",
+        FullPaper: "https://drive.google.com/file/d/1g6FgVBAqnFqSuQlh7ftyvK7sf0K68jA2/view?usp=drivesdk",
+    },
+    {
+        title: "AI-Powered Promotional Content Generator : Banners for Targeted Campaigns",
+        authors: "M. Manzoor Hussain, Boddupally Moksha, Gotte Kavyasri, Balakampet Sreeja, Vivekanand Aelgani",
+        link: "https://ieeexplore.ieee.org/document/11176729",
+        FullPaper: "https://drive.google.com/file/d/1s9I4UkwdsywaRaD2mm8YsauO1INbPcpT/view?usp=drive_link",
+    },
+];
+
+// Certifications Data with Logos and Portal Links (10 Total)
+const certifications = [
+    {
+        provider: 'Google Cloud & AI',
+        description: 'Cloud, AI, Cybersecurity, and Data Analytics certifications',
+        logo: '/images/companies/googlecloud.png',
+        portalUrl: 'https://www.skills.google/'
+    },
+    {
+        provider: 'IBM SkillsBuild',
+        description: 'Cloud, AI, Cybersecurity, Analytics training with certificates',
+        logo: '/images/companies/ibmskillbuild.webp',
+        portalUrl: 'https://sb-auth.skillsbuild.org/login?ngo-id=0302'
+    },
+    {
+        provider: 'Wipro FutureSkills',
+        description: 'Digital skills and communication training for industry readiness',
+        logo: '/images/companies/Wipro_logo.jpg',
+        portalUrl: 'https://www.futureskillsprime.in/'
+    },
+    {
+        provider: 'NASSCOM FutureSkills',
+        description: 'Industry-aligned certifications in emerging technologies',
+        logo: '/images/companies/nasscom.png',
+        portalUrl: 'https://www.futureskillsprime.in/nasscom-certification/'
+    },
+    {
+        provider: 'Infosys Springboard',
+        description: 'Programming, digital skills, and life skills aligned with NEP',
+        logo: '/images/companies/Infosys_logo.png',
+        portalUrl: 'https://infyspringboard.onwingspan.com/web/en/login'
+    },
+    {
+        provider: 'Oracle Academy',
+        description: 'Database, cloud, and software engineering fundamentals',
+        logo: '/images/companies/oracle.png',
+        portalUrl: 'https://academy.oracle.com/en/resources-oracle-certifications.html'
+    },
+    {
+        provider: 'Cisco Networking',
+        description: 'Networking, Cybersecurity, IoT, and Programming certifications',
+        logo: '/images/companies/Cisco_logo.png',
+        portalUrl: 'https://www.netacad.com/'
+    },
+    {
+        provider: 'EPAM Systems',
+        description: 'Coding bootcamps and software engineering upskilling programs',
+        logo: '/images/companies/Epam.jpg',
+        portalUrl: 'https://certificates.epam.com/certificates/dc5d2c8c-b899-48e7-b9f5-a44a33aa5a6d'
+    },
+    {
+        provider: 'Virtusa',
+        description: 'Skill certifications through scholarship assessments',
+        logo: '/images/companies/virtusa.png',
+        portalUrl: 'https://www.virtusa.com/careers'
+    },
+    {
+        provider: 'Tech Mahindra',
+        description: 'SMART Academy vocational training and skill development',
+        logo: '/images/companies/techmahindra.png',
+        portalUrl: 'https://www.smart-academy.in/'
+    }
+];
+
+//Mastery Areas Data
+const masteryAreas = [
+    { title: 'Idea / Open Source', description: 'Start with innovative ideas inspired by MLH Fellowship', icon: Lightbulb },
+    { title: 'Web Development', description: 'Build complete websites using front-end and back-end tools', icon: Globe },
+    { title: 'App Development', description: 'Create Android/iOS apps using Flutter and React Native', icon: Code },
+    { title: 'YouTube Channel', description: 'Run educational channels and learn content creation', icon: FileText },
+    { title: 'GitHub Contribution', description: 'Opensource collaboration and portfolio building', icon: Code },
+    { title: 'Hackathons', description: 'Participate in SIH and AI competitions', icon: Award },
+    { title: 'Research Papers', description: 'Publish in journals and conferences', icon: FileText },
+    { title: 'LinkedIn Posting', description: 'Build professional profile and network', icon: Briefcase },
+    { title: 'Patents', description: 'File patents for innovative ideas and prototypes', icon: Award },
+    { title: 'Product Development', description: 'Turn ideas into tangible, deployable solutions', icon: Rocket },
+    { title: 'Startup Formation', description: 'Launch startups with market impact and scalability', icon: TrendingUp },
+    { title: 'Medium Writing', description: 'Write technical blogs for professional presence', icon: FileText }
+];
+
+// Custom Navigation Links for Grace Hopper Page
+const graceHopperLinks = [
+    { id: 'VisionMission', label: 'Vision & Mission' },
+    { id: 'FacultyTeam', label: 'Faculty' },
+    { id: 'IndustryProjects', label: 'Projects' },
+    { id: 'StudentAchievements', label: 'Achievements' },
+    { id: 'ResearchPublications', label: 'Research' },
+    { id: 'Certifications', label: 'Certifications' },
+    { id: 'MasteryAreas', label: 'Mastery Areas' },
+];
+
 const GraceHopperCOEFull: React.FC = () => {
-    // Scroll to top on page load
+    // Scroll to top and mobile detection
     useEffect(() => {
         window.scrollTo(0, 0);
+
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
     }, []);
 
-    // Carousel State
-    const [currentSlide, setCurrentSlide] = useState(0);
+    const [isMobile, setIsMobile] = useState(false);
 
-    // Faculty Team Data
-    const facultyTeam = [
-        { name: 'Dr. Ch. Madhu Babu', designation: 'Faculty Coordinator', image: '/COEFaculty/madhubabu.jpeg' },
-        { name: 'Dr. Lanke Pallavi', designation: 'Faculty Member', image: '/COEFaculty/pallavi (2).jpeg' },
-        { name: 'Mr. D. Jagadeesh', designation: 'Faculty Member', image: '/COEFaculty/jagadeesh.jpeg' },
-        { name: 'Mr. P. Bhaskar Rao', designation: 'Faculty Member', image: '/COEFaculty/baskarao (2).jpeg' },
-        { name: 'Mrs. Ch. Sreedevi', designation: 'Faculty Member', image: '/COEFaculty/sreedevi.jpeg' },
-        { name: 'Mr. S. Srinuvasarao', designation: 'Faculty Member', image: '/COEFaculty/srinivas (2).jpeg' },
-        { name: 'Mr. PSRB Shashank', designation: 'Faculty Member', image: '/faculty/shashank.webp' },
-        { name: 'Mr. M. Manzoor Hussain', designation: 'Faculty Member', image: '/COEFaculty/manzoorhussian.jpeg' }
-    ];
+    // Slider States
+    const [researchIdx, setResearchIdx] = useState(0);
+    const [projectIdx, setProjectIdx] = useState(0);
 
-    // Industry Partners Data
-    const industryProjects = [
-        { company: 'Hexagon R&D', projects: 2, status: 'Completed', description: 'Real-time projects on cutting-edge technologies', image: 'https://logo.clearbit.com/hexagon.com' },
-        { company: 'One Convergence', projects: 2, status: 'Completed', description: 'Cloud and networking solutions', image: 'https://logo.clearbit.com/oneconvergence.com' },
-        { company: 'Qualizeal', projects: 2, status: 'Completed', description: 'Software testing and quality assurance', image: 'https://logo.clearbit.com/qualizeal.com' },
-        { company: 'ForageAI', projects: 2, status: 'Completed', description: 'AI-driven solutions and analytics', image: 'https://logo.clearbit.com/forage.ai' },
-        { company: 'BHEA-Simple Skills', projects: 1, status: 'Completed', description: 'CRM Implementation using SugarCRM', image: 'https://logo.clearbit.com/bhea.com' },
-        { company: 'Smart Falcon LLP', projects: 1, status: 'Ongoing', description: 'SmartCard Operating System Development', image: 'https://logo.clearbit.com/smartfalcon.io' },
-        { company: 'WeinfinityPlus', projects: 1, status: 'Ongoing', description: 'Full-Stack Development with Cloud', image: 'https://ui-avatars.com/api/?name=Weinfinity+Plus&background=0D8ABC&color=fff&size=200' },
-        { company: 'Kokku Prophlet', projects: 1, status: 'Completed', description: 'Design thinking and innovation', image: 'https://ui-avatars.com/api/?name=Kokku+Prophlet&background=6366f1&color=fff&size=200' }
-    ];
+    // Refs for mobile sliders
+    const researchScrollRef = useRef<HTMLDivElement>(null);
+    const projectScrollRef = useRef<HTMLDivElement>(null);
 
-    // Featured Achievements for Carousel
-    const featuredAchievements = [
-        {
-            title: 'Project Drona - Infosys Springboard',
-            description: 'Faculty and students recognized at Project Drona, a collaborative initiative by HYSEA, TASK, and Infosys Springboard to empower the next generation of tech talent.',
-            image: '/assets/grace-hopper/achievements/project-drona-ceremony.jpg'
-        },
-        {
-            title: 'IEEE YESIST12 Best Project',
-            description: 'Students won the "Best Project" award at the IEEE YESIST12 2024 Prelims for their innovative project "Medical Imaging in Generative Adversarial Networks (GANs)".',
-            image: '/assets/grace-hopper/achievements/ieee-yesist12-winner.jpg'
-        },
-        {
-            title: 'RBI90 Quiz State Finalists',
-            description: 'BVRIT students reached the State Level Round of the prestigious RBI90 Quiz competition, showcasing their knowledge and competitive spirit.',
-            image: '/assets/grace-hopper/achievements/rbi-quiz-team.jpg'
-        },
-        {
-            title: 'Project Drona Kickoff',
-            description: 'Prof. (Dr.) V. Balakista Reddy, Chairman TGCHE, and Pallavi, Project Drona 2021 alumna, at the kickoff meeting, highlighting the long-standing success of the program.',
-            image: '/assets/grace-hopper/achievements/project-drona-kickoff.jpg'
-        }
-    ];
+    // Navigation Handlers
+    const handleNextResearch = useCallback(() => {
+        setResearchIdx(prev => (prev + 1) % researchPapers.length);
+    }, [researchPapers.length]);
 
-    // Auto-play effect
-    useEffect(() => {
-        const timer = setInterval(() => {
-            setCurrentSlide((prev) => (prev + 1) % featuredAchievements.length);
-        }, 3000);
-        return () => clearInterval(timer);
-    }, [featuredAchievements.length]);
+    const handlePrevResearch = useCallback(() => {
+        setResearchIdx(prev => (prev - 1 + researchPapers.length) % researchPapers.length);
+    }, [researchPapers.length]);
 
-    const nextSlide = () => {
-        setCurrentSlide((prev) => (prev + 1) % featuredAchievements.length);
-    };
+    const handleNextProject = useCallback(() => {
+        setProjectIdx(prev => (prev + 1) % industryProjects.length);
+    }, [industryProjects.length]);
 
-    const prevSlide = () => {
-        setCurrentSlide((prev) => (prev - 1 + featuredAchievements.length) % featuredAchievements.length);
-    };
+    const handlePrevProject = useCallback(() => {
+        setProjectIdx(prev => (prev - 1 + industryProjects.length) % industryProjects.length);
+    }, [industryProjects.length]);
 
-    // Student Achievements Data (Remaining items for Sticky Scroll)
-    const studentAchievementsContent = [
-        {
-            title: 'Campus Collaborations',
-            description: 'Students from CSE, ECE, BME, and CHE work together on interdisciplinary projects. Hands-on work in AI, robotics, and health builds essential teamwork and multi-disciplinary learning skills.',
-            content: (
-                <div className="h-full w-full flex items-center justify-center text-white">
-                    <img
-                        src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80"
-                        className="h-full w-full object-cover"
-                        alt="Campus Collaborations"
-                    />
-                </div>
-            ),
-        },
-        {
-            title: 'TIHAN – IIT Hyderabad',
-            description: 'Projects on drones, autonomous vehicles, and smart mobility. Students gain exposure to India\'s major Autonomous Navigation research hub.',
-            content: (
-                <div className="h-full w-full flex items-center justify-center text-white">
-                    <img
-                        src="https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=800&q=80"
-                        className="h-full w-full object-cover"
-                        alt="TIHAN IIT Hyderabad"
-                    />
-                </div>
-            ),
-        },
-        {
-            title: 'ICRISAT',
-            description: 'Work in agriculture technology and climate research. Students build AI models for crop prediction and sustainability.',
-            content: (
-                <div className="h-full w-full flex items-center justify-center text-white">
-                    <img
-                        src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=800&q=80"
-                        className="h-full w-full object-cover"
-                        alt="ICRISAT"
-                    />
-                </div>
-            ),
-        },
-        {
-            title: 'IISc - NIAS Collaboration',
-            description: 'Short-term research internships for students providing exposure to national-level science and technology projects. Learn advanced research skills and methods from leading researchers.',
-            content: (
-                <div className="h-full w-full flex items-center justify-center text-white">
-                    <img
-                        src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=800&q=80"
-                        className="h-full w-full object-cover"
-                        alt="IISc NIAS"
-                    />
-                </div>
-            ),
-        },
-        {
-            title: 'VNR VJIET Joint Projects',
-            description: 'Students work together on technical projects and hackathons, encouraging teamwork and creative problem-solving. Builds confidence through inter-college collaboration.',
-            content: (
-                <div className="h-full w-full flex items-center justify-center text-white">
-                    <img
-                        src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&q=80"
-                        className="h-full w-full object-cover"
-                        alt="VNR VJIET"
-                    />
-                </div>
-            ),
-        },
-        {
-            title: 'IIITH Fellowship & Swecha Telangana',
-            description: 'Opportunities to work with top researchers at IIITH. Students contribute to Telugu AI and language technology, developing strong AI/ML skills with cultural impact.',
-            content: (
-                <div className="h-full w-full flex items-center justify-center text-white">
-                    <img
-                        src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80"
-                        className="h-full w-full object-cover"
-                        alt="IIITH Fellowship"
-                    />
-                </div>
-            ),
-        },
-        {
-            title: 'NIT Internships',
-            description: 'Students selected for national-level internships at top NITs (Arunachal Pradesh & Suratkal). Work on advanced engineering and research projects. Internship results awaited – reflects strong student performance.',
-            content: (
-                <div className="h-full w-full flex items-center justify-center text-white">
-                    <img
-                        src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&q=80"
-                        className="h-full w-full object-cover"
-                        alt="NIT Internships"
-                    />
-                </div>
-            ),
-        },
-        {
-            title: 'DRDO Achievement',
-            description: 'A student secured an exclusive DRDO internship/research opportunity. Exposure to defense technology and innovation labs – a prestigious national-level recognition for technical excellence.',
-            content: (
-                <div className="h-full w-full flex items-center justify-center text-white">
-                    <img
-                        src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80"
-                        className="h-full w-full object-cover"
-                        alt="DRDO Achievement"
-                    />
-                </div>
-            ),
-        },
-        {
-            title: 'IIT Bombay - Bodhi Tree & FOSSEE',
-            description: 'Easy digital learning modules to strengthen technical skills. Hands-on open-source projects that help students practice real coding and contribute to the open-source community.',
-            content: (
-                <div className="h-full w-full flex items-center justify-center text-white">
-                    <img
-                        src="https://images.unsplash.com/photo-1580894732444-8ecded7900cd?w=800&q=80"
-                        className="h-full w-full object-cover"
-                        alt="IIT Bombay"
-                    />
-                </div>
-            ),
-        },
-
-        {
-            title: 'TIHAN – IIT Hyderabad',
-            description: 'Projects on drones, autonomous vehicles, and smart mobility. Students gain exposure to India\'s major Autonomous Navigation research hub.',
-            content: (
-                <div className="h-full w-full flex items-center justify-center text-white">
-                    <img
-                        src="https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=800&q=80"
-                        className="h-full w-full object-cover"
-                        alt="TIHAN IIT Hyderabad"
-                    />
-                </div>
-            ),
-        },
-        {
-            title: 'ICRISAT',
-            description: 'Work in agriculture technology and climate research. Students build AI models for crop prediction and sustainability.',
-            content: (
-                <div className="h-full w-full flex items-center justify-center text-white">
-                    <img
-                        src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=800&q=80"
-                        className="h-full w-full object-cover"
-                        alt="ICRISAT"
-                    />
-                </div>
-            ),
-        },
-        {
-            title: 'IISc - NIAS Collaboration',
-            description: 'Short-term research internships for students providing exposure to national-level science and technology projects. Learn advanced research skills and methods from leading researchers.',
-            content: (
-                <div className="h-full w-full flex items-center justify-center text-white">
-                    <img
-                        src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=800&q=80"
-                        className="h-full w-full object-cover"
-                        alt="IISc NIAS"
-                    />
-                </div>
-            ),
-        },
-        {
-            title: 'VNR VJIET Joint Projects',
-            description: 'Students work together on technical projects and hackathons, encouraging teamwork and creative problem-solving. Builds confidence through inter-college collaboration.',
-            content: (
-                <div className="h-full w-full flex items-center justify-center text-white">
-                    <img
-                        src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&q=80"
-                        className="h-full w-full object-cover"
-                        alt="VNR VJIET"
-                    />
-                </div>
-            ),
-        },
-        {
-            title: 'IIITH Fellowship & Swecha Telangana',
-            description: 'Opportunities to work with top researchers at IIITH. Students contribute to Telugu AI and language technology, developing strong AI/ML skills with cultural impact.',
-            content: (
-                <div className="h-full w-full flex items-center justify-center text-white">
-                    <img
-                        src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80"
-                        className="h-full w-full object-cover"
-                        alt="IIITH Fellowship"
-                    />
-                </div>
-            ),
-        },
-        {
-            title: 'NIT Internships',
-            description: 'Students selected for national-level internships at top NITs (Arunachal Pradesh & Suratkal). Work on advanced engineering and research projects. Internship results awaited – reflects strong student performance.',
-            content: (
-                <div className="h-full w-full flex items-center justify-center text-white">
-                    <img
-                        src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&q=80"
-                        className="h-full w-full object-cover"
-                        alt="NIT Internships"
-                    />
-                </div>
-            ),
-        },
-        {
-            title: 'DRDO Achievement',
-            description: 'A student secured an exclusive DRDO internship/research opportunity. Exposure to defense technology and innovation labs – a prestigious national-level recognition for technical excellence.',
-            content: (
-                <div className="h-full w-full flex items-center justify-center text-white">
-                    <img
-                        src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80"
-                        className="h-full w-full object-cover"
-                        alt="DRDO Achievement"
-                    />
-                </div>
-            ),
-        },
-        {
-            title: 'IIT Bombay - Bodhi Tree & FOSSEE',
-            description: 'Easy digital learning modules to strengthen technical skills. Hands-on open-source projects that help students practice real coding and contribute to the open-source community.',
-            content: (
-                <div className="h-full w-full flex items-center justify-center text-white">
-                    <img
-                        src="https://images.unsplash.com/photo-1580894732444-8ecded7900cd?w=800&q=80"
-                        className="h-full w-full object-cover"
-                        alt="IIT Bombay"
-                    />
-                </div>
-            ),
-        },
-    ];
-
-    // Certifications Data with Logos and Portal Links (10 Total)
-    const certifications = [
-        {
-            provider: 'Google Cloud & AI',
-            description: 'Cloud, AI, Cybersecurity, and Data Analytics certifications',
-            logo: 'https://logo.clearbit.com/google.com',
-            portalUrl: 'https://www.skills.google/'
-        },
-        {
-            provider: 'IBM SkillsBuild',
-            description: 'Cloud, AI, Cybersecurity, Analytics training with certificates',
-            logo: 'https://siic.iscte-iul.pt/wp-content/uploads/2024/06/logo_IBM-SkillsBuild.jpg',
-            portalUrl: 'https://sb-auth.skillsbuild.org/login?ngo-id=0302'
-        },
-        {
-            provider: 'Wipro FutureSkills',
-            description: 'Digital skills and communication training for industry readiness',
-            logo: 'https://mms.businesswire.com/media/20190909005992/es/594194/23/Wiprologo1.jpg',
-            portalUrl: 'https://www.futureskillsprime.in/'
-        },
-        {
-            provider: 'NASSCOM FutureSkills',
-            description: 'Industry-aligned certifications in emerging technologies',
-            logo: 'https://www.onactuate.com/wp-content/uploads/nasscom-new-white.jpg',
-            portalUrl: 'https://www.futureskillsprime.in/nasscom-certification/'
-        },
-        {
-            provider: 'Infosys Springboard',
-            description: 'Programming, digital skills, and life skills aligned with NEP',
-            logo: 'https://www.infosys.com/content/dam/infosys-web/en/global-resource/18/springboard-logo.png',
-            portalUrl: 'https://infyspringboard.onwingspan.com/web/en/login'
-        },
-        {
-            provider: 'Oracle Academy',
-            description: 'Database, cloud, and software engineering fundamentals',
-            logo: 'https://studij-racunarstva.com/wp-content/uploads/2020/06/oracle-academy_web-768x390.jpg',
-            portalUrl: 'https://academy.oracle.com/en/resources-oracle-certifications.html'
-        },
-        {
-            provider: 'Cisco Networking',
-            description: 'Networking, Cybersecurity, IoT, and Programming certifications',
-            logo: 'https://logo.clearbit.com/cisco.com',
-            portalUrl: 'https://www.netacad.com/'
-        },
-        {
-            provider: 'EPAM Systems',
-            description: 'Coding bootcamps and software engineering upskilling programs',
-            logo: 'https://d1.awsstatic.com/customer-references-case-studies-logos/EPAM_Logo%402x.33074e5d0ac218d7cd3e1d6f3720e0d8fe1909d2.png',
-            portalUrl: 'https://certificates.epam.com/certificates/dc5d2c8c-b899-48e7-b9f5-a44a33aa5a6d'
-        },
-        {
-            provider: 'Virtusa',
-            description: 'Skill certifications through scholarship assessments',
-            logo: 'https://mma.prnewswire.com/media/1956449/virtusa_logo_Logo.jpg',
-            portalUrl: 'https://www.virtusa.com/careers'
-        },
-        {
-            provider: 'Tech Mahindra',
-            description: 'SMART Academy vocational training and skill development',
-            logo: 'https://www.theclimatepledge.com/content/dam/amazonclimatepledge/signatory-logo/2022/Tech_Mahindra.png',
-            portalUrl: 'https://www.smart-academy.in/'
-        }
-    ];
-
-    //Mastery Areas Data
-    const masteryAreas = [
-        { title: 'Idea / Open Source', description: 'Start with innovative ideas inspired by MLH Fellowship', icon: Lightbulb },
-        { title: 'Web Development', description: 'Build complete websites using front-end and back-end tools', icon: Globe },
-        { title: 'App Development', description: 'Create Android/iOS apps using Flutter and React Native', icon: Code },
-        { title: 'YouTube Channel', description: 'Run educational channels and learn content creation', icon: FileText },
-        { title: 'GitHub Contribution', description: 'Opensource collaboration and portfolio building', icon: Code },
-        { title: 'Hackathons', description: 'Participate in SIH and AI competitions', icon: Award },
-        { title: 'Research Papers', description: 'Publish in journals and conferences', icon: FileText },
-        { title: 'LinkedIn Posting', description: 'Build professional profile and network', icon: Briefcase },
-        { title: 'Patents', description: 'File patents for innovative ideas and prototypes', icon: Award },
-        { title: 'Product Development', description: 'Turn ideas into tangible, deployable solutions', icon: Rocket },
-        { title: 'Startup Formation', description: 'Launch startups with market impact and scalability', icon: TrendingUp },
-        { title: 'Medium Writing', description: 'Write technical blogs for professional presence', icon: FileText }
-    ];
-
-    // Custom Navigation Links for Grace Hopper Page
-    const graceHopperLinks = [
-        { id: 'VisionMission', label: 'Vision & Mission' },
-        { id: 'FacultyTeam', label: 'Faculty' },
-        { id: 'IndustryProjects', label: 'Projects' },
-        { id: 'StudentAchievements', label: 'Achievements' },
-        { id: 'Certifications', label: 'Certifications' },
-        { id: 'MasteryAreas', label: 'Mastery Areas' },
-    ];
 
     return (
         <div className="min-h-screen flex flex-col">
@@ -481,7 +410,7 @@ const GraceHopperCOEFull: React.FC = () => {
                         </AnimatedElement>
                         <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
                             <AnimatedElement animation="slide-right" delay={200}>
-                                <div className="bg-teal-50 rounded-xl p-8 border-2 border-blue-100">
+                                <div className="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm h-full flex flex-col justify-center">
                                     <p className="text-lg text-gray-700 leading-relaxed mb-4">
                                         The <strong>Grace Hopper Center of Excellence (COE)</strong> is a dedicated institutional initiative
                                         that bridges the gap between academic learning and real-world industry requirements.
@@ -493,41 +422,23 @@ const GraceHopperCOEFull: React.FC = () => {
                                 </div>
                             </AnimatedElement>
                             <AnimatedElement animation="slide-left" delay={300}>
-                                <div className="space-y-4">
-                                    <div className="flex items-start">
-                                        <div className="flex-shrink-0 w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center text-white mr-4">
-                                            <Target className="w-6 h-6" />
+                                <div className="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm h-full flex flex-col justify-center">
+                                    <div className="space-y-6">
+                                        <div className="pb-4 border-b border-slate-100 last:border-0 last:pb-0">
+                                            <h3 className="text-xl font-bold text-slate-900 mb-1">Hub for Skill Development</h3>
+                                            <p className="text-slate-600">Industry partnerships focused on hands-on learning and real-world projects</p>
                                         </div>
-                                        <div>
-                                            <h3 className="text-xl font-bold text-gray-900 mb-2">Hub for Skill Development</h3>
-                                            <p className="text-gray-700">Industry partnerships focused on hands-on learning and real-world projects</p>
+                                        <div className="pb-4 border-b border-slate-100 last:border-0 last:pb-0">
+                                            <h3 className="text-xl font-bold text-slate-900 mb-1">Industry-Ready Graduates</h3>
+                                            <p className="text-slate-600">Build technical expertise and soft skills for career success</p>
                                         </div>
-                                    </div>
-                                    <div className="flex items-start">
-                                        <div className="flex-shrink-0 w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center text-white mr-4">
-                                            <Rocket className="w-6 h-6" />
+                                        <div className="pb-4 border-b border-slate-100 last:border-0 last:pb-0">
+                                            <h3 className="text-xl font-bold text-slate-900 mb-1">Strategic Partnerships</h3>
+                                            <p className="text-slate-600">Leading tech companies providing real-world exposure</p>
                                         </div>
-                                        <div>
-                                            <h3 className="text-xl font-bold text-gray-900 mb-2">Industry-Ready Graduates</h3>
-                                            <p className="text-gray-700">Build technical expertise and soft skills for career success</p>
-                                        </div>
-                                    </div>
-                                    <div className="flex items-start">
-                                        <div className="flex-shrink-0 w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center text-white mr-4">
-                                            <Handshake className="w-6 h-6" />
-                                        </div>
-                                        <div>
-                                            <h3 className="text-xl font-bold text-gray-900 mb-2">Strategic Partnerships</h3>
-                                            <p className="text-gray-700">Leading tech companies providing real-world exposure</p>
-                                        </div>
-                                    </div>
-                                    <div className="flex items-start">
-                                        <div className="flex-shrink-0 w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center text-white mr-4">
-                                            <Lightbulb className="w-6 h-6" />
-                                        </div>
-                                        <div>
-                                            <h3 className="text-xl font-bold text-gray-900 mb-2">Innovation & Research</h3>
-                                            <p className="text-gray-700">Platform for cutting-edge research and entrepreneurship</p>
+                                        <div className="pb-4 border-b border-slate-100 last:border-0 last:pb-0">
+                                            <h3 className="text-xl font-bold text-slate-900 mb-1">Innovation & Research</h3>
+                                            <p className="text-slate-600">Platform for cutting-edge research and entrepreneurship</p>
                                         </div>
                                     </div>
                                 </div>
@@ -542,12 +453,9 @@ const GraceHopperCOEFull: React.FC = () => {
                         <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
                             {/* Vision */}
                             <AnimatedElement animation="slide-right">
-                                <div className="bg-white rounded-2xl shadow-xl p-8 border-t-4 border-blue-600 h-full">
-                                    <div className="flex items-center mb-6">
-                                        <div className="w-14 h-14 bg-blue-600 rounded-full flex items-center justify-center text-white mr-4">
-                                            <Target className="w-7 h-7" />
-                                        </div>
-                                        <h2 className="text-3xl font-extrabold text-gray-900" style={{ fontFamily: 'Georgia, serif' }}>
+                                <div className="bg-white rounded-2xl shadow-lg p-8 border border-slate-200 h-full">
+                                    <div className="flex items-center mb-8 justify-center">
+                                        <h2 className="text-3xl font-black text-gray-900 uppercase tracking-tight" style={{ fontFamily: 'Georgia, serif' }}>
                                             Our Vision
                                         </h2>
                                     </div>
@@ -556,9 +464,9 @@ const GraceHopperCOEFull: React.FC = () => {
                                             'Create a bridge between academia and industry',
                                             'Foster innovation, research, and entrepreneurship',
                                             'Develop well-rounded graduates ready for global challenges'].map((item, idx) => (
-                                                <li key={idx} className="flex items-start">
-                                                    <CheckCircle2 className="w-5 h-5 text-blue-600 mr-3 flex-shrink-0 mt-0.5" />
-                                                    <span className="text-gray-700">{item}</span>
+                                                <li key={idx} className="flex items-start text-left">
+                                                    <span className="text-blue-600 mr-3 text-lg font-bold">•</span>
+                                                    <span className="text-gray-700 text-lg font-medium">{item}</span>
                                                 </li>
                                             ))}
                                     </ul>
@@ -567,12 +475,9 @@ const GraceHopperCOEFull: React.FC = () => {
 
                             {/* Mission */}
                             <AnimatedElement animation="slide-left" delay={200}>
-                                <div className="bg-white rounded-2xl shadow-xl p-8 border-t-4 border-green-600 h-full">
-                                    <div className="flex items-center mb-6">
-                                        <div className="w-14 h-14 bg-green-600 rounded-full flex items-center justify-center text-white mr-4">
-                                            <Lightbulb className="w-7 h-7" />
-                                        </div>
-                                        <h2 className="text-3xl font-extrabold text-gray-900" style={{ fontFamily: 'Georgia, serif' }}>
+                                <div className="bg-white rounded-2xl shadow-lg p-8 border border-slate-200 h-full">
+                                    <div className="flex items-center mb-8 justify-center">
+                                        <h2 className="text-3xl font-black text-gray-900 uppercase tracking-tight" style={{ fontFamily: 'Georgia, serif' }}>
                                             Our Mission
                                         </h2>
                                     </div>
@@ -581,9 +486,9 @@ const GraceHopperCOEFull: React.FC = () => {
                                             'Facilitate skill development through certifications and workshops',
                                             'Encourage research, publications, and patent filings',
                                             'Support startup incubation and entrepreneurial ventures'].map((item, idx) => (
-                                                <li key={idx} className="flex items-start">
-                                                    <CheckCircle2 className="w-5 h-5 text-green-600 mr-3 flex-shrink-0 mt-0.5" />
-                                                    <span className="text-gray-700">{item}</span>
+                                                <li key={idx} className="flex items-start text-left">
+                                                    <span className="text-teal-600 mr-3 text-lg font-bold">•</span>
+                                                    <span className="text-gray-700 text-lg font-medium">{item}</span>
                                                 </li>
                                             ))}
                                     </ul>
@@ -601,20 +506,20 @@ const GraceHopperCOEFull: React.FC = () => {
                                 Grace Hopper COE - Faculty Team
                             </h2>
                         </AnimatedElement>
-                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8 max-w-6xl mx-auto">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
                             {facultyTeam.map((faculty, index) => (
                                 <AnimatedElement key={index} animation="slide-up" delay={index * 50}>
-                                    <div className="group bg-white rounded-xl shadow-lg transition-all duration-300 transform hover:-translate-y-2 border border-gray-200 p-6 text-center h-full flex flex-col items-center justify-center">
-                                        <div className="relative mb-4">
-                                            <div className="absolute inset-0 bg-teal-100 rounded-full transform scale-0 group-hover:scale-110 transition-transform duration-300 opacity-50"></div>
+                                    <div className="group bg-white rounded-xl shadow-lg transition-all duration-300 transform hover:-translate-y-2 border border-blue-50 p-6 text-center h-full flex flex-col items-center justify-center">
+                                        <div className="relative mb-6">
+                                            <div className="absolute inset-0 bg-blue-50 rounded-full transform scale-0 group-hover:scale-110 transition-transform duration-300 opacity-50"></div>
                                             <img
                                                 src={faculty.image}
                                                 alt={faculty.name}
-                                                className="relative w-24 h-24 object-cover rounded-full border-4 border-white shadow-sm group-hover:border-blue-50 transition-colors duration-300"
+                                                className="relative w-28 h-28 sm:w-32 sm:h-32 object-cover rounded-full border-4 border-white shadow-md group-hover:border-blue-100 transition-all duration-300 mx-auto"
                                             />
                                         </div>
-                                        <h3 className="text-lg font-bold text-gray-900 mb-1">{faculty.name}</h3>
-                                        <p className="text-blue-600 font-semibold mb-2 text-sm">{faculty.designation}</p>
+                                        <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-1">{faculty.name}</h3>
+                                        <p className="text-blue-600 font-semibold mb-2 text-xs sm:text-sm">{faculty.designation}</p>
                                     </div>
                                 </AnimatedElement>
                             ))}
@@ -623,193 +528,371 @@ const GraceHopperCOEFull: React.FC = () => {
                 </section >
 
                 {/* Industry Project Engagements Section */}
-                <section id="IndustryProjects" className="bg-gradient-to-br from-gray-50 to-blue-50 py-16 md:py-20 overflow-hidden scroll-mt-24">
+                <section id="IndustryProjects" className="bg-gradient-to-br from-gray-50 to-blue-50 py-16 md:py-24 overflow-hidden scroll-mt-24">
                     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                         <AnimatedElement animation="slide-down">
                             <h2
-                                className="text-4xl sm:text-5xl font-extrabold text-gray-900 text-center mb-4"
+                                className="text-4xl md:text-6xl font-extrabold text-gray-900 text-center mb-4 tracking-tight"
                                 style={{ fontFamily: 'Georgia, serif' }}
                             >
                                 Industry Project Engagements
                             </h2>
-                            <p className="text-center text-lg text-gray-600 mb-12 max-w-3xl mx-auto">
+                            <p className="text-center text-lg md:text-xl text-gray-600 mb-16 max-w-3xl mx-auto">
                                 Real-world industry collaborations providing hands-on experience and cutting-edge technology exposure
                             </p>
                         </AnimatedElement>
 
-                        {/* Sliding Projects Carousel */}
-                        <div className="relative">
-                            <style>{`
-        @keyframes scroll-projects {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-        .projects-slider {
-          display: flex;
-          animation: scroll-projects 40s linear infinite;
-          width: fit-content;
-        }
-        .projects-slider:hover {
-          animation-play-state: paused;
-        }
-        .project-card {
-          flex: 0 0 auto;
-          width: 350px;
-          margin: 0 12px;
-        }
-        @media (max-width: 768px) {
-          .project-card {
-            width: 280px;
-          }
-        }
-      `}</style>
+                        {!isMobile ? (
+                            /* Desktop: Auto-scrolling carousel */
+                            <div className="relative">
+                                <style>{`
+                                    @keyframes scroll-projects {
+                                        0% { transform: translateX(0); }
+                                        100% { transform: translateX(-50%); }
+                                    }
+                                    .projects-slider {
+                                        display: flex;
+                                        animation: scroll-projects 40s linear infinite;
+                                        width: fit-content;
+                                    }
+                                    .projects-slider:hover {
+                                        animation-play-state: paused;
+                                    }
+                                    .project-card {
+                                        flex: 0 0 auto;
+                                        width: 350px;
+                                        margin: 0 12px;
+                                    }
+                                `}</style>
 
-                            <div className="projects-slider">
-                                {/* Duplicate the array for seamless loop */}
-                                {[...industryProjects, ...industryProjects].map((project, index) => (
-                                    <div key={index} className="project-card">
-                                        <div className="group relative bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 h-full border border-blue-100">
-                                            {/* Project Image/Logo with Overlay */}
-                                            <div className="relative h-48 overflow-hidden bg-white flex items-center justify-center p-4">
-                                                <img
-                                                    src={project.image}
-                                                    alt={project.company}
-                                                    className={`w-full h-full object-contain group-hover:scale-110 transition-transform duration-500 ${project.company === 'SmartFalcon LLP' ? 'scale-125' : ''
-                                                        }`}
-                                                />
-                                                <div className="absolute inset-0 bg-gradient-to-t from-blue-900/90 via-blue-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-
-                                                {/* Overlay Content on Hover */}
-                                                <div className="absolute bottom-0 left-0 right-0 p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                                    <div className="flex items-center text-white font-semibold">
-                                                        <Briefcase className="w-5 h-5 mr-2" />
-                                                        {project.projects} {project.projects === 1 ? 'Project' : 'Projects'}
+                                <div className="projects-slider">
+                                    {[...industryProjects, ...industryProjects].map((project, index) => (
+                                        <div key={index} className="project-card">
+                                            <div className="group relative bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 h-full border border-blue-100">
+                                                <div className="relative h-48 overflow-hidden bg-white flex items-center justify-center p-8">
+                                                    <img
+                                                        src={project.image}
+                                                        alt={project.company}
+                                                        className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500"
+                                                    />
+                                                    <div className="absolute inset-0 bg-gradient-to-t from-blue-900/90 via-blue-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                                    <div className="absolute bottom-0 left-0 right-0 p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                                        <div className="flex items-center text-white font-semibold">
+                                                            <Briefcase className="w-5 h-5 mr-2" />
+                                                            {project.projects} {project.projects === 1 ? 'Project' : 'Projects'}
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-
-                                            {/* Project Details */}
-                                            <div className="p-6 bg-white relative z-10">
-                                                <div className="flex justify-between items-start mb-2">
-                                                    <h3 className="text-xl font-bold text-gray-900">{project.company}</h3>
-                                                    <span
-                                                        className={`px-2 py-1 rounded-full text-xs font-semibold ${project.status === 'Completed'
-                                                            ? 'bg-green-100 text-green-800'
-                                                            : 'bg-teal-100 text-blue-800'
-                                                            }`}
-                                                    >
-                                                        {project.status}
-                                                    </span>
-                                                </div>
-                                                <p className="text-gray-600 text-sm leading-relaxed h-10 overflow-hidden">
-                                                    {project.description}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-                </section >
-
-                {/* Student Achievements Section - Sticky Scroll Reveal */}
-                <section id="StudentAchievements" className="bg-white py-16 md:py-20 scroll-mt-24">
-                    <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                        <AnimatedElement animation="slide-down">
-                            <h2
-                                className="text-4xl sm:text-5xl font-extrabold text-gray-900 text-center mb-4"
-                                style={{ fontFamily: "Georgia, serif" }}
-                            >
-                                Student Achievements
-                            </h2>
-                            <p className="text-center text-lg text-gray-600 mb-12 max-w-3xl mx-auto">
-                                Celebrating excellence in collaborations, internships, and research impact
-                            </p>
-                        </AnimatedElement>
-
-                        {/* Featured Achievements Carousel */}
-                        <div className="relative max-w-5xl mx-auto mb-16">
-                            <div className="relative h-[600px] rounded-3xl overflow-hidden shadow-2xl">
-                                {featuredAchievements.map((item, index) => (
-                                    <div
-                                        key={index}
-                                        className={`absolute inset-0 transition-all duration-700 ease-in-out ${currentSlide === index
-                                            ? 'opacity-100 translate-x-0'
-                                            : currentSlide > index
-                                                ? 'opacity-0 -translate-x-full'
-                                                : 'opacity-0 translate-x-full'
-                                            }`}
-                                    >
-                                        {/* Image Container */}
-                                        <div className="relative h-full w-full">
-                                            <img
-                                                src={item.image}
-                                                alt={item.title}
-                                                className="w-full h-full object-cover"
-                                            />
-
-                                            {/* Gradient Overlay */}
-                                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
-
-                                            {/* Content Overlay */}
-                                            <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12 text-white">
-                                                <div className="max-w-3xl">
-                                                    <div className="flex items-center gap-2 mb-4">
-                                                        <Award className="w-5 h-5" />
-                                                        <span className="text-sm font-semibold uppercase tracking-wider text-blue-300">
-                                                            Featured Achievement
+                                                <div className="p-6 bg-white relative z-10">
+                                                    <div className="flex justify-between items-start mb-2">
+                                                        <h3 className="text-xl font-bold text-gray-900">{project.company}</h3>
+                                                        <span className={`px-2 py-1 rounded-full text-xs font-semibold ${project.status === 'Completed' ? 'bg-green-100 text-green-800' : 'bg-teal-100 text-blue-800'}`}>
+                                                            {project.status}
                                                         </span>
                                                     </div>
-                                                    <h3 className="text-3xl md:text-5xl font-bold mb-4 leading-tight">
-                                                        {item.title}
-                                                    </h3>
-                                                    <p className="text-lg md:text-xl text-gray-200 leading-relaxed">
-                                                        {item.description}
+                                                    <p className="text-gray-600 text-sm leading-relaxed h-12 overflow-hidden">
+                                                        {project.description}
                                                     </p>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                ))}
-
-                                {/* Navigation Buttons */}
-                                <button
-                                    onClick={prevSlide}
-                                    className="absolute left-6 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-md hover:bg-white/30 text-white p-4 rounded-full shadow-lg transition-all duration-300 hover:scale-110 z-20 border border-white/30"
-                                    aria-label="Previous slide"
-                                >
-                                    <ChevronLeft className="w-6 h-6" />
-                                </button>
-                                <button
-                                    onClick={nextSlide}
-                                    className="absolute right-6 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-md hover:bg-white/30 text-white p-4 rounded-full shadow-lg transition-all duration-300 hover:scale-110 z-20 border border-white/30"
-                                    aria-label="Next slide"
-                                >
-                                    <ChevronRight className="w-6 h-6" />
-                                </button>
-
-                                {/* Indicators */}
-                                <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3 z-20">
-                                    {featuredAchievements.map((_, index) => (
-                                        <button
-                                            key={index}
-                                            onClick={() => setCurrentSlide(index)}
-                                            className={`transition-all duration-300 rounded-full ${currentSlide === index
-                                                ? 'bg-white w-10 h-3'
-                                                : 'bg-white/40 hover:bg-white/60 w-3 h-3'
-                                                }`}
-                                            aria-label={`Go to slide ${index + 1}`}
-                                        />
                                     ))}
                                 </div>
                             </div>
+                        ) : (
+                            /* Mobile: Interactive Slider */
+                            <div className="relative max-w-sm mx-auto overflow-hidden">
+                                <div
+                                    className="flex transition-transform duration-500 ease-out"
+                                    style={{ transform: `translateX(-${projectIdx * 100}%)` }}
+                                >
+                                    {industryProjects.map((project, index) => (
+                                        <div key={index} className="w-full flex-shrink-0 px-2">
+                                            <div className="bg-white rounded-2xl shadow-xl border border-blue-100 overflow-hidden">
+                                                <div className="h-40 bg-white flex items-center justify-center p-6 border-b border-gray-50">
+                                                    <img
+                                                        src={project.image}
+                                                        alt={project.company}
+                                                        className="h-full object-contain"
+                                                    />
+                                                </div>
+                                                <div className="p-6">
+                                                    <div className="flex justify-between items-center mb-4">
+                                                        <h3 className="text-lg font-bold text-gray-900">{project.company}</h3>
+                                                        <span className={`px-2 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${project.status === 'Completed' ? 'bg-green-100 text-green-700' : 'bg-blue-100 text-blue-700'}`}>
+                                                            {project.status}
+                                                        </span>
+                                                    </div>
+                                                    <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+                                                        {project.description}
+                                                    </p>
+                                                    <div className="flex items-center text-blue-600 font-bold text-sm">
+                                                        <Activity className="w-4 h-4 mr-2" />
+                                                        {project.projects} Active Industry Projects
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                                <div className="mt-8 flex justify-center gap-4">
+                                    <button
+                                        onClick={handlePrevProject}
+                                        className="p-3 rounded-full bg-white border border-gray-200 shadow-lg text-gray-900 active:scale-95 transition-transform"
+                                    >
+                                        <ChevronLeft className="w-6 h-6" />
+                                    </button>
+                                    <button
+                                        onClick={handleNextProject}
+                                        className="p-3 rounded-full bg-blue-600 text-white shadow-lg active:scale-95 transition-transform"
+                                    >
+                                        <ChevronRight className="w-6 h-6" />
+                                    </button>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </section >
+
+                {/* Student Excellence Hub - Bento Grid Redesign */}
+                <section id="StudentAchievements" className="bg-white py-16 md:py-24 scroll-mt-24 overflow-hidden">
+                    <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                        <AnimatedElement animation="slide-down">
+                            <h2
+                                className="text-4xl sm:text-6xl font-extrabold text-gray-900 text-center mb-4 tracking-tight"
+                                style={{ fontFamily: "Georgia, serif" }}
+                            >
+                                Student Excellence Hub
+                            </h2>
+                            <p className="text-center text-lg md:text-xl text-gray-600 mb-16 max-w-3xl mx-auto">
+                                Showcasing prestigious awards, national-level collaborations, and research impact
+                            </p>
+                        </AnimatedElement>
+
+                        <div className="grid grid-cols-1 md:grid-cols-4 grid-flow-dense gap-6 auto-rows-[240px] max-w-7xl mx-auto">
+                            {allAchievements.map((item, index) => {
+                                const Icon = item.icon;
+                                return (
+                                    <AnimatedElement
+                                        key={index}
+                                        animation="fade-in"
+                                        delay={index * 100}
+                                        className={`group relative rounded-3xl overflow-hidden shadow-lg border border-gray-100 transition-all duration-500 hover:shadow-2xl hover:-translate-y-1 ${item.span === 'large' ? 'md:col-span-2 md:row-span-2 min-h-[500px]' :
+                                            item.span === 'wide' ? 'md:col-span-2 md:row-span-1 min-h-[240px]' :
+                                                'md:col-span-1 md:row-span-1 min-h-[240px]'
+                                            }`}
+                                    >
+                                        {/* Background Image */}
+                                        <div className="absolute inset-0 z-0">
+                                            <img
+                                                src={item.image}
+                                                alt={item.title}
+                                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                            />
+                                            {/* Gradient Overlays */}
+                                            <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
+                                            <div className="absolute inset-0 border-2 border-white/0 group-hover:border-white/20 transition-all duration-500 rounded-3xl"></div>
+                                        </div>
+
+                                        {/* Content */}
+                                        <div className="absolute inset-0 p-6 flex flex-col justify-end z-10">
+                                            <div className="flex items-center gap-2 mb-3 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                                                <div className="p-2 bg-blue-600/20 backdrop-blur-md rounded-lg text-blue-400 border border-blue-500/30">
+                                                    <Icon className="w-4 h-4" />
+                                                </div>
+                                                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-blue-300">
+                                                    {item.category}
+                                                </span>
+                                            </div>
+
+                                            <h3 className={`font-bold text-white mb-2 leading-tight transition-all duration-500 ${item.span === 'large' ? 'text-2xl md:text-3xl' : 'text-lg md:text-xl'
+                                                }`}>
+                                                {item.title}
+                                            </h3>
+
+                                            <p className={`text-gray-300 line-clamp-2 leading-relaxed transition-all duration-500 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 ${item.span === 'large' ? 'text-sm md:text-base' : 'text-xs md:text-sm'
+                                                }`}>
+                                                {item.description}
+                                            </p>
+
+                                            {/* Decorative element for large card */}
+                                            {item.span === 'large' && (
+                                                <div className="absolute top-6 right-6 opacity-20 group-hover:opacity-40 transition-opacity">
+                                                    <Award className="w-16 h-16 text-white" strokeWidth={1} />
+                                                </div>
+                                            )}
+                                        </div>
+                                    </AnimatedElement>
+                                );
+                            })}
                         </div>
-
-
-                        <StickyScroll content={studentAchievementsContent} contentClassName="h-80 w-full md:w-[32rem]" />
                     </div>
                 </section>
+
+                {/* Research Excellence & Publications Section */}
+                <section id="ResearchPublications" className="bg-slate-50 py-16 md:py-24 scroll-mt-24">
+                    <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                        <AnimatedElement animation="slide-down">
+                            <h2
+                                className="text-4xl sm:text-6xl font-extrabold text-gray-900 text-center mb-4 tracking-tight"
+                                style={{ fontFamily: "Georgia, serif" }}
+                            >
+                                Research Excellence & Publications
+                            </h2>
+                            <p className="text-center text-lg md:text-xl text-gray-600 mb-16 max-w-3xl mx-auto">
+                                Showcasing scholarly impact and IEEE-published research contributions from students and faculty
+                            </p>
+                        </AnimatedElement>
+
+                        {!isMobile ? (
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl mx-auto">
+                                {researchPapers.map((paper, index) => (
+                                    <AnimatedElement
+                                        key={index}
+                                        animation="slide-up"
+                                        delay={index * 50}
+                                        className="h-full"
+                                    >
+                                        <div className="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 h-full flex flex-col group relative overflow-hidden">
+                                            {/* Abstract background icon */}
+                                            <div className="absolute -right-6 -top-6 text-slate-50 group-hover:text-blue-50 transition-colors duration-500">
+                                                <BookOpen className="w-32 h-32" strokeWidth={0.5} />
+                                            </div>
+
+                                            <div className="relative z-10 flex flex-col h-full">
+                                                <div className="flex items-start gap-4 mb-4">
+                                                    <div className="p-3 bg-blue-50 rounded-xl text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
+                                                        <BookOpen className="w-6 h-6" />
+                                                    </div>
+                                                    <h3 className="text-xl font-bold text-slate-900 leading-snug group-hover:text-blue-700 transition-colors duration-300">
+                                                        {paper.title}
+                                                    </h3>
+                                                </div>
+
+                                                <div className="mb-6">
+                                                    <p className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-2">Authors</p>
+                                                    <p className="text-slate-700 leading-relaxed italic">
+                                                        {paper.authors}
+                                                    </p>
+                                                </div>
+
+                                                <div className="mt-auto pt-6 flex flex-wrap gap-4 border-t border-slate-100">
+                                                    <a
+                                                        href={paper.link}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="inline-flex items-center px-5 py-2.5 bg-slate-900 text-white rounded-full text-sm font-semibold hover:bg-blue-600 transition-all duration-300 shadow-md hover:shadow-lg"
+                                                    >
+                                                        <ExternalLink className="w-4 h-4 mr-2" />
+                                                        View on IEEE
+                                                    </a>
+                                                    <a
+                                                        href={paper.FullPaper}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="inline-flex items-center px-5 py-2.5 bg-white border-2 border-slate-200 text-slate-700 rounded-full text-sm font-semibold hover:border-blue-400 hover:text-blue-600 transition-all duration-300 shadow-sm"
+                                                    >
+                                                        <FileText className="w-4 h-4 mr-2" />
+                                                        Full Paper PDF
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </AnimatedElement>
+                                ))}
+                            </div>
+                        ) : (
+                            /* MOBILE RESEARCH SLIDER */
+                            <div className="overflow-hidden w-full px-2">
+                                <div
+                                    className="flex transition-transform duration-500 ease-out"
+                                    style={{ transform: `translateX(-${researchIdx * 100}%)` }}
+                                >
+                                    {researchPapers.map((paper, index) => (
+                                        <div
+                                            key={index}
+                                            className="mobile-card w-full flex-shrink-0 px-2"
+                                        >
+                                            <div className="bg-white border border-slate-200 rounded-2xl p-6 text-left shadow-2xl relative overflow-hidden min-h-[480px] flex flex-col justify-between">
+                                                {/* Decorative background circle */}
+                                                <div className="absolute -right-8 -top-8 w-32 h-32 bg-blue-100 rounded-full blur-2xl opacity-50"></div>
+
+                                                <div className="relative z-10">
+                                                    <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center text-blue-600 mb-4 border border-blue-100">
+                                                        <BookOpen className="w-5 h-5" />
+                                                    </div>
+                                                    <h3 className="text-xl font-bold text-slate-900 mb-4 leading-tight">
+                                                        {paper.title}
+                                                    </h3>
+
+                                                    <div className="space-y-2 mt-4">
+                                                        <p className="text-[10px] font-black uppercase tracking-widest text-blue-600">Key Authors</p>
+                                                        <p className="text-slate-600 text-sm italic leading-relaxed line-clamp-4">
+                                                            {paper.authors}
+                                                        </p>
+                                                    </div>
+                                                </div>
+
+                                                <div className="space-y-3 mt-8 relative z-10">
+                                                    <a
+                                                        href={paper.link}
+                                                        target="_blank"
+                                                        rel="noreferrer"
+                                                        className="flex items-center justify-center w-full py-4 rounded-xl bg-blue-600 text-white text-sm font-bold shadow-lg shadow-blue-600/20 active:scale-[0.98] transition-all"
+                                                    >
+                                                        <ExternalLink className="w-4 h-4 mr-2" />
+                                                        View on IEEE Xplore
+                                                    </a>
+
+                                                    {paper.FullPaper && (
+                                                        <a
+                                                            href={paper.FullPaper}
+                                                            target="_blank"
+                                                            rel="noreferrer"
+                                                            className="flex items-center justify-center w-full py-4 rounded-xl bg-slate-50 text-slate-700 text-sm font-bold border border-slate-200 active:scale-[0.98] transition-all"
+                                                        >
+                                                            <FileText className="w-4 h-4 mr-2" />
+                                                            Full Paper PDF
+                                                        </a>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                {/* MOBILE CONTROLS */}
+                                <div className="mt-8 flex justify-center items-center gap-6">
+                                    <button
+                                        onClick={handlePrevResearch}
+                                        className="w-12 h-12 rounded-full border border-slate-700 bg-slate-800 text-white flex items-center justify-center active:scale-95 transition-all shadow-xl"
+                                        aria-label="Previous publication"
+                                    >
+                                        <ChevronLeft className="w-6 h-6" />
+                                    </button>
+
+                                    <div className="flex gap-2">
+                                        {researchPapers.map((_, i) => (
+                                            <div
+                                                key={i}
+                                                className={`h-1.5 rounded-full transition-all duration-300 ${i === researchIdx ? 'w-8 bg-blue-500' : 'w-2 bg-slate-700'}`}
+                                            />
+                                        ))}
+                                    </div>
+
+                                    <button
+                                        onClick={handleNextResearch}
+                                        className="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center active:scale-95 transition-all shadow-xl shadow-blue-600/20"
+                                        aria-label="Next publication"
+                                    >
+                                        <ChevronRight className="w-6 h-6" />
+                                    </button>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </section>
+
 
                 {/* Student Certifications Section - REDESIGNED */}
                 <section id="Certifications" className="bg-gradient-to-br from-gray-50 to-blue-50 py-16 md:py-20 scroll-mt-24">
@@ -826,7 +909,7 @@ const GraceHopperCOEFull: React.FC = () => {
                             </p>
                         </AnimatedElement>
 
-                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 max-w-7xl mx-auto">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8 max-w-7xl mx-auto">
                             {certifications.map((cert, index) => {
                                 const highlightedProviders = [
                                     "IBM Skillbuild",
@@ -855,15 +938,12 @@ const GraceHopperCOEFull: React.FC = () => {
                                             className="group block bg-white rounded-xl shadow-md overflow-hidden h-full hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-2 border-gray-100 hover:border-blue-400 cursor-pointer"
                                         >
                                             {/* Logo Container */}
-                                            <div className="relative h-32 bg-gradient-to-br from-blue-50 to-white flex items-center justify-center p-6 overflow-hidden">
+                                            <div className="relative h-36 bg-gradient-to-br from-blue-50 to-white flex items-center justify-center p-10 overflow-hidden">
                                                 <div className="absolute inset-0 bg-blue-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                                 <img
                                                     src={cert.logo}
                                                     alt={`${cert.provider} logo`}
-                                                    className={
-                                                        "relative w-full h-full object-contain transition-all duration-300 group-hover:scale-110 filter group-hover:brightness-110" +
-                                                        (isBigLogo ? " scale-110 md:scale-125" : "")
-                                                    }
+                                                    className="relative w-full h-full object-contain transition-all duration-300 group-hover:scale-110 filter group-hover:brightness-110"
                                                     onError={(e) => {
                                                         // Fallback if logo fails to load
                                                         (e.target as HTMLImageElement).src =
@@ -1068,146 +1148,6 @@ const GraceHopperCOEFull: React.FC = () => {
                     </div>
                 </section >
 
-                {/* Research & Publications Section */}
-                <section className="bg-gradient-to-br from-gray-50 to-blue-50 py-16 md:py-20">
-                    <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-
-                        {/* Header */}
-                        <AnimatedElement animation="slide-down">
-                            <h2
-                                className="text-4xl sm:text-5xl font-extrabold text-gray-900 text-center mb-4"
-                                style={{ fontFamily: "Georgia, serif" }}
-                            >
-                                Research & Publications
-                            </h2>
-                            <p className="text-center text-lg text-gray-600 mb-12 max-w-3xl mx-auto">
-                                Cutting-edge research projects and IEEE conference publications with significant citations
-                            </p>
-                        </AnimatedElement>
-
-                        <div className="grid lg:grid-cols-2 gap-8 mb-12">
-
-                            {/* ================= GOOGLE EARTH ENGINE ================= */}
-                            <AnimatedElement animation="slide-right">
-                                <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-200 h-full">
-
-                                    <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
-                                        <Globe className="w-8 h-8 text-blue-600" />
-                                        Google Earth Engine & ML
-                                    </h3>
-
-                                    <div className="grid sm:grid-cols-2 gap-6">
-                                        {[
-                                            {
-                                                title: "Soil Carbon Assessment",
-                                                subtitle: "Central India",
-                                                team: "S. Sai Charan, T. Akshay Kumar",
-                                                image:
-                                                    "https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=800&q=80",
-                                            },
-                                            {
-                                                title: "Rubber Plantation Characterization",
-                                                subtitle: "Kerala",
-                                                team: "S. Sai Charan, T. Ramya",
-                                                image:
-                                                    "https://images.unsplash.com/photo-1473448912268-2022ce9509d8?w=800&q=80",
-                                            },
-                                            {
-                                                title: "Rubber Characterization",
-                                                subtitle: "North-East India",
-                                                team: "Hari Sharan, Balasubramanyam",
-                                                image:
-                                                    "https://images.unsplash.com/photo-1596329636286-904c6c97a61e?w=800&q=80",
-                                            },
-                                            {
-                                                title: "Mangrove Forest Dynamics",
-                                                subtitle: "Gujarat",
-                                                team: "T. Sruthi, Suhana Shaik",
-                                                image:
-                                                    "https://images.unsplash.com/photo-1519810755548-392116d9a642?w=800&q=80",
-                                            },
-                                        ].map((project, idx) => (
-                                            <div
-                                                key={idx}
-                                                className="group relative overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-all duration-300"
-                                            >
-                                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10" />
-
-                                                <img
-                                                    src={project.image}
-                                                    alt={project.title}
-                                                    className="w-full h-48 object-cover transform group-hover:scale-110 transition-transform duration-500"
-                                                />
-
-                                                <div className="absolute bottom-0 left-0 right-0 p-4 z-20 text-white">
-                                                    <h4 className="font-bold text-sm mb-1">{project.title}</h4>
-                                                    <p className="text-xs text-blue-200 mb-2">
-                                                        {project.subtitle}
-                                                    </p>
-                                                    <p className="text-[11px] opacity-80">
-                                                        Team: {project.team}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            </AnimatedElement>
-
-                            {/* ================= ML HEALTHCARE ================= */}
-                            <AnimatedElement animation="slide-left" delay={200}>
-                                <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-200 h-full">
-
-                                    <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
-                                        <Activity className="w-8 h-8 text-green-600" />
-                                        ML Healthcare Projects
-                                    </h3>
-
-                                    <div className="space-y-4">
-                                        {[
-                                            {
-                                                title: "Recti Cure – Cataract Detection",
-                                                team: "Dr. L. Pallavi, A. Sai Charan & Team",
-                                            },
-                                            {
-                                                title: "SoulEase – AI Emotion Detection",
-                                                team: "Mrs. Ch. Sreedevi, B. Naga Reshmi & Team",
-                                            },
-                                            {
-                                                title: "Brain Tumor Detection using GANs",
-                                                team: "Dr. L. Pallavi, T. Ramya & Team",
-                                            },
-                                            {
-                                                title: "FeminaInsight – PCOS Detection",
-                                                team: "Mr. Jagadeesh Dandu, Kalamatha Eshwari & Team",
-                                            },
-                                            {
-                                                title: "Mental Health Prediction using ML",
-                                                team: "Dr. Ch. Madhu Babu, M. Nikhil & Team",
-                                            },
-                                        ].map((project, idx) => (
-                                            <div
-                                                key={idx}
-                                                className="flex items-center justify-between p-4 rounded-xl bg-gray-50 border border-gray-200 hover:bg-green-50 hover:border-green-300 transition-all"
-                                            >
-                                                <div>
-                                                    <h4 className="font-semibold text-gray-900 text-sm mb-1">
-                                                        {project.title}
-                                                    </h4>
-                                                    <p className="text-xs text-gray-600">{project.team}</p>
-                                                </div>
-
-                                                <span className="text-xs px-3 py-1.5 rounded-full bg-green-100 text-green-700 font-medium">
-                                                    View Paper (Soon)
-                                                </span>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            </AnimatedElement>
-                        </div>
-                    </div>
-                </section>
 
 
                 {/* Patents & Awards Section */}
@@ -1356,7 +1296,7 @@ const GraceHopperCOEFull: React.FC = () => {
                 </section>
 
                 {/* Startup Success Section */}
-                < section className="bg-gradient-to-br from-green-50 to-blue-50 py-16 md:py-20" >
+                <section className="bg-gradient-to-br from-green-50 to-blue-50 py-16 md:py-20" >
                     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                         <AnimatedElement animation="slide-down">
                             <h2 className="text-4xl sm:text-5xl font-extrabold text-gray-900 text-center mb-4" style={{ fontFamily: 'Georgia, serif' }}>
@@ -1431,7 +1371,7 @@ const GraceHopperCOEFull: React.FC = () => {
 
                                 {/* Contact Button */}
                                 <a
-                                    href="mailto:cse@bvrit.ac.in"
+                                    href="mailto:cbb@bvrit.ac.in"
                                     className="inline-flex items-center px-8 py-4 bg-blue-600 text-white rounded-full font-semibold text-lg 
                      hover:bg-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
                                 >

@@ -94,14 +94,14 @@ const FacultyData = [
     name: 'Dr. P. M. Jyosthna',
     designation: 'Associate Professor & Department Exam Branch Coordinator',
     email: 'pmjyosthna@bvrit.ac.in',
-    category: 'Assistant Professor',
+    category: 'Associate Professor',
     image: '/faculty/024_P-M-Jyosthna-qgjmxr1rhr2xetmrrazhaisjwucsmj2qficykkgzps.jpg',
   },
   {
     name: 'Dr. Ch. Rajya Lakshmi',
     designation: 'Associate Professor',
     email: 'rajyalakshmi@bvrit.ac.in',
-    category: 'Assistant Professor',
+    category: 'Associate Professor',
     image: '/faculty/025_Dr.Ch_.Rajyalakshmi-qstzoplpav6pboiz7h5nijmltc6oigg3yb4crw91ow.jpg',
   },
   {
@@ -129,7 +129,7 @@ const FacultyData = [
     name: 'Mr. T Satish Babu',
     designation: 'Associate Professor',
     email: 'tsatishbabu@bvrit.ac.in',
-    category: 'Assistant Professor',
+    category: 'Associate Professor',
     image: '/faculty/029_satish-faculty-bvrit-engineering-college-narsapur-q5vids6ggo4epyj6fxd7b6bwyn1omfjr3u7ib0yok0.webp',
   },
   {
@@ -256,7 +256,7 @@ const FacultyData = [
     designation: 'Assistant Professor',
     email: 'psrbshashank@bvrit.ac.in',
     category: 'Assistant Professor',
-    image: '/faculty/047_shashank-faculty-bvrit-engineering-college-narsapur-q5vids6ggo4epyj6fxd7b6bwyn1omfjr3u7ib0yok0.webp',
+    image: '/faculty/shashank.webp',
   },
   {
     name: 'Mrs. M Shereesha',

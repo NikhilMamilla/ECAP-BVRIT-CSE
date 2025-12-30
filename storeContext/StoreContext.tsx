@@ -52,9 +52,10 @@ const StoreContextProvider: React.FC<{ children: React.ReactNode }> = (props) =>
     ]);
     const [departmentList, setDepartmentList] = useState<any[]>([]);
     const [placementList] = useState<any[]>([
-        { student: 'Vasu Surisetty', company: 'Meesho', package: '37 LPA', image: { url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400' }, companyLogo: { url: 'https://upload.wikimedia.org/wikipedia/commons/8/80/Meesho_Logo_Full.png' } },
-        { student: 'Ankit Sharma', company: 'Microsoft', package: '42 LPA', image: { url: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=400' }, companyLogo: { url: 'https://upload.wikimedia.org/wikipedia/commons/9/96/Microsoft_logo_%282012%29.svg' } },
-        { student: 'Sneha Reddy', company: 'Amazon', package: '44 LPA', image: { url: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=400' }, companyLogo: { url: 'https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg' } }
+        { student: 'THADA REVANTH', company: 'Flipkart', package: '32 LPA', image: { url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400' }, companyLogo: { url: '/images/companies/flipkart.png' } },
+        { student: 'PININTI JHANSI', company: 'Optum', package: '18.56 LPA', image: { url: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=400' }, companyLogo: { url: '/images/companies/optum.png' } },
+        { student: 'CHIRUMANI SHRAVAN KUMAR', company: 'Porter', package: '17 LPA', image: { url: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=400' }, companyLogo: { url: '/images/companies/porter.png' } },
+        { student: 'SHAIK SUMAYYA', company: 'Bank of America', package: '12 LPA', image: { url: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=400' }, companyLogo: { url: '/images/companies/bankofamerica.png' } }
     ]);
 
 

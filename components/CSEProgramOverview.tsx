@@ -106,7 +106,7 @@ const CSEProgramOverview: React.FC = () => {
                 </div>
 
                 {/* CTA Section */}
-                <div className="text-center mt-12">
+                {/* <div className="text-center mt-12">
                     <AnimatedElement animation="fade-in" delay={400} className="inline-block">
                         <a
                             href="#"
@@ -118,7 +118,7 @@ const CSEProgramOverview: React.FC = () => {
                             </svg>
                         </a>
                     </AnimatedElement>
-                </div>
+                </div> */}
 
             </div >
         </section >

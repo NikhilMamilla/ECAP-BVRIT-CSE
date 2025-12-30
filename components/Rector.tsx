@@ -171,7 +171,7 @@ const Rector = () => {
 
                     <div style={styles.container}>
                         <div style={styles.sidebar}>
-                            <div 
+                            <div
                                 style={styles.imageContainer}
                                 onMouseEnter={() => setIsImageHovered(true)}
                                 onMouseLeave={() => setIsImageHovered(false)}
@@ -207,7 +207,7 @@ const Rector = () => {
                                 programs and extracurricular activities designed to foster leadership skills, teamwork,
                                 and a sense of community.
                             </p>
-                            
+
                             <p style={styles.paragraph}>
                                 The main purpose of our school is to ensure that the young people we serve are well
                                 prepared for the challenges, they face in a rapidly changing world. To prepare the
@@ -215,7 +215,7 @@ const Rector = () => {
                                 passion in something valuable.
                             </p>
                             {/* <p style={styles.paragraph}> */}
-                                {/* Our theme is "Committed citizens rebuilding a fragile world." */}
+                            {/* Our theme is "Committed citizens rebuilding a fragile world." */}
                             {/* </p> */}
                             <p style={styles.paragraph}>
                                 I desire that each child will leave our campus not just as a passionate thinker, but a

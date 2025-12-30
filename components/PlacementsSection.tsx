@@ -117,16 +117,16 @@ const PlacementsSection: React.FC = () => {
         {/* --- STATS DASHBOARD --- */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mb-20 md:mb-24">
           <AnimatedElement animation="slide-up" delay={100} className="h-full">
-            <AnimatedStat value={37} suffix=" LPA" label="Highest Package" />
+            <AnimatedStat value={32} suffix=" LPA" label="Highest Package (2025)" />
           </AnimatedElement>
           <AnimatedElement animation="slide-up" delay={200} className="h-full">
-            <AnimatedStat value={4.2} decimals={1} suffix=" LPA" label="Average Package" />
+            <AnimatedStat value={5.7} decimals={1} suffix=" LPA" label="Average Package (2025)" />
           </AnimatedElement>
           <AnimatedElement animation="slide-up" delay={300} className="h-full">
-            <AnimatedStat value={258} suffix="+" label="Total Offers (Batch 2022-26)" />
+            <AnimatedStat value={1000} suffix="+" label="Total Offers (Batch 2021-25)" />
           </AnimatedElement>
           <AnimatedElement animation="slide-up" delay={400} className="h-full">
-            <AnimatedStat value={163} suffix="+" label="Companies Visited" />
+            <AnimatedStat value={48} suffix="+" label="Companies Visited (2025)" />
           </AnimatedElement>
         </div>
       </div>
@@ -145,7 +145,7 @@ const PlacementsSection: React.FC = () => {
 
             <div className="flex flex-col items-start md:items-end text-right">
               <p className="text-[9px] md:text-[10px] font-bold opacity-80 mb-1 tracking-widest text-white">
-                93% placement already achieved
+                86% placement rate achieved
               </p>
               <a
                 href="/placements"
@@ -166,16 +166,16 @@ const PlacementsSection: React.FC = () => {
 
           {/* Cards Grid with Decent Gap */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 items-center mb-2 px-2 md:px-0">
-            {/* Left Card with Blue Frame */}
+            {/* Left Card - Optum */}
             <AnimatedElement animation="slide-right" delay={100} className="relative">
               <div className="absolute -inset-2 border-2 border-cyan-400/60 z-0 pointer-events-none hidden md:block"></div>
               <div className="relative z-10 bg-white p-5 flex flex-col items-center text-center shadow-2xl border border-slate-200 min-h-[300px] md:min-h-[320px]">
-                <div className="text-cyan-600 font-bold text-[9px] tracking-widest mb-1">2024</div>
+                <div className="text-cyan-600 font-bold text-[9px] tracking-widest mb-1">2025</div>
                 <div className="text-slate-400 text-[8px] font-bold mb-3 uppercase tracking-tighter">Placement Achievements</div>
                 <div className="w-10 h-[1px] bg-slate-200 mb-4"></div>
 
                 <div className="flex items-center gap-2 mb-4">
-                  <span className="text-4xl md:text-5xl font-black text-[#ff8000] leading-none">02</span>
+                  <span className="text-4xl md:text-5xl font-black text-[#ff8000] leading-none">14</span>
                   <div className="text-left text-slate-800 font-bold leading-tight">
                     <p className="text-sm md:text-base font-black tracking-tighter">BVRITIans</p>
                     <p className="text-[9px] opacity-60">selected at</p>
@@ -188,28 +188,28 @@ const PlacementsSection: React.FC = () => {
                   <p className="text-slate-400 text-[8px] font-bold uppercase mb-1">PACKAGE OF</p>
                   <div className="flex items-center justify-center gap-1 text-[#0066cc]">
                     <span className="text-lg font-black">₹</span>
-                    <span className="text-3xl md:text-4xl font-black tabular-nums">36.00</span>
+                    <span className="text-3xl md:text-4xl font-black tabular-nums">18.56</span>
                   </div>
                   <p className="text-[#0066cc] font-bold text-[8px] uppercase mt-1 tracking-widest">LAKHS PER ANNUM</p>
                 </div>
 
                 <div className="mt-auto w-full flex justify-center pt-2">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/2/29/Autodesk_Logo.svg" alt="Autodesk" className="h-7 object-contain" />
+                  <h3 className="text-2xl font-black text-slate-800 tracking-tight uppercase">Optum</h3>
                 </div>
               </div>
             </AnimatedElement>
 
-            {/* Center Card (Elevated & Exact) */}
+            {/* Center Card - Flipkart */}
             <AnimatedElement animation="slide-up" delay={300} className="relative z-20">
               <div className="bg-white p-7 flex flex-col items-center text-center shadow-[0_15px_40px_rgba(0,0,0,0.4)] border border-slate-200 min-h-[340px] md:min-h-[360px]">
-                <div className="text-cyan-600 font-bold text-[10px] tracking-widest mb-1">2024</div>
+                <div className="text-cyan-600 font-bold text-[10px] tracking-widest mb-1">2025</div>
                 <div className="text-slate-400 text-[9px] font-bold mb-4 uppercase tracking-tighter">Placement Achievements</div>
                 <div className="w-14 h-[1px] bg-slate-200 mb-5"></div>
 
                 <div className="flex items-center gap-3 mb-5">
-                  <span className="text-6xl md:text-7xl font-black text-[#ff8000] leading-none">02</span>
+                  <span className="text-6xl md:text-7xl font-black text-[#ff8000] leading-none">01</span>
                   <div className="text-left text-slate-900 font-bold leading-none py-0.5">
-                    <p className="text-lg md:text-xl font-black tracking-tighter">BVRITIans</p>
+                    <p className="text-lg md:text-xl font-black tracking-tighter">BVRITIan</p>
                     <p className="text-[10px] opacity-60">selected at</p>
                   </div>
                 </div>
@@ -220,28 +220,27 @@ const PlacementsSection: React.FC = () => {
                   <p className="text-slate-400 text-[9px] font-bold uppercase mb-2">PACKAGE OF</p>
                   <div className="flex items-center justify-center gap-1 text-[#0066cc]">
                     <span className="text-xl md:text-2xl font-black">₹</span>
-                    <span className="text-5xl md:text-6xl font-black tracking-tighter tabular-nums">49.12</span>
+                    <span className="text-5xl md:text-6xl font-black tracking-tighter tabular-nums">32.00</span>
                   </div>
                   <p className="text-[#0066cc] font-bold text-[10px] uppercase mt-2 tracking-widest">LAKHS PER ANNUM</p>
                 </div>
 
                 <div className="mt-auto w-full flex flex-col items-center gap-1.5 pt-3">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" alt="Microsoft" className="h-8 object-contain" />
-                  <span className="text-base font-bold text-slate-700 tracking-tight">Microsoft</span>
+                  <h3 className="text-3xl font-black text-slate-900 tracking-tight uppercase">Flipkart</h3>
                 </div>
               </div>
             </AnimatedElement>
 
-            {/* Right Card with Blue Frame */}
+            {/* Right Card - Porter */}
             <AnimatedElement animation="slide-left" delay={500} className="relative">
               <div className="absolute -inset-2 border-2 border-cyan-400/60 z-0 pointer-events-none hidden md:block"></div>
               <div className="relative z-10 bg-white p-5 flex flex-col items-center text-center shadow-2xl border border-slate-200 min-h-[300px] md:min-h-[320px]">
-                <div className="text-cyan-600 font-bold text-[9px] tracking-widest mb-1">2024</div>
+                <div className="text-cyan-600 font-bold text-[9px] tracking-widest mb-1">2025</div>
                 <div className="text-slate-400 text-[8px] font-bold mb-3 uppercase tracking-tighter">Placement Achievements</div>
                 <div className="w-10 h-[1px] bg-slate-200 mb-4"></div>
 
                 <div className="flex items-center gap-2 mb-4">
-                  <span className="text-4xl md:text-5xl font-black text-[#ff8000] leading-none">05</span>
+                  <span className="text-4xl md:text-5xl font-black text-[#ff8000] leading-none">03</span>
                   <div className="text-left text-slate-800 font-bold leading-tight">
                     <p className="text-sm md:text-base font-black tracking-tighter">BVRITIans</p>
                     <p className="text-[9px] opacity-60">selected at</p>
@@ -254,14 +253,13 @@ const PlacementsSection: React.FC = () => {
                   <p className="text-slate-400 text-[8px] font-bold uppercase mb-1">PACKAGE OF</p>
                   <div className="flex items-center justify-center gap-1 text-[#0066cc]">
                     <span className="text-lg font-black">₹</span>
-                    <span className="text-3xl md:text-4xl font-black tabular-nums">18.00</span>
+                    <span className="text-3xl md:text-4xl font-black tabular-nums">17.00</span>
                   </div>
                   <p className="text-[#0066cc] font-bold text-[8px] uppercase mt-1 tracking-widest">LAKHS PER ANNUM</p>
                 </div>
 
                 <div className="mt-auto w-full flex flex-col items-center gap-1 pt-2">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Cisco_logo_blue_2016.svg" alt="Cisco" className="h-7 object-contain" />
-                  <span className="text-[8px] font-bold text-slate-400 uppercase tracking-tighter">Cisco</span>
+                  <h3 className="text-2xl font-black text-slate-800 tracking-tight uppercase">Porter</h3>
                 </div>
               </div>
             </AnimatedElement>

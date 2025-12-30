@@ -11,7 +11,7 @@ const RedirectPage = () => {
   // Auto-redirect countdown
   useEffect(() => {
     if (!externalUrl || !autoRedirect) return;
-    
+
     const timer = setInterval(() => {
       setCountdown((prev) => {
         if (prev <= 1) {
@@ -38,7 +38,7 @@ const RedirectPage = () => {
             </div>
             <h1 className="text-2xl font-bold text-gray-900 mb-4">Invalid Redirect</h1>
             <p className="text-gray-600 mb-6">No destination URL was provided.</p>
-            <button 
+            <button
               onClick={() => navigate('/')}
               className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200"
             >
@@ -65,7 +65,7 @@ const RedirectPage = () => {
           <h1 className="text-3xl font-bold text-gray-900 mb-4">
             You're Leaving Our Website
           </h1>
-          
+
           {/* Description */}
           <p className="text-lg text-gray-600 mb-6 leading-relaxed">
             You are being redirected to an external website. Please verify the destination before proceeding.
@@ -111,7 +111,7 @@ const RedirectPage = () => {
               </svg>
               <span>Continue to External Site</span>
             </a>
-            
+
             <button
               onClick={() => navigate('/')}
               className="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-8 rounded-lg transition-all duration-200 flex items-center justify-center space-x-2"

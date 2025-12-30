@@ -32,7 +32,6 @@ const defaultLinks: LinkItem[] = [
   { id: 'Accreditations', label: 'Accreditations' },
   { id: 'CSEPrograms', label: 'Programs' },
   { id: 'CSEStats', label: 'Stats' },
-  { id: 'Faculty', label: 'Faculty' },
   { id: 'GraceHopper', label: 'COE' },
   { id: 'Clubs', label: 'Clubs' },
   { id: 'RAndD', label: 'R&D' },

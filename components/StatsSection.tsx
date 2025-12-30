@@ -7,13 +7,13 @@ import { AnimatedElement } from './AnimatedElement';
 
 // Data for the statistics cards - CSE Department Specific
 const statsData = [
-  { value: 600, label: 'CSE Students', description: 'Across all specializations', suffix: '+', decimals: 0 },
-  { value: 62, label: 'Placement Rate', description: 'CSE Department placements', suffix: '%', decimals: 0 },
-  { value: 45, label: 'Highest Package', description: 'CSE student achievement', suffix: ' LPA', decimals: 0 },
-  { value: 12, label: 'Average Package', description: 'For CSE graduates', suffix: ' LPA', decimals: 0 },
-  { value: 40, label: 'Expert Faculty', description: 'PhD holders & industry experts', suffix: '+', decimals: 0 },
+  { value: 1000, label: 'CSE Students', description: 'Across all batches', suffix: '+', decimals: 0 },
+  { value: 86.4, label: 'Placement Rate', description: 'Highest department placement', suffix: '%', decimals: 1 },
+  { value: 52, label: 'Highest Package', description: 'Record student achievement', suffix: ' LPA', decimals: 0 },
+  { value: 5.7, label: 'Average Package', description: 'For Batch 2025 graduates', suffix: ' LPA', decimals: 1 },
+  { value: 75, label: 'Expert Faculty', description: 'Including 22 Ph.D. scholars', suffix: '+', decimals: 0 },
   { value: 200, label: 'Companies for CSE', description: 'Tech giants & startups', suffix: '+', decimals: 0 },
-  { value: 50, label: 'Research Publications', description: 'In AI, ML, Security, IoT', suffix: '+', decimals: 0 },
+  { value: 150, label: 'Research Publications', description: 'In AI, ML, Cloud & Security', suffix: '+', decimals: 0 },
   { value: 15, label: 'Tech Partnerships', description: 'MoUs with Microsoft, AWS, Google', suffix: '+', decimals: 0 },
 ];
 
@@ -22,7 +22,6 @@ type StatItem = typeof statsData[0];
 
 // StatCard Sub-Component
 const StatCard: React.FC<{ stat: StatItem; inView: boolean; delay: string; index: number }> = ({ stat, index }) => {
-  // Counters now start immediately as requested
   const count = useCounter(stat.value, 2000, true, stat.decimals);
 
   return (
@@ -32,14 +31,22 @@ const StatCard: React.FC<{ stat: StatItem; inView: boolean; delay: string; index
       className="h-full w-full"
     >
       <div
-        className={`bg-white p-4 sm:p-6 rounded-xl shadow-lg border border-blue-300 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl text-center h-full`}
+        className="bg-white p-6 rounded-xl shadow-lg text-center h-full flex flex-col justify-center items-center hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border-2 border-blue-100"
       >
-        <div className="flex items-baseline justify-center gap-1">
-          <p className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900" style={{ fontFamily: "'Georgia', serif" }}>{count}</p>
-          <span className="text-xl sm:text-2xl md:text-3xl font-bold text-blue-600" style={{ fontFamily: "'Georgia', serif" }}>{stat.suffix}</span>
+        <div className="flex items-baseline justify-center">
+          <span className="text-4xl md:text-5xl font-bold text-blue-600 tabular-nums">
+            {count}
+          </span>
+          <span className="text-xl md:text-2xl font-bold text-blue-600 ml-1">
+            {stat.suffix}
+          </span>
         </div>
-        <h3 className="text-sm sm:text-base md:text-lg font-semibold text-gray-800 mt-2 sm:mt-3" style={{ fontFamily: "'Georgia', serif" }}>{stat.label}</h3>
-        <p className="text-xs sm:text-sm text-gray-600 mt-1 sm:mt-1.5 line-clamp-2">{stat.description}</p>
+        <h3 className="text-sm md:text-base font-bold text-gray-900 mt-3 uppercase tracking-wide">
+          {stat.label}
+        </h3>
+        <p className="text-xs text-gray-600 mt-1 line-clamp-2 leading-relaxed font-medium">
+          {stat.description}
+        </p>
       </div>
     </AnimatedElement>
   );
@@ -55,7 +62,7 @@ const StatsSection: React.FC = () => {
 
         <div className="text-center mb-8 sm:mb-16">
           <AnimatedElement animation="slide-down" className="block">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight" style={{ fontFamily: "'Georgia', serif" }}>
+            <h2 className="text-4xl sm:text-5xl font-extrabold text-gray-900 tracking-tight" style={{ fontFamily: 'Georgia, serif' }}>
               CSE Department at a Glance
             </h2>
           </AnimatedElement>
@@ -70,7 +77,7 @@ const StatsSection: React.FC = () => {
           ))}
         </div>
 
-        <div className="mt-10 sm:mt-16 text-center">
+        {/* <div className="mt-10 sm:mt-16 text-center">
           <AnimatedElement animation="slide-up" delay={800} className="inline-block">
             <a
               href="#"
@@ -82,7 +89,7 @@ const StatsSection: React.FC = () => {
               </svg>
             </a>
           </AnimatedElement>
-        </div>
+        </div> */}
 
       </div>
     </section>

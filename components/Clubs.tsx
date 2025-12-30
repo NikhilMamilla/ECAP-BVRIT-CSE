@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Code, Heart, Microscope, Award, ChevronRight, ExternalLink, Users, X } from 'lucide-react';
+import { Code, Heart, Microscope, Award, ChevronRight, ChevronLeft, ExternalLink, Users, X } from 'lucide-react';
 import { AnimatedElement } from './AnimatedElement';
 
 interface Club {
@@ -13,6 +13,7 @@ interface Club {
     highlights: string[];
     logo?: string;
     website?: string;
+    email: string;
 }
 
 const clubs: Club[] = [
@@ -23,7 +24,7 @@ const clubs: Club[] = [
         icon: Code,
         color: 'blue',
         description:
-            'The official coding club of the CSE department. Organizes hackathons, coding competitions, technical workshops, and skill-development events. Leads sessions for juniors, helping them with programming, projects, and career building in tech.',
+            'The official coding club of the CSE department, focused on hackathons, coding contests, workshops, and technical skill development.',
         partners: ['Infosys Springboard', 'Google GDSC', 'Cisco Academy', 'TwinNetworking'],
         highlights: [
             'Hackathons & coding competitions',
@@ -33,6 +34,7 @@ const clubs: Club[] = [
         ],
         logo: 'https://cbb.bvrit.ac.in/logo.png',
         website: 'https://cbb.bvrit.ac.in/',
+        email: 'cbb@bvrit.ac.in'
     },
     {
         id: 'gdgoc',
@@ -41,7 +43,7 @@ const clubs: Club[] = [
         icon: Users,
         color: 'purple',
         description:
-            'Google Developer Groups on Campus is a university-based community group for students interested in Google developer technologies. Students from all undergraduate and graduate programs are welcome to join and learn about various Google technologies, build solutions for local businesses and communities, and connect with other developers.',
+            'A campus-based Google developer community where students learn, build projects, and explore modern Google technologies.',
         partners: ['Google Developers', 'Google Cloud', 'Android', 'Firebase'],
         highlights: [
             'Google technology workshops',
@@ -49,8 +51,9 @@ const clubs: Club[] = [
             'Mobile app development',
             'Community building events',
         ],
-        logo: '/gdgoc-logo.png',
-        website: 'https://gdgoc-bvrit.vercel.app/',
+        logo: '/gdgoc.png',
+        website: 'https://gdgoc.bvrit.ac.in/',
+        email: 'gdgoc@bvrit.ac.in'
     },
     {
         id: 'fit',
@@ -59,7 +62,7 @@ const clubs: Club[] = [
         icon: Heart,
         color: 'teal',
         description:
-            'A club dedicated to empowering female students through scholarships, mentorship, and exclusive opportunities. Members benefit from programs focused on leadership, skill-building, and industry exposure for women in tech.',
+            'An initiative empowering women in tech through mentorship, leadership programs, scholarships, and industry exposure.',
         partners: ['Grace Hopper Virtuosa', 'Amazon WoW', 'Deloitte', 'Walmart', 'Flipkart Girls'],
         highlights: [
             'Scholarships for women in tech',
@@ -67,8 +70,9 @@ const clubs: Club[] = [
             'Mentorship opportunities',
             'Industry exposure events',
         ],
-        logo: '/fit-logo1.png',
-        website: 'https://cbb.bvrit.ac.in/co'
+        logo: '/FIT.png',
+        website: 'https://fit.bvrit.ac.in/',
+        email: 'fit@bvrit.ac.in'
     },
     {
         id: 'src',
@@ -77,7 +81,7 @@ const clubs: Club[] = [
         icon: Microscope,
         color: 'indigo',
         description:
-            'A hub for student-driven research, innovation, and academic excellence. Highlights include patent achievements, research paper publications, and guidance for participating in national/international conferences.',
+            'A research-focused community supporting innovation, patents, publications, and participation in academic conferences.',
         partners: ['ICRISAT', 'NIAS', 'TIHAN IIT Hyderabad'],
         highlights: [
             'Patent achievements',
@@ -85,14 +89,35 @@ const clubs: Club[] = [
             'Conference participation guidance',
             'Innovation support',
         ],
-        logo: '/src-logo.png',
-        website: 'https://cbb.bvrit.ac.in/co'
+        logo: '/SRC2.png',
+        website: 'https://src.bvrit.ac.in/',
+        email: 'src@bvrit.ac.in'
     },
 ];
 
+
 const Clubs: React.FC = () => {
     const [selectedClub, setSelectedClub] = useState<string | null>(null);
+    const [clubIdx, setClubIdx] = useState(0);
+    const [isMobile, setIsMobile] = useState(false);
     const detailsRef = useRef<HTMLDivElement | null>(null);
+
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
+    const handleNext = () => {
+        setClubIdx((prev) => (prev + 1) % clubs.length);
+    };
+
+    const handlePrev = () => {
+        setClubIdx((prev) => (prev - 1 + clubs.length) % clubs.length);
+    };
 
     const colorMap: Record<string, { bg: string; text: string; lightBg: string; border: string; gradient: string }> = {
         blue: {
@@ -158,155 +183,218 @@ const Clubs: React.FC = () => {
                     </AnimatedElement>
                 </div>
 
-                {/* Club Cards Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-                    {clubs.map((club, index) => (
-                        <AnimatedElement key={club.id} animation="slide-up" delay={index * 100} className="block h-full">
+                {/* Club Cards - Desktop Grid / Mobile Slider */}
+                {isMobile ? (
+                    <div className="relative mb-12">
+                        <div className="overflow-hidden p-4 -m-4">
                             <div
-                                onClick={() => {
-                                    setSelectedClub(selectedClub === club.id ? null : club.id);
-                                }}
-                                className={`group relative bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 h-full border border-blue-100 cursor-pointer ${selectedClub === club.id ? 'ring-2 ring-blue-500 ring-offset-2' : ''}`}
+                                className="flex transition-transform duration-500 ease-out"
+                                style={{ transform: `translateX(-${clubIdx * 100}%)` }}
                             >
-                                {/* Top Section - Image/Gradient Area */}
-                                <div className={`relative h-48 overflow-hidden ${colorMap[club.color].lightBg}`}>
-                                    {/* Centered Logo */}
-                                    <div className="absolute inset-0 flex items-center justify-center p-6">
+                                {clubs.map((club) => (
+                                    <div key={club.id} className="w-full flex-shrink-0 px-2">
+                                        <div
+                                            onClick={() => setSelectedClub(selectedClub === club.id ? null : club.id)}
+                                            className={`group relative bg-white rounded-2xl overflow-hidden transition-all duration-300 border-2 ${selectedClub === club.id ? `border-${club.color}-500 shadow-xl` : 'border-gray-200 shadow-lg'}`}
+                                        >
+                                            <div className="h-48 w-full bg-white flex items-center justify-center p-4 border-b border-gray-100 relative group-hover:bg-gray-50 transition-colors duration-500">
+                                                {club.logo ? (
+                                                    <img
+                                                        src={club.logo}
+                                                        alt={club.name}
+                                                        className="w-full h-full object-contain transform transition-transform duration-500 group-hover:scale-110"
+                                                    />
+                                                ) : (
+                                                    <club.icon className={`w-24 h-24 ${colorMap[club.color].text}`} />
+                                                )}
+                                            </div>
+
+                                            <div className="p-5 text-center">
+                                                <h3 className={`text-xl font-bold mb-1 ${colorMap[club.color].text}`}>{club.name}</h3>
+                                                <p className="text-xs font-bold text-gray-800 uppercase tracking-wide mb-3 line-clamp-1">{club.fullName}</p>
+
+                                                <button className={`w-full py-2.5 px-4 rounded-xl font-bold transition-all duration-300 flex items-center justify-center gap-2 text-sm uppercase tracking-wide ${selectedClub === club.id ? `${colorMap[club.color].bg} text-white shadow-lg` : 'bg-gray-50 text-gray-700 hover:bg-gray-100'}`}>
+                                                    {selectedClub === club.id ? 'Hide Details' : 'View Details'}
+                                                    <ChevronRight className={`w-4 h-4 transition-transform duration-300 ${selectedClub === club.id ? 'rotate-90' : ''}`} />
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Slider Nav */}
+                        <div className="flex justify-center gap-4 mt-6 items-center">
+                            <button onClick={handlePrev} className="w-10 h-10 rounded-full bg-white border-2 border-slate-200 flex items-center justify-center text-slate-600 hover:bg-slate-50 hover:border-slate-300 transition-all shadow-sm">
+                                <ChevronLeft className="w-5 h-5" />
+                            </button>
+                            <div className="flex gap-3">
+                                {clubs.map((_, i) => (
+                                    <div key={i} className={`h-2 rounded-full transition-all duration-300 ${i === clubIdx ? 'w-8 bg-blue-600' : 'w-2 bg-slate-300'}`} />
+                                ))}
+                            </div>
+                            <button onClick={handleNext} className="w-10 h-10 rounded-full bg-white border-2 border-slate-200 flex items-center justify-center text-slate-600 hover:bg-slate-50 hover:border-slate-300 transition-all shadow-sm">
+                                <ChevronRight className="w-5 h-5" />
+                            </button>
+                        </div>
+                    </div>
+                ) : (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                        {clubs.map((club, index) => (
+                            <AnimatedElement key={club.id} animation="slide-up" delay={index * 100} className="block h-full">
+                                <div
+                                    onClick={() => {
+                                        setSelectedClub(selectedClub === club.id ? null : club.id);
+                                    }}
+                                    className={`group relative bg-white rounded-2xl overflow-hidden cursor-pointer transition-all duration-500 hover:-translate-y-2 border-2 h-full flex flex-col ${selectedClub === club.id ? `border-${club.color}-500 shadow-xl ring-2 ring-${club.color}-200` : 'border-gray-200 shadow-hover hover:border-gray-300'}`}
+                                >
+                                    <div className="h-44 w-full bg-white flex items-center justify-center p-6 border-b border-gray-100 relative overflow-hidden">
+                                        <div className={`absolute inset-0 opacity-0 group-hover:opacity-5 transition-opacity duration-500 ${colorMap[club.color].bg}`} />
+
                                         {club.logo ? (
                                             <img
                                                 src={club.logo}
                                                 alt={club.name}
-                                                className="w-32 h-32 object-contain drop-shadow-lg transform group-hover:scale-110 transition-transform duration-500"
+                                                className="w-full h-full object-contain transform transition-transform duration-700 group-hover:scale-110 filter drop-shadow-sm"
                                             />
                                         ) : (
-                                            <club.icon className={`w-24 h-24 ${colorMap[club.color].text} opacity-80 transform group-hover:scale-110 transition-transform duration-500`} />
+                                            <club.icon className={`w-24 h-24 ${colorMap[club.color].text} transition-transform duration-500 group-hover:scale-110`} />
                                         )}
                                     </div>
 
-                                    {/* Gradient Overlay */}
-                                    <div className={`absolute inset-0 bg-gradient-to-t ${colorMap[club.color].gradient}`}></div>
+                                    <div className="p-5 flex flex-col flex-grow bg-white">
+                                        <div className="text-center mb-3">
+                                            <h3 className={`text-2xl font-bold mb-0.5 transition-colors ${colorMap[club.color].text}`}>{club.name}</h3>
+                                            <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest leading-tight">{club.fullName}</p>
+                                        </div>
 
-                                    {/* Club Name Overlay */}
-                                    <div className="absolute bottom-0 left-0 right-0 p-6">
-                                        <h3 className="text-2xl font-bold text-white mb-1">{club.name}</h3>
-                                        <p className="text-sm text-white/90 font-semibold line-clamp-1">{club.fullName}</p>
+                                        <div className="flex-grow"></div>
+
+                                        <button
+                                            className={`mt-auto w-full py-2.5 px-4 rounded-xl font-bold transition-all duration-300 flex items-center justify-center gap-2 text-sm uppercase tracking-wide ${selectedClub === club.id ? `${colorMap[club.color].bg} text-white shadow-lg` : 'bg-gray-50 text-gray-700 hover:bg-gray-100'}`}
+                                        >
+                                            {selectedClub === club.id ? 'Hide Details' : 'View Details'}
+                                            <ChevronRight className={`w-4 h-4 transition-transform duration-300 ${selectedClub === club.id ? 'rotate-90' : 'group-hover:translate-x-1'}`} />
+                                        </button>
                                     </div>
                                 </div>
-
-                                {/* Bottom Section - Details */}
-                                <div className="p-6 bg-white flex flex-col h-[calc(100%-12rem)]">
-                                    <p className="text-gray-700 text-sm leading-relaxed mb-4 line-clamp-3 flex-grow">
-                                        {club.description}
-                                    </p>
-
-                                    <button
-                                        className={`mt-auto w-full ${colorMap[club.color].bg} text-white py-2 px-4 rounded-lg font-semibold hover:opacity-90 transition-all duration-300 flex items-center justify-center text-sm`}
-                                    >
-                                        {selectedClub === club.id ? 'Hide Details' : 'Explore'}
-                                        <svg className={`w-4 h-4 ml-2 transform transition-transform duration-300 ${selectedClub === club.id ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
-                        </AnimatedElement>
-                    ))}
-                </div>
+                            </AnimatedElement>
+                        ))}
+                    </div>
+                )}
 
                 {/* Expanded Details Section */}
                 {currentClub && (
-                    <AnimatedElement animation="slide-up" className="block">
-                        <div ref={detailsRef} className={`relative rounded-3xl ${colorMap[currentClub.color].lightBg} border-2 ${colorMap[currentClub.color].border} p-6 md:p-12 shadow-2xl overflow-hidden scroll-mt-24`} id="club-details">
-                            {/* Background Logo */}
-                            {currentClub.logo && (
-                                <div className="absolute inset-0 opacity-5 pointer-events-none flex items-center justify-center">
-                                    <img src={currentClub.logo} alt="" className="max-w-md max-h-md object-contain" />
+                    <AnimatedElement animation="slide-up" className="block mt-8 scroll-mt-24">
+                        <div ref={detailsRef} className="relative rounded-3xl bg-white border border-gray-100 shadow-2xl overflow-hidden" id="club-details">
+                            {/* Decorative Top Line */}
+                            <div className={`h-1.5 w-full ${colorMap[currentClub.color].bg}`} />
+
+                            <div className="p-6 md:p-10 relative">
+                                {/* Background Large Logo Faded */}
+                                <div className="absolute top-0 right-0 p-10 opacity-[0.03] pointer-events-none transform translate-x-1/4 -translate-y-1/4 overflow-hidden">
+                                    {currentClub.logo && <img src={currentClub.logo} alt="" className="w-[500px] h-[500px] object-contain grayscale" />}
                                 </div>
-                            )}
 
-                            {/* Close Button */}
-                            <button
-                                onClick={() => setSelectedClub(null)}
-                                className={`absolute top-4 right-4 p-2 rounded-full ${colorMap[currentClub.color].bg} bg-opacity-10 hover:bg-opacity-20 transition-all duration-300 z-10`}
-                            >
-                                <X className={`w-5 h-5 ${colorMap[currentClub.color].text}`} />
-                            </button>
+                                {/* Close Button */}
+                                <button
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        setSelectedClub(null);
+                                    }}
+                                    className="absolute top-4 right-4 md:top-6 md:right-6 p-2 rounded-full bg-gray-50 hover:bg-gray-100 text-gray-500 transition-colors z-20 border border-gray-200"
+                                    aria-label="Close details"
+                                >
+                                    <X className="w-5 h-5" strokeWidth={2.5} />
+                                </button>
 
-                            <div className="relative z-10 grid md:grid-cols-2 gap-8">
-                                {/* Left Column - Description & Activities */}
-                                <div className="space-y-6">
-                                    <div>
-                                        <div className="flex items-center gap-3 mb-4">
-                                            {currentClub.logo ? (
-                                                <div className={`w-16 h-16 rounded-2xl ${colorMap[currentClub.color].bg} bg-opacity-10 flex items-center justify-center p-3`}>
+                                <div className="grid md:grid-cols-3 gap-8 md:gap-12 relative z-10">
+                                    {/* Main Content (2 cols) */}
+                                    <div className="md:col-span-2 space-y-8">
+                                        {/* Header */}
+                                        <div className="flex flex-col md:flex-row gap-6 items-start">
+                                            <div className="w-24 h-24 md:w-28 md:h-28 flex-shrink-0 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm flex items-center justify-center">
+                                                {currentClub.logo ? (
                                                     <img src={currentClub.logo} alt={currentClub.name} className="w-full h-full object-contain" />
-                                                </div>
-                                            ) : (
-                                                <div className={`w-16 h-16 rounded-2xl ${colorMap[currentClub.color].bg} bg-opacity-10 flex items-center justify-center`}>
-                                                    <currentClub.icon className={`w-8 h-8 ${colorMap[currentClub.color].text}`} />
-                                                </div>
-                                            )}
-                                            <div>
-                                                <h3 className="text-2xl md:text-3xl font-bold text-gray-900">{currentClub.fullName}</h3>
+                                                ) : (
+                                                    <currentClub.icon className={`w-12 h-12 ${colorMap[currentClub.color].text}`} />
+                                                )}
+                                            </div>
+                                            <div className="flex-grow pt-1">
+                                                <h3 className="text-3xl md:text-4xl font-bold mb-2 text-gray-900 leading-tight">{currentClub.name}</h3>
+                                                <h4 className="text-lg md:text-xl font-medium text-gray-500 mb-4 leading-snug">{currentClub.fullName}</h4>
                                                 {currentClub.website && (
                                                     <a
                                                         href={currentClub.website}
                                                         target="_blank"
                                                         rel="noopener noreferrer"
-                                                        className={`inline-flex items-center gap-1 mt-1 text-sm font-medium ${colorMap[currentClub.color].text} hover:underline`}
+                                                        className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold ${colorMap[currentClub.color].bg} text-white hover:opacity-90 transition-all shadow-sm transform hover:-translate-y-0.5`}
                                                     >
-                                                        Visit Website <ExternalLink className="w-3 h-3" />
+                                                        Visit Official Website <ExternalLink className="w-4 h-4" />
                                                     </a>
                                                 )}
                                             </div>
                                         </div>
-                                        <p className="text-gray-700 leading-relaxed text-lg">{currentClub.description}</p>
-                                    </div>
 
-                                    <div>
-                                        <h4 className="font-semibold text-lg text-gray-900 mb-4 flex items-center gap-2">
-                                            <div className={`w-1 h-6 ${colorMap[currentClub.color].bg} rounded-full`}></div>
-                                            Key Activities
-                                        </h4>
-                                        <ul className="space-y-3">
-                                            {currentClub.highlights.map((highlight, idx) => (
-                                                <li key={idx} className="flex items-start gap-3 text-gray-700">
-                                                    <ChevronRight className={`w-5 h-5 mt-0.5 flex-shrink-0 ${colorMap[currentClub.color].text}`} />
-                                                    <span>{highlight}</span>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
-                                </div>
+                                        <div className="border-t border-gray-100 pt-8">
+                                            <h4 className="text-lg font-bold text-gray-900 mb-3 flex items-center gap-2">
+                                                About the Club
+                                            </h4>
+                                            <p className="text-gray-600 leading-relaxed text-lg">{currentClub.description}</p>
+                                        </div>
 
-                                {/* Right Column - Partners & CTA */}
-                                <div className="space-y-6">
-                                    <div>
-                                        <h4 className="font-semibold text-lg text-gray-900 mb-4 flex items-center gap-2">
-                                            <Award className={`w-5 h-5 ${colorMap[currentClub.color].text}`} />
-                                            Partners & Programs
-                                        </h4>
-                                        <div className="flex flex-wrap gap-3">
-                                            {currentClub.partners.map((partner, idx) => (
-                                                <span
-                                                    key={idx}
-                                                    className="px-4 py-2 bg-white rounded-xl border-2 border-gray-200 hover:border-gray-300 transition-all duration-200 shadow-sm hover:shadow-md text-gray-800 font-medium"
-                                                >
-                                                    {partner}
-                                                </span>
-                                            ))}
+                                        <div>
+                                            <h4 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                                                Key Highlights
+                                            </h4>
+                                            <div className="grid sm:grid-cols-2 gap-3">
+                                                {currentClub.highlights.map((highlight, idx) => (
+                                                    <div key={idx} className="flex items-start gap-3 p-4 rounded-xl bg-gray-50 border border-gray-100 hover:border-gray-200 transition-colors">
+                                                        <div className={`mt-1.5 w-2 h-2 rounded-full flex-shrink-0 ${colorMap[currentClub.color].bg}`} />
+                                                        <span className="text-gray-700 font-medium text-sm leading-relaxed">{highlight}</span>
+                                                    </div>
+                                                ))}
+                                            </div>
                                         </div>
                                     </div>
 
-                                    <div className={`p-6 rounded-2xl bg-white border-2 ${colorMap[currentClub.color].border} shadow-lg`}>
-                                        <h5 className="font-semibold text-lg mb-3 text-gray-900 flex items-center gap-2">
-                                            <div className={`w-2 h-2 ${colorMap[currentClub.color].bg} rounded-full`}></div>
-                                            Join Us
-                                        </h5>
-                                        <p className="text-gray-700 leading-relaxed">
-                                            Students interested in {currentClub.name} can connect with faculty coordinators to
-                                            explore opportunities for skill development, mentorship, and industry exposure.
-                                        </p>
+                                    {/* Sidebar (1 col) */}
+                                    <div className="space-y-6">
+                                        {/* Partners */}
+                                        <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100">
+                                            <h4 className="text-xs font-extrabold text-gray-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                                                <Award className="w-4 h-4" />
+                                                Our Partners
+                                            </h4>
+                                            <div className="flex flex-wrap gap-2">
+                                                {currentClub.partners.map((partner, idx) => (
+                                                    <span
+                                                        key={idx}
+                                                        className="px-3 py-1.5 bg-white border border-gray-200 rounded-lg text-xs font-bold text-gray-700 shadow-sm"
+                                                    >
+                                                        {partner}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        </div>
+
+                                        {/* Join Card */}
+                                        <div className={`rounded-3xl p-8 text-white shadow-xl relative overflow-hidden ${colorMap[currentClub.color].bg}`}>
+                                            <div className="absolute top-0 right-0 p-4 opacity-10">
+                                                <currentClub.icon className="w-32 h-32 transform translate-x-10 -translate-y-10" />
+                                            </div>
+                                            <h4 className="text-2xl font-bold mb-3 relative z-10">Join {currentClub.name}</h4>
+                                            <p className="text-white/90 text-sm mb-6 leading-relaxed relative z-10">
+                                                Be part of a thriving community. innovative? Connect with us to start your journey in {currentClub.fullName}.
+                                            </p>
+                                            <a
+                                                href={`mailto:${currentClub.email}`}
+                                                className="w-full py-3.5 rounded-xl bg-white text-gray-900 font-bold text-sm shadow-sm hover:bg-gray-50 transition-colors relative z-10 uppercase tracking-wide flex justify-center items-center"
+                                            >
+                                                Contact Coordinator
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

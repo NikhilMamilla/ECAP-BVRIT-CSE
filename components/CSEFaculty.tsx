@@ -58,10 +58,10 @@ const CSEFaculty: React.FC = () => {
           <AnimatedElement animation="fade-in" delay={200} className="inline-block">
             <button
               onClick={() => navigate('/cse/faculty')}
-              className="inline-flex items-center gap-2 px-8 py-3 bg-blue-600 text-white rounded-full font-bold text-sm hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 shadow-lg"
+              className="group px-8 py-3.5 bg-blue-600 text-white font-bold rounded-full shadow-lg hover:bg-blue-700 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 flex items-center gap-2 mx-auto uppercase tracking-wider text-xs"
             >
               View All Faculty
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
             </button>

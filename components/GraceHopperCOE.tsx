@@ -28,7 +28,7 @@ const GraceHopperCOE: React.FC = () => {
         {
             icon: FileText,
             count: '15+',
-            title: 'Publications',
+            title: 'Publications published',
             description: 'IEEE conferences & journals'
         }
     ];
