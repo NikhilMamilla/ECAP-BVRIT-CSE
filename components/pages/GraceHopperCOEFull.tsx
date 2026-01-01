@@ -40,7 +40,7 @@ const facultyTeam = [
 
 // Industry Partners Data
 const industryProjects = [
-    { company: 'Hexagon R&D', projects: 2, status: 'Completed', description: 'Real-time projects on cutting-edge technologies', image: '/images/companies/hexagon.png' },
+    { company: 'Hexagon R&D', projects: 2, status: 'Completed', description: 'Real-time projects on new technologies', image: '/images/companies/hexagon.png' },
     { company: 'One Convergence', projects: 2, status: 'Completed', description: 'Cloud and networking solutions', image: '/images/companies/oneconvergence.png' },
     { company: 'Qualizeal', projects: 2, status: 'Completed', description: 'Software testing and quality assurance', image: '/images/companies/qualizeal.png' },
     { company: 'ForageAI', projects: 2, status: 'Completed', description: 'AI-driven solutions and analytics', image: '/images/companies/forage.png' },
@@ -245,7 +245,7 @@ const certifications = [
     {
         provider: 'Infosys Springboard',
         description: 'Programming, digital skills, and life skills aligned with NEP',
-        logo: '/images/companies/Infosys_logo.png',
+        logo: '/images/companies/infosysspringboard.png',
         portalUrl: 'https://infyspringboard.onwingspan.com/web/en/login'
     },
     {
