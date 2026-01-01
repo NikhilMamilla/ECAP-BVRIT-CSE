@@ -93,7 +93,7 @@ const allAchievements = [
     {
         title: 'TIHAN – IIT Hyderabad',
         description: 'Research projects on drones, autonomous vehicles, and smart mobility solutions.',
-        image: 'https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=800&q=80',
+        image: 'https://i.ytimg.com/vi/VbkrfSDZ_yA/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGGUgZShlMA8=&rs=AOn4CLCrRW1ztsFvOBn1l8czbtSX9vjcrQ',
         span: 'small', // 1x1
         category: 'Research',
         icon: Rocket
@@ -109,7 +109,7 @@ const allAchievements = [
     {
         title: 'DRDO Excellence',
         description: 'Exclusive research opportunities and internships at defense labs.',
-        image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80',
+        image: 'https://defence.in/attachments/indian-humanoid-robot-webp.1215/',
         span: 'small', // 1x1
         category: 'Defense',
         icon: Target
@@ -117,7 +117,7 @@ const allAchievements = [
     {
         title: 'IIITH Fellowship',
         description: 'Engagement with Swecha Telangana for Telugu AI & language technology models.',
-        image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80',
+        image: 'https://mma.prnewswire.com/media/600789/IIIT_Hyderabad_Logo.jpg?p=publish',
         span: 'small', // 1x1
         category: 'Fellowship',
         icon: Globe
@@ -125,7 +125,7 @@ const allAchievements = [
     {
         title: 'IISc - NIAS Internships',
         description: 'Exposure to national-level science and technology projects through research internships.',
-        image: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=800&q=80',
+        image: 'https://icedge.iiita.ac.in/pictures/iisc-main-building-1.jpg',
         span: 'small', // 1x1
         category: 'Science',
         icon: FileText
@@ -133,7 +133,7 @@ const allAchievements = [
     {
         title: 'IIT Bombay FOSSEE',
         description: 'Open-source contributions and digital learning modules for technical mastery.',
-        image: 'https://images.unsplash.com/photo-1580894732444-8ecded7900cd?w=800&q=80',
+        image: 'https://wallpaperbat.com/img/6904802-ieor-homepage-ieor-iit-bombay.jpg',
         span: 'small', // 1x1
         category: 'OpenSource',
         icon: Code
@@ -208,6 +208,12 @@ const researchPapers = [
         link: "https://ieeexplore.ieee.org/document/11176729",
         FullPaper: "https://drive.google.com/file/d/1s9I4UkwdsywaRaD2mm8YsauO1INbPcpT/view?usp=drive_link",
     },
+    {
+        title: "SoulEase : AI Enhanced Personal Journal - Text Based Emotion Detection",
+        authors: "Naga Reshmi Bodepudi,Karthik Sabareesh Boddeti,Anshu Reddy Palle,Lavanya Bhukya,Sai Divya Tej Reddy Bolla,Ch. Sreedevi",
+        link: "https://ieeexplore.ieee.org/document/10673121",
+        FullPaper: "https://drive.google.com/file/d/1D3PYEZT6ORTm3jYpe9An82zGBVBCXMkI/view?usp=drive_link",
+    },
 ];
 
 // Certifications Data with Logos and Portal Links (10 Total)
@@ -227,7 +233,7 @@ const certifications = [
     {
         provider: 'Wipro FutureSkills',
         description: 'Digital skills and communication training for industry readiness',
-        logo: '/images/companies/Wipro_logo.jpg',
+        logo: '/images/companies/wipro.png',
         portalUrl: 'https://www.futureskillsprime.in/'
     },
     {
@@ -292,20 +298,21 @@ const masteryAreas = [
 
 // Custom Navigation Links for Grace Hopper Page
 const graceHopperLinks = [
+    { id: 'About', label: 'About' },
     { id: 'VisionMission', label: 'Vision & Mission' },
     { id: 'FacultyTeam', label: 'Faculty' },
     { id: 'IndustryProjects', label: 'Projects' },
     { id: 'StudentAchievements', label: 'Achievements' },
     { id: 'ResearchPublications', label: 'Research' },
     { id: 'Certifications', label: 'Certifications' },
-    { id: 'MasteryAreas', label: 'Mastery Areas' },
+    { id: 'MasteryAreas', label: 'Skill Portfolio' },
+    { id: 'Patents', label: 'Patents' },
+    { id: 'Startup', label: 'Startup' },
 ];
 
 const GraceHopperCOEFull: React.FC = () => {
     // Scroll to top and mobile detection
     useEffect(() => {
-        window.scrollTo(0, 0);
-
         const checkMobile = () => {
             setIsMobile(window.innerWidth < 768);
         };
@@ -342,6 +349,17 @@ const GraceHopperCOEFull: React.FC = () => {
         setProjectIdx(prev => (prev - 1 + industryProjects.length) % industryProjects.length);
     }, [industryProjects.length]);
 
+    // Auto-move for Research Slider on Mobile
+    useEffect(() => {
+        if (!isMobile) return;
+
+        const interval = setInterval(() => {
+            handleNextResearch();
+        }, 5000);
+
+        return () => clearInterval(interval);
+    }, [isMobile, researchIdx, handleNextResearch]);
+
 
     return (
         <div className="min-h-screen flex flex-col">
@@ -376,13 +394,13 @@ const GraceHopperCOEFull: React.FC = () => {
                     </div>
 
                     {/* Scroll Indicator */}
-                    <motion.div
+                    {/* <motion.div
                         className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10"
                         animate={{ y: [0, 10, 0] }}
                         transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                     >
                         <ArrowDown className="w-8 h-8 text-white/70" />
-                    </motion.div>
+                    </motion.div> */}
 
                     {/* Bottom wave */}
                     <div className="absolute bottom-0 left-0 right-0 z-0">
@@ -401,7 +419,7 @@ const GraceHopperCOEFull: React.FC = () => {
                 </section>
 
                 {/* About Section */}
-                <section className="bg-white py-16 md:py-20">
+                <section id="About" className="bg-white py-16 md:py-20 scroll-mt-24">
                     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                         <AnimatedElement animation="slide-down">
                             <h2 className="text-4xl sm:text-5xl font-extrabold text-gray-900 text-center mb-12" style={{ fontFamily: 'Georgia, serif' }}>
@@ -410,15 +428,26 @@ const GraceHopperCOEFull: React.FC = () => {
                         </AnimatedElement>
                         <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
                             <AnimatedElement animation="slide-right" delay={200}>
-                                <div className="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm h-full flex flex-col justify-center">
-                                    <p className="text-lg text-gray-700 leading-relaxed mb-4">
-                                        The <strong>Grace Hopper Center of Excellence (COE)</strong> is a dedicated institutional initiative
-                                        that bridges the gap between academic learning and real-world industry requirements.
-                                    </p>
-                                    <p className="text-lg text-gray-700 leading-relaxed">
-                                        Named after <strong>Rear Admiral Grace Hopper</strong>, a pioneering computer scientist who revolutionized
-                                        programming languages and computing, our center embodies her spirit of innovation and excellence.
-                                    </p>
+                                <div className="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm h-full flex flex-col justify-center relative overflow-hidden group">
+                                    {/* Subtle Background Portrait */}
+                                    <div className="absolute right-0 bottom-0 w-64 h-64 -mr-8 -mb-8 opacity-[0.20] pointer-events-none transition-opacity duration-700 group-hover:opacity-[0.25]">
+                                        <img
+                                            src="https://cdn.pixabay.com/photo/2013/07/12/19/28/grace-hopper-154833_1280.png"
+                                            alt="Grace Hopper Portrait"
+                                            className="w-full h-full object-contain"
+                                        />
+                                    </div>
+
+                                    <div className="relative z-10">
+                                        <p className="text-lg text-gray-700 leading-relaxed mb-4">
+                                            The <strong>Grace Hopper Center of Excellence (COE)</strong> is a dedicated institutional initiative
+                                            that bridges the gap between academic learning and real-world industry requirements.
+                                        </p>
+                                        <p className="text-lg text-gray-700 leading-relaxed">
+                                            Named after <strong>Rear Admiral Grace Hopper</strong>, a pioneering computer scientist who revolutionized
+                                            programming languages and computing, our center embodies her spirit of innovation and excellence.
+                                        </p>
+                                    </div>
                                 </div>
                             </AnimatedElement>
                             <AnimatedElement animation="slide-left" delay={300}>
@@ -498,7 +527,6 @@ const GraceHopperCOEFull: React.FC = () => {
                     </div>
                 </section >
 
-                {/* Faculty Team Section */}
                 <section id="FacultyTeam" className="bg-white py-16 md:py-20 scroll-mt-24">
                     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                         <AnimatedElement animation="slide-down">
@@ -506,20 +534,30 @@ const GraceHopperCOEFull: React.FC = () => {
                                 Grace Hopper COE - Faculty Team
                             </h2>
                         </AnimatedElement>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+                        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-4 sm:gap-x-6 gap-y-10 max-w-7xl mx-auto">
                             {facultyTeam.map((faculty, index) => (
                                 <AnimatedElement key={index} animation="slide-up" delay={index * 50}>
-                                    <div className="group bg-white rounded-xl shadow-lg transition-all duration-300 transform hover:-translate-y-2 border border-blue-50 p-6 text-center h-full flex flex-col items-center justify-center">
-                                        <div className="relative mb-6">
-                                            <div className="absolute inset-0 bg-blue-50 rounded-full transform scale-0 group-hover:scale-110 transition-transform duration-300 opacity-50"></div>
+                                    <div className="group flex flex-col items-center">
+                                        {/* Portrait Container - Circular Style */}
+                                        <div className="relative w-full aspect-square max-w-[180px] rounded-full overflow-hidden mb-5 border-4 border-white shadow-xl shadow-gray-200 transition-all duration-500 group-hover:shadow-blue-100 group-hover:scale-105">
                                             <img
                                                 src={faculty.image}
                                                 alt={faculty.name}
-                                                className="relative w-28 h-28 sm:w-32 sm:h-32 object-cover rounded-full border-4 border-white shadow-md group-hover:border-blue-100 transition-all duration-300 mx-auto"
+                                                className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110"
                                             />
+                                            <div className="absolute inset-0 ring-4 ring-blue-500/0 group-hover:ring-blue-500/10 transition-all duration-500 rounded-full"></div>
                                         </div>
-                                        <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-1">{faculty.name}</h3>
-                                        <p className="text-blue-600 font-semibold mb-2 text-xs sm:text-sm">{faculty.designation}</p>
+
+                                        {/* Identity Block */}
+                                        <div className="text-center px-1">
+                                            <h4 className="text-sm sm:text-base md:text-lg font-bold text-gray-800 tracking-tight leading-tight mb-2 group-hover:text-blue-700 transition-colors">
+                                                {faculty.name}
+                                            </h4>
+                                            <div className="w-5 h-0.5 bg-gray-200 mx-auto mb-2 group-hover:w-10 group-hover:bg-blue-500 transition-all duration-500"></div>
+                                            <p className="text-[10px] md:text-xs font-black text-gray-400 uppercase tracking-[0.1em] leading-tight px-2">
+                                                {faculty.designation}
+                                            </p>
+                                        </div>
                                     </div>
                                 </AnimatedElement>
                             ))}
@@ -669,7 +707,7 @@ const GraceHopperCOEFull: React.FC = () => {
                             </p>
                         </AnimatedElement>
 
-                        <div className="grid grid-cols-1 md:grid-cols-4 grid-flow-dense gap-6 auto-rows-[240px] max-w-7xl mx-auto">
+                        <div className="grid grid-cols-1 md:grid-cols-4 grid-flow-dense gap-x-6 gap-y-8 md:gap-y-6 auto-rows-auto md:auto-rows-[240px] max-w-7xl mx-auto">
                             {allAchievements.map((item, index) => {
                                 const Icon = item.icon;
                                 return (
@@ -781,7 +819,7 @@ const GraceHopperCOEFull: React.FC = () => {
                                                         href={paper.link}
                                                         target="_blank"
                                                         rel="noopener noreferrer"
-                                                        className="inline-flex items-center px-5 py-2.5 bg-slate-900 text-white rounded-full text-sm font-semibold hover:bg-blue-600 transition-all duration-300 shadow-md hover:shadow-lg"
+                                                        className="inline-flex items-center px-5 py-2.5 bg-blue-600 text-white rounded-full text-sm font-semibold hover:bg-blue-700 transition-all duration-300 shadow-md hover:shadow-lg"
                                                     >
                                                         <ExternalLink className="w-4 h-4 mr-2" />
                                                         View on IEEE
@@ -865,7 +903,7 @@ const GraceHopperCOEFull: React.FC = () => {
                                 <div className="mt-8 flex justify-center items-center gap-6">
                                     <button
                                         onClick={handlePrevResearch}
-                                        className="w-12 h-12 rounded-full border border-slate-700 bg-slate-800 text-white flex items-center justify-center active:scale-95 transition-all shadow-xl"
+                                        className="w-12 h-12 rounded-full border border-blue-700 bg-blue-600 text-white flex items-center justify-center active:scale-95 transition-all shadow-xl"
                                         aria-label="Previous publication"
                                     >
                                         <ChevronLeft className="w-6 h-6" />
@@ -882,7 +920,7 @@ const GraceHopperCOEFull: React.FC = () => {
 
                                     <button
                                         onClick={handleNextResearch}
-                                        className="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center active:scale-95 transition-all shadow-xl shadow-blue-600/20"
+                                        className="w-12 h-12 rounded-full border border-blue-700 bg-blue-600 text-white flex items-center justify-center active:scale-95 transition-all shadow-xl shadow-blue-600/20"
                                         aria-label="Next publication"
                                     >
                                         <ChevronRight className="w-6 h-6" />
@@ -1013,145 +1051,8 @@ const GraceHopperCOEFull: React.FC = () => {
                     </div>
                 </section >
 
-                {/* Placement Performance Section */}
-                < section className="bg-blue-900 text-white py-16 md:py-20 relative overflow-hidden" >
-                    {/* Background Elements */}
-                    < div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none" >
-                        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-600/20 rounded-full blur-3xl"></div>
-                        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-indigo-600/20 rounded-full blur-3xl"></div>
-                    </div >
-
-                    <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                        <AnimatedElement animation="slide-down">
-                            <h2 className="text-4xl sm:text-5xl font-extrabold text-center mb-4" style={{ fontFamily: 'Georgia, serif' }}>
-                                Placement Performance
-                            </h2>
-                            <p className="text-center text-lg text-blue-200 mb-12 max-w-3xl mx-auto">
-                                Consistent track record of excellence in placements and career progression
-                            </p>
-                        </AnimatedElement>
-
-                        <div className="max-w-6xl mx-auto">
-                            <div className="grid md:grid-cols-2 gap-8">
-                                {/* 2015-2019 Batch */}
-                                <AnimatedElement animation="slide-right" className="h-full">
-                                    <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20 h-full flex flex-col hover:bg-white/15 transition-all duration-300 shadow-xl">
-                                        <div className="flex items-center gap-4 mb-8 border-b border-white/20 pb-6">
-                                            <div className="w-12 h-12 bg-teal-500/20 rounded-xl flex items-center justify-center text-blue-300">
-                                                <GraduationCap className="w-7 h-7" />
-                                            </div>
-                                            <div>
-                                                <h3 className="text-2xl font-bold text-white">2015-2019 Batch</h3>
-                                                <p className="text-blue-200 text-sm">CSE-D Section</p>
-                                            </div>
-                                        </div>
-
-                                        <div className="grid grid-cols-2 gap-x-4 gap-y-8 mb-8">
-                                            <div>
-                                                <div className="flex items-center gap-2 text-blue-200 mb-1 text-sm font-medium">
-                                                    <Users className="w-4 h-4" /> Class Strength
-                                                </div>
-                                                <div className="text-3xl font-bold text-white">71</div>
-                                            </div>
-                                            <div>
-                                                <div className="flex items-center gap-2 text-green-300 mb-1 text-sm font-medium">
-                                                    <CheckCircle2 className="w-4 h-4" /> Placed
-                                                </div>
-                                                <div className="text-3xl font-bold text-green-400">55</div>
-                                            </div>
-                                            <div>
-                                                <div className="flex items-center gap-2 text-yellow-300 mb-1 text-sm font-medium">
-                                                    <Briefcase className="w-4 h-4" /> Job Offers
-                                                </div>
-                                                <div className="text-3xl font-bold text-yellow-400">57</div>
-                                            </div>
-                                            <div>
-                                                <div className="flex items-center gap-2 text-blue-200 mb-1 text-sm font-medium">
-                                                    <TrendingUp className="w-4 h-4" /> Package (LPA)
-                                                </div>
-                                                <div className="text-2xl font-bold text-white">3.15 - 6.6</div>
-                                            </div>
-                                        </div>
-
-                                        <div className="mt-auto pt-6 border-t border-white/20">
-                                            <p className="text-sm text-blue-200 mb-3 font-semibold uppercase tracking-wider">Top Recruiters</p>
-                                            <div className="flex flex-wrap gap-2">
-                                                {['OpenText', 'TCS-Ninja', 'Capgemini', 'IBM', 'Virtusa', 'Persistent'].map((company, idx) => (
-                                                    <span key={idx} className="px-3 py-1.5 bg-white/10 hover:bg-white/20 border border-white/10 rounded-lg text-xs font-medium transition-colors">
-                                                        {company}
-                                                    </span>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </AnimatedElement>
-
-                                {/* 2020-2024 Batch */}
-                                <AnimatedElement animation="slide-left" delay={200} className="h-full">
-                                    <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20 h-full flex flex-col hover:bg-white/15 transition-all duration-300 shadow-xl">
-                                        <div className="flex items-center gap-4 mb-8 border-b border-white/20 pb-6">
-                                            <div className="w-12 h-12 bg-green-500/20 rounded-xl flex items-center justify-center text-green-300">
-                                                <Rocket className="w-7 h-7" />
-                                            </div>
-                                            <div>
-                                                <h3 className="text-2xl font-bold text-white">2020-2024 Batch</h3>
-                                                <p className="text-blue-200 text-sm">CSE-C Section</p>
-                                            </div>
-                                        </div>
-
-                                        <div className="grid grid-cols-2 gap-x-4 gap-y-8 mb-8">
-                                            <div>
-                                                <div className="flex items-center gap-2 text-blue-200 mb-1 text-sm font-medium">
-                                                    <Users className="w-4 h-4" /> Class Strength
-                                                </div>
-                                                <div className="text-3xl font-bold text-white">67</div>
-                                            </div>
-                                            <div>
-                                                <div className="flex items-center gap-2 text-green-300 mb-1 text-sm font-medium">
-                                                    <CheckCircle2 className="w-4 h-4" /> Placed
-                                                </div>
-                                                <div className="text-3xl font-bold text-green-400">59</div>
-                                            </div>
-                                            <div>
-                                                <div className="flex items-center gap-2 text-yellow-300 mb-1 text-sm font-medium">
-                                                    <Briefcase className="w-4 h-4" /> Job Offers
-                                                </div>
-                                                <div className="text-3xl font-bold text-yellow-400">60</div>
-                                            </div>
-                                            <div>
-                                                <div className="flex items-center gap-2 text-blue-200 mb-1 text-sm font-medium">
-                                                    <TrendingUp className="w-4 h-4" /> Package (LPA)
-                                                </div>
-                                                <div className="text-2xl font-bold text-white">2.5 - 19.56</div>
-                                            </div>
-                                        </div>
-
-                                        <div className="mt-auto pt-6 border-t border-white/20">
-                                            <p className="text-sm text-blue-200 mb-3 font-semibold uppercase tracking-wider">Key Highlights</p>
-                                            <ul className="space-y-2">
-                                                {[
-                                                    'International Placements (USA, Australia)',
-                                                    'Higher Studies at IIT Tirupathi & BVRITN',
-                                                    'Placements in TCS-Digital, Cognizant-GENC'
-                                                ].map((item, idx) => (
-                                                    <li key={idx} className="flex items-start text-sm text-white/90">
-                                                        <Award className="w-4 h-4 text-yellow-400 mr-2 mt-0.5 flex-shrink-0" />
-                                                        <span>{item}</span>
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </AnimatedElement>
-                            </div>
-                        </div>
-                    </div>
-                </section >
-
-
-
                 {/* Patents & Awards Section */}
-                <section className="bg-white py-16 md:py-20">
+                <section id="Patents" className="bg-white py-16 md:py-20 scroll-mt-24">
                     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
 
                         {/* Section Title */}
@@ -1296,7 +1197,7 @@ const GraceHopperCOEFull: React.FC = () => {
                 </section>
 
                 {/* Startup Success Section */}
-                <section className="bg-gradient-to-br from-green-50 to-blue-50 py-16 md:py-20" >
+                <section id="Startup" className="bg-gradient-to-br from-green-50 to-blue-50 py-16 md:py-20 scroll-mt-24" >
                     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                         <AnimatedElement animation="slide-down">
                             <h2 className="text-4xl sm:text-5xl font-extrabold text-gray-900 text-center mb-4" style={{ fontFamily: 'Georgia, serif' }}>
@@ -1354,7 +1255,7 @@ const GraceHopperCOEFull: React.FC = () => {
                 </section >
 
                 {/* Call-to-Action Section */}
-                <section className="bg-white py-16 md:py-20">
+                <section id="Contact" className="bg-white py-16 md:py-20 scroll-mt-24">
                     <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
 
                         <AnimatedElement animation="fade-in">
@@ -1367,17 +1268,17 @@ const GraceHopperCOEFull: React.FC = () => {
                                 cutting-edge research, and entrepreneurial opportunities.
                             </p>
 
-                            <div className="flex flex-wrap gap-4 justify-center">
+                            <div className="flex flex-row gap-3 sm:gap-4 justify-center px-2">
 
                                 {/* Contact Button */}
                                 <a
                                     href="mailto:cbb@bvrit.ac.in"
-                                    className="inline-flex items-center px-8 py-4 bg-blue-600 text-white rounded-full font-semibold text-lg 
-                     hover:bg-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+                                    className="inline-flex items-center justify-center px-5 py-3 sm:px-8 sm:py-4 bg-blue-600 text-white rounded-full font-bold text-sm sm:text-lg flex-1 sm:flex-none
+                     hover:bg-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 whitespace-nowrap"
                                 >
                                     Contact Us
                                     <svg
-                                        className="w-5 h-5 ml-2"
+                                        className="w-4 h-4 sm:w-5 sm:h-5 ml-2"
                                         fill="none"
                                         stroke="currentColor"
                                         viewBox="0 0 24 24"
@@ -1394,12 +1295,12 @@ const GraceHopperCOEFull: React.FC = () => {
                                 {/* Back to Home Button */}
                                 <a
                                     href="/"
-                                    className="inline-flex items-center px-8 py-4 bg-gray-100 text-gray-800 rounded-full font-semibold text-lg 
-                     hover:bg-gray-200 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 border border-gray-300"
+                                    className="inline-flex items-center justify-center px-5 py-3 sm:px-8 sm:py-4 bg-gray-100 text-gray-800 rounded-full font-bold text-sm sm:text-lg flex-1 sm:flex-none
+                     hover:bg-gray-200 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 border border-gray-300 whitespace-nowrap"
                                 >
                                     Back to Home
                                     <svg
-                                        className="w-5 h-5 ml-2"
+                                        className="w-4 h-4 sm:w-5 sm:h-5 ml-2"
                                         fill="none"
                                         stroke="currentColor"
                                         viewBox="0 0 24 24"

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { AnimatedElement } from '../AnimatedElement';
 import Header from '../Header';
 import Footer from '../Footer';
@@ -17,9 +17,6 @@ import {
 } from 'lucide-react';
 
 const AIDSDepartmentPage: React.FC = () => {
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
 
     const aidsLinks = [
         { id: 'Stats', label: 'Overview' },

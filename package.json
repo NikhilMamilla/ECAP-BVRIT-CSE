@@ -4,7 +4,7 @@
     "version": "0.0.0",
     "type": "module",
     "scripts": {
-        "dev": "vite",
+        "dev": "vite --host",
         "build": "vite build && node -e \"require('fs').copyFileSync('dist/index.html', 'dist/404.html')\"",
         "preview": "vite preview"
     },
@@ -40,6 +40,7 @@
         "@types/node": "^20.4.5",
         "@types/react": "^18.2.15",
         "@types/react-dom": "^18.2.7",
+        "@types/react-slick": "^0.23.13",
         "@vitejs/plugin-react": "^4.7.0",
         "autoprefixer": "^10.4.21",
         "postcss-import": "^16.1.1",

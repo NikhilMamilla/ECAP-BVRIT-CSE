@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../Header';
-import { FaQuoteLeft } from "react-icons/fa";
 import Footer from '../Footer';
-import { FaBriefcase, FaHandshake, FaTrophy, FaUsers, FaChartLine, FaGraduationCap, FaBuilding, FaRocket, FaAward, FaSearch, FaFilter } from 'react-icons/fa';
-import { BATCH_2024, BATCH_2025, COMPANIES_2025 } from '../placementData';
+import { FaHandshake, FaTrophy, FaSearch, FaAward, FaQuoteLeft } from 'react-icons/fa';
+import { BATCH_2024, BATCH_2025 } from '../placementData';
+import { useContext } from 'react';
+import { StoreContext } from '../../storeContext/StoreContext';
 
 const Placements = () => {
+  const { placementsData } = useContext(StoreContext);
   const [currentInternship, setCurrentInternship] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedBatch, setSelectedBatch] = useState('2025');
@@ -38,18 +40,14 @@ const Placements = () => {
     return name.includes(search) || rollStr.includes(search) || jobsStr.includes(search);
   });
 
-  // Internship data - Real-time Data for 2025 Batch (CSE)
-  const internshipData = [
-    { company: 'Skill Duniya', count: 12, logo: '/images/companies/skilldunia.png' },
-    { company: 'Seoak', count: 12, logo: '/images/companies/seoak.png' },
-    { company: 'RealPage', count: 5, logo: '/images/companies/realpage.png' },
-    { company: 'Vidyanth', count: 4, logo: '/images/companies/vidyanth.png' },
-    { company: 'Movate', count: 4, logo: '/images/companies/movate.png' },
-    { company: 'Porter', count: 2, logo: '/images/companies/porter.png' },
-    { company: 'Flipkart', count: 1, logo: '/images/companies/flipkart.png' },
-    { company: 'Amazon', count: 1, logo: '/images/companies/Amazon_logo.webp' },
-    { company: 'Factset', count: 1, logo: '/images/companies/factset.png' },
-  ];
+  // Internship data - Dynamic from Google Sheets
+  const dynamicInternships = placementsData?.filter((d) => d.section === 'internship').map((d) => ({
+    company: d.key,
+    count: parseInt(d.value) || 0,
+    logo: d.logo || d.extra || `/images/companies/${d.key.toLowerCase().replace(/\s+/g, '')}.png`
+  }));
+
+  const internshipData = dynamicInternships || [];
 
   // Auto-play for internships carousel
   useEffect(() => {
@@ -59,73 +57,33 @@ const Placements = () => {
     return () => clearInterval(timer);
   }, [internshipData.length]);
 
-  // Statistics data - Updated for 2024 Batch
-  const stats = [
-    {
-      icon: FaBriefcase,
-      number: '163',
-      label: 'COMPANIES',
-      subtitle: 'Visited for Placements',
-      gradient: 'from-blue-500 to-blue-600'
-    },
-    {
-      icon: FaHandshake,
-      number: '260',
-      label: 'STUDENTS PLACED',
-      subtitle: 'Batch 2025 (2021-25)',
-      gradient: 'from-blue-600 to-blue-700'
-    },
-    {
-      icon: FaTrophy,
-      number: '32 LPA',
-      label: 'HIGHEST',
-      subtitle: 'Package - Flipkart',
-      gradient: 'from-blue-700 to-blue-800'
-    }
-  ];
 
-  // Dream offers data
-  const dreamOffers2025 = [
-    { company: 'Flipkart', salary: '32 LPA', students: 1, batch: '2025', logo: '/images/companies/flipkart.png' },
-    { company: 'Optum', salary: '18.56 LPA', students: 14, batch: '2025', logo: '/images/companies/optum.png' },
-    { company: 'Porter', salary: '17 LPA', students: 3, batch: '2025', logo: '/images/companies/porter.png' },
-    { company: 'Oracle', salary: '14.5 LPA', students: 1, batch: '2025', logo: '/images/companies/oracle.png' },
-    { company: 'Factset', salary: '12 LPA', students: 1, batch: '2025', logo: '/images/companies/factset.png' },
-    { company: 'Bank of America', salary: '12 LPA', students: 4, batch: '2025', logo: '/images/companies/bankofamerica.png' },
-    { company: 'NCR Voyix', salary: '11 LPA', students: 1, batch: '2025', logo: '/images/companies/ncrvoyik.png' },
-    { company: 'EPAM', salary: '10 LPA', students: 3, batch: '2025', logo: '/images/companies/Epam.jpg' },
-  ];
+  // Dream offers data - Dynamic
+  const dynamicDreamOffers = placementsData?.filter((d) => d.section === 'dream_offer').map((d) => ({
+    company: d.key,
+    salary: d.value + (d.suffix ? ' ' + d.suffix : ' LPA'),
+    students: parseInt(d.label) || 1,
+    batch: d.extra || '2025',
+    logo: d.logo || `/images/companies/${d.key.toLowerCase().replace(/\s+/g, '')}.png`
+  }));
 
-  const dreamOffers2024 = [
-    { company: 'Microsoft', salary: '49.12 LPA', students: 1, batch: '2024', logo: '/images/companies/microsoft.webp' },
-    { company: 'Synopsys', salary: '18 LPA', students: 1, batch: '2024', logo: '/images/companies/synopsys.png' },
-    { company: 'Bank of America', salary: '12 LPA', students: 12, batch: '2024', logo: '/images/companies/bankofamerica.png' },
-    { company: 'EPAM', salary: '10 LPA', students: 3, batch: '2024', logo: '/images/companies/Epam.jpg' },
-    { company: 'UST Global', salary: '8 LPA', students: 25, batch: '2024', logo: '/images/companies/ustglobal.png' },
-    { company: 'Tech Mahindra', salary: '7.5 LPA', students: 22, batch: '2024', logo: '/images/companies/techmahindra.png' },
-    { company: 'TCS Digital', salary: '7 LPA', students: 18, batch: '2024', logo: '/images/companies/TCS_logo.png' },
-    { company: 'Accenture', salary: '6.5 LPA', students: 28, batch: '2024', logo: '/images/companies/Accenture_logo.png' },
-  ];
+  const dreamOffers2025 = dynamicDreamOffers?.filter(d => d.batch === '2025') || [];
 
-  const highlights2025 = [
-    { name: 'THADA REVANTH', package: '32 LPA', company: 'Flipkart', year: '2025', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=500&fit=crop' },
-    { name: 'PININTI JHANSI', package: '18.56 LPA', company: 'Optum', year: '2025', image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500&h=500&fit=crop' },
-    { name: 'CHIRUMANI SHRAVAN KUMAR', package: '17 LPA', company: 'Porter', year: '2025', image: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=500&h=500&fit=crop' },
-    { name: 'SOWTHINI RAJU', package: '12 LPA', company: 'Factset', year: '2025', image: 'https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=500&h=500&fit=crop' },
-    { name: 'SHAIK SUMAYYA', package: '12 LPA', company: 'Bank of America', year: '2025', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&h=500&fit=crop' },
-    { name: 'POTHIREDDY BHAVYA REDDY', package: '18.56 LPA', company: 'Optum', year: '2025', image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=500&h=500&fit=crop' },
-  ];
+  const dreamOffers2024 = dynamicDreamOffers?.filter(d => d.batch === '2024') || [];
 
-  const highlights2024 = [
-    { name: 'SAMHITHA MALLANNAGARI', package: '49.12 LPA', company: 'Microsoft', year: '2024', image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500&h=500&fit=crop' },
-    { name: 'CHAITRA SAI JALDA', package: '18 LPA', company: 'Synopsys', year: '2024', image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=500&h=500&fit=crop' },
-    { name: 'BATCHU KANAKA DURGA PRIYANKA', package: '12 LPA', company: 'Bank of America', year: '2024', image: 'https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=500&h=500&fit=crop' },
-    { name: 'KOYALKAR GOPIKRISHNA', package: '10 LPA', company: 'EPAM', year: '2024', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=500&fit=crop' },
-    { name: 'JELLA SREEJA', package: '8 LPA', company: 'UST Global', year: '2024', image: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=500&h=500&fit=crop' },
-    { name: 'MENUGU RAJESHWARI', package: '7.5 LPA', company: 'Tech Mahindra', year: '2024', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&h=500&fit=crop' },
-  ];
+  const dynamicHighlights = placementsData?.filter((d) => d.section === 'highlight').map((d) => ({
+    name: d.key,
+    package: d.value + (d.suffix ? ' ' + d.suffix : ' LPA'),
+    company: d.label || '',
+    year: d.extra || '2025',
+    image: d.logo || 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500&h=500&fit=crop'
+  }));
 
-  // Top recruiters
+  const highlights2025 = dynamicHighlights?.filter(d => d.year === '2025') || [];
+
+  const highlights2024 = dynamicHighlights?.filter(d => d.year === '2024') || [];
+
+  // Top recruiters - Static as requested
   const topRecruiters = [
     { name: 'Accenture', logo: '/images/companies/Accenture_logo.png' },
     { name: 'Amazon', logo: '/images/companies/Amazon_logo.webp' },
@@ -172,7 +130,6 @@ const Placements = () => {
   // Placement Page Links
   const placementLinks = [
     { id: 'Stats', label: 'Overview' },
-    { id: 'DetailedStats', label: 'Detailed Stats' },
     { id: 'Recruiters', label: 'Recruiters' },
     { id: 'SalaryStats', label: 'Salary' },
     { id: 'DreamOffers', label: 'Dream Offers' },
@@ -203,8 +160,10 @@ const Placements = () => {
         <div className="relative z-10 px-6 md:px-28 max-w-7xl mx-auto text-center">
           <div className="animate-fadeIn">
             <h1 className="text-white text-4xl md:text-7xl font-bold leading-tight tracking-tight mb-6 drop-shadow-2xl">
-              260 Students Placed
-              <span className="block text-blue-400 mt-2">Batch 2025 (2021-25)</span>
+              {placementsData.find(d => d.section === 'hero' && d.key === 'count')?.value || '260'} Students Placed
+              <span className="block text-blue-400 mt-2">
+                {placementsData.find(d => d.section === 'hero' && d.key === 'batch')?.label || 'Batch 2025 (2021-25)'}
+              </span>
             </h1>
             <div className="w-24 md:w-32 h-1 bg-gradient-to-r from-transparent via-white to-transparent mx-auto my-6 md:my-8"></div>
             <p className="text-white text-base md:text-xl font-light leading-relaxed max-w-4xl mx-auto drop-shadow-lg px-2">
@@ -234,7 +193,7 @@ const Placements = () => {
         <div className="max-w-7xl mx-auto">
           <div className="mb-12">
             <h2 className="text-slate-800 text-3xl md:text-4xl font-bold">
-              Placements Statistics (24-25)
+              Placements Statistics ({placementsData.find(d => d.section === 'stats' && d.key === 'year_range')?.value || '24-25'})
             </h2>
             <div className="w-full h-px bg-slate-300 mt-4"></div>
           </div>
@@ -249,9 +208,13 @@ const Placements = () => {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
               <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 text-white">
-                <h3 className="text-4xl md:text-5xl font-bold mb-1 md:mb-2">48</h3>
+                <h3 className="text-4xl md:text-5xl font-bold mb-1 md:mb-2">
+                  {placementsData.find(d => d.section === 'stats' && d.key === 'companies')?.value || '48'}
+                </h3>
                 <p className="text-lg md:text-xl font-semibold mb-1">COMPANIES</p>
-                <p className="text-xs md:text-sm opacity-90">Visited for Batch 2025</p>
+                <p className="text-xs md:text-sm opacity-90">
+                  {placementsData.find(d => d.section === 'stats' && d.key === 'companies')?.label || 'Visited for Batch 2025'}
+                </p>
               </div>
             </div>
 
@@ -265,9 +228,13 @@ const Placements = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
               <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 text-white">
                 <FaHandshake className="text-3xl md:text-4xl mb-3 md:mb-4" />
-                <h3 className="text-4xl md:text-5xl font-bold mb-1 md:mb-2">1008</h3>
+                <h3 className="text-4xl md:text-5xl font-bold mb-1 md:mb-2">
+                  {placementsData.find(d => d.section === 'stats' && d.key === 'offers')?.value || '1008'}
+                </h3>
                 <p className="text-lg md:text-xl font-semibold mb-1">OFFERS</p>
-                <p className="text-xs md:text-sm opacity-90">Secured in Session</p>
+                <p className="text-xs md:text-sm opacity-90">
+                  {placementsData.find(d => d.section === 'stats' && d.key === 'offers')?.label || 'Secured in Session'}
+                </p>
               </div>
             </div>
 
@@ -281,109 +248,19 @@ const Placements = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
               <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 text-white">
                 <FaTrophy className="text-3xl md:text-4xl mb-3 md:mb-4" />
-                <h3 className="text-4xl md:text-5xl font-bold mb-1 md:mb-2">49.12 LPA</h3>
+                <h3 className="text-4xl md:text-5xl font-bold mb-1 md:mb-2">
+                  {placementsData.find(d => d.section === 'stats' && d.key === 'highest')?.value || '49.12'} {placementsData.find(d => d.section === 'stats' && d.key === 'highest')?.suffix || 'LPA'}
+                </h3>
                 <p className="text-lg md:text-xl font-semibold mb-1">HIGHEST</p>
-                <p className="text-xs md:text-sm opacity-90">Package Offered</p>
+                <p className="text-xs md:text-sm opacity-90">
+                  {placementsData.find(d => d.section === 'stats' && d.key === 'highest')?.label || 'Package Offered'}
+                </p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Detailed Statistics Section */}
-      <section id="DetailedStats" className="w-full py-12 px-8 md:px-16 bg-slate-50 scroll-mt-24">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-10 px-4">
-            <p className="text-slate-600 text-sm md:text-base leading-relaxed">
-              CSE Department – <span className="font-semibold text-slate-800">BVRIT, Narsapur</span><br className="md:hidden" />
-              (Batch: <span className="font-semibold text-slate-800">2021–2025</span> | <span className="font-semibold text-slate-800 whitespace-nowrap">Current Final Year</span>)
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Student Strength & Eligibility */}
-            <div className="bg-white rounded-lg p-6 shadow-sm border border-slate-200">
-              <h3 className="text-lg font-bold text-slate-800 mb-5 pb-3 border-b border-slate-200 flex items-center gap-2">
-                <FaUsers className="text-blue-500 text-lg" />
-                Student Strength & Eligibility
-              </h3>
-              <div className="space-y-3">
-                {[
-                  { label: 'Total Students on Roll:', value: '358' },
-                  { label: 'Total Offers Received:', value: '1008' },
-                  { label: 'Eligible for Placements:', value: '301' },
-                  { label: 'Students with Backlogs:', value: '55' }
-                ].map((item, idx) => (
-                  <div key={idx} className="flex justify-between items-center py-2 border-b border-dashed border-slate-200 last:border-0">
-                    <span className="text-slate-700 text-sm font-medium">{item.label}</span>
-                    <span className="text-lg font-bold text-blue-600 leading-none">{item.value}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Placement Outcomes */}
-            <div className="bg-white rounded-lg p-6 shadow-sm border border-slate-200">
-              <h3 className="text-lg font-bold text-slate-800 mb-5 pb-3 border-b border-slate-200 flex items-center gap-2">
-                <FaChartLine className="text-blue-500 text-lg" />
-                Placement Outcomes
-              </h3>
-              <div className="space-y-3">
-                {[
-                  { label: 'Total Students Placed:', value: '260' },
-                  { label: 'Placement Percentage:', value: '86.38%' },
-                  { label: 'Multiple Offers:', value: '1008+' },
-                  { label: 'Internships Secured:', value: '52+' }
-                ].map((item, idx) => (
-                  <div key={idx} className="flex justify-between items-center py-2 border-b border-dashed border-slate-200 last:border-0">
-                    <span className="text-slate-700 text-sm font-medium">{item.label}</span>
-                    <span className="text-lg font-bold text-blue-600 leading-none">{item.value}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Gender-wise Details */}
-            <div className="bg-white rounded-lg p-6 shadow-sm border border-slate-200">
-              <h3 className="text-lg font-bold text-slate-800 mb-5 pb-3 border-b border-slate-200 flex items-center gap-2">
-                <FaGraduationCap className="text-blue-500 text-lg" />
-                Gender-wise Placement Details
-              </h3>
-              <div className="space-y-3">
-                {[
-                  { label: 'Boys Placed:', value: '98' },
-                  { label: 'Girls Placed:', value: '83' }
-                ].map((item, idx) => (
-                  <div key={idx} className="flex justify-between items-center py-2 border-b border-dashed border-slate-200 last:border-0">
-                    <span className="text-slate-700 text-sm font-medium">{item.label}</span>
-                    <span className="text-lg font-bold text-blue-600 leading-none">{item.value}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Unplaced Statistics */}
-            <div className="bg-white rounded-lg p-6 shadow-sm border border-slate-200">
-              <h3 className="text-lg font-bold text-slate-800 mb-5 pb-3 border-b border-slate-200 flex items-center gap-2">
-                <FaUsers className="text-blue-500 text-lg" />
-                Unplaced Statistics
-              </h3>
-              <div className="space-y-3">
-                {[
-                  { label: 'Total Students Unplaced:', value: '111' },
-                  { label: 'Boys Unplaced:', value: '68' },
-                  { label: 'Girls Unplaced:', value: '43' }
-                ].map((item, idx) => (
-                  <div key={idx} className="flex justify-between items-center py-2 border-b border-dashed border-slate-200 last:border-0">
-                    <span className="text-slate-700 text-sm font-medium">{item.label}</span>
-                    <span className="text-lg font-bold text-blue-600 leading-none">{item.value}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Our Valued Patrons (Top Recruiters Carousel) */}
       <section id="Recruiters" className="w-full py-20 px-8 md:px-28 bg-slate-900 text-white overflow-hidden scroll-mt-24">
@@ -446,10 +323,13 @@ const Placements = () => {
               </div>
             </div>
           </div>
+        </div>
+      </section>
 
-          {/* Companies with 20+ LPA and 100+ Offers */}
-          {/* Companies with Elite Packages and Major Bulk Offers */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 mt-16 md:mt-20 px-4 md:px-0">
+      {/* Elite Packages and Major Bulk Recruiters */}
+      <section id="EliteBulk" className="w-full py-16 px-8 md:px-28 bg-slate-50 scroll-mt-24">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12">
             {/* Elite Salary Packages */}
             <div className="text-center">
               <div className="mb-6 md:mb-8">
@@ -457,14 +337,14 @@ const Placements = () => {
                 <h2 className="text-4xl md:text-5xl font-bold text-blue-400">15+ LPA</h2>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
-                {[
-                  { name: 'Microsoft', logo: '/images/companies/microsoft.webp', package: '49.12 LPA' },
-                  { name: 'Flipkart', logo: '/images/companies/flipkart.png', package: '32.0 LPA' },
-                  { name: 'Optum', logo: '/images/companies/optum.png', package: '18.56 LPA' },
-                  { name: 'Porter', logo: '/images/companies/porter.png', package: '17.0 LPA' },
-                  { name: 'Oracle', logo: '/images/companies/oracle.png', package: '14.5 LPA' },
-                  { name: 'Synopsys', logo: '/images/companies/synopsys.png', package: '18.0 LPA' }
-                ].map((company, idx) => (
+                {(() => {
+                  const dynamicElite = placementsData?.filter(d => d.section === 'elite_package').map(d => ({
+                    name: d.key,
+                    logo: d.logo || d.Logo || `/images/companies/${d.key.toLowerCase().replace(/\s+/g, '')}.png`,
+                    package: d.value + (d.suffix ? ' ' + d.suffix : ' LPA')
+                  }));
+                  return dynamicElite || [];
+                })().map((company, idx) => (
                   <div key={idx} className="bg-white rounded-lg p-3 md:p-4 hover:shadow-lg transition-all duration-300 transform hover:scale-105 flex flex-col items-center justify-center min-h-[110px] md:min-h-[130px] border border-slate-100 shadow-sm relative group">
                     <img
                       src={company.logo}
@@ -488,12 +368,14 @@ const Placements = () => {
                 <h2 className="text-4xl md:text-5xl font-bold text-blue-400">50+ Offers</h2>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-2 gap-3 md:gap-4">
-                {[
-                  { name: 'Accenture', logo: '/images/companies/Accenture_logo.png', offers: '100+ Offers' },
-                  { name: 'Tech Mahindra', logo: '/images/companies/techmahindra.png', offers: '51 Offers' },
-                  { name: 'LTI Mindtree', logo: '/images/companies/Lti-mindtree.png', offers: '53 Offers' },
-                  { name: 'Cognizant', logo: '/images/companies/Cognizant_logo.png', offers: '40+ Offers' }
-                ].map((company, idx) => (
+                {(() => {
+                  const dynamicBulk = placementsData?.filter(d => d.section === 'bulk_recruiter').map(d => ({
+                    name: d.key,
+                    logo: d.logo || d.Logo || `/images/companies/${d.key.toLowerCase().replace(/\s+/g, '')}.png`,
+                    offers: d.value + (d.suffix ? ' ' + d.suffix : ' Offers')
+                  }));
+                  return dynamicBulk || [];
+                })().map((company, idx) => (
                   <div key={idx} className="bg-white rounded-lg p-3 md:p-4 hover:shadow-lg transition-all duration-300 transform hover:scale-105 flex flex-col items-center justify-center min-h-[110px] md:min-h-[130px] border border-slate-100 shadow-sm relative group">
                     <img
                       src={company.logo}
@@ -527,13 +409,13 @@ const Placements = () => {
               {/* Bar Chart */}
               <div className="bg-slate-50 rounded-lg p-6 h-80">
                 <div className="flex items-end justify-between gap-2 h-56">
-                  {[
-                    { year: '2021', value: 4.0 },
-                    { year: '2022', value: 4.25 },
-                    { year: '2023', value: 4.5 },
-                    { year: '2024', value: 4.5 },
-                    { year: '2025', value: 4.5 }
-                  ].map((data, idx) => {
+                  {(() => {
+                    const medianData = placementsData?.filter(d => d.section === 'chart_median').map(d => ({
+                      year: d.key,
+                      value: parseFloat(d.value) || 0
+                    }));
+                    return medianData || [];
+                  })().map((data, idx) => {
                     const maxValue = 6;
                     const heightPercent = (data.value / maxValue) * 100;
                     return (
@@ -558,35 +440,24 @@ const Placements = () => {
             </div>
 
             {/* Packages at BVRIT - 3 Charts */}
-            {[
-              {
-                title: 'Highest Package',
-                values: [
-                  { year: '2022', value: 44.0 },
-                  { year: '2023', value: 52.0 },
-                  { year: '2024', value: 49.12 },
-                  { year: '2025', value: 32.0 }
-                ]
-              },
-              {
-                title: 'Average Package',
-                values: [
-                  { year: '2022', value: 4.5 },
-                  { year: '2023', value: 4.8 },
-                  { year: '2024', value: 5.5 },
-                  { year: '2025', value: 5.7 }
-                ]
-              },
-              {
-                title: 'Median Package',
-                values: [
-                  { year: '2022', value: 4.2 },
-                  { year: '2023', value: 4.5 },
-                  { year: '2024', value: 4.5 },
-                  { year: '2025', value: 4.5 }
-                ]
-              }
-            ].map((package_data, idx) => {
+            {(() => {
+              const packageConfigs = [
+                { title: 'Highest Package', section: 'chart_highest', default: [{ year: '2022', value: 44.0 }, { year: '2023', value: 52.0 }, { year: '2024', value: 49.12 }, { year: '2025', value: 32.0 }] },
+                { title: 'Average Package', section: 'chart_average', default: [{ year: '2022', value: 4.5 }, { year: '2023', value: 4.8 }, { year: '2024', value: 5.5 }, { year: '2025', value: 5.7 }] },
+                { title: 'Median Package', section: 'chart_median_package', default: [{ year: '2022', value: 4.2 }, { year: '2023', value: 4.5 }, { year: '2024', value: 4.5 }, { year: '2025', value: 4.5 }] }
+              ];
+
+              return packageConfigs.map(config => {
+                const dynamicValues = placementsData?.filter(d => d.section === config.section).map(d => ({
+                  year: d.key,
+                  value: parseFloat(d.value) || 0
+                }));
+                return {
+                  title: config.title,
+                  values: dynamicValues && dynamicValues.length > 0 ? dynamicValues : config.default
+                };
+              });
+            })().map((package_data, idx) => {
               const maxValue = Math.max(...package_data.values.map(v => v.value));
               const minValue = 0; // Ground all graphs at 0 for accurate visualization
               const range = maxValue - minValue;
@@ -923,13 +794,13 @@ const Placements = () => {
             {/* Row 1 */}
             <div className="md:col-span-8 bg-white p-6 md:p-10 flex flex-col justify-center border-b-[3px] border-r-0 md:border-r-[3px] border-black min-h-[160px] md:min-h-0">
               <h3 className="text-5xl md:text-7xl font-black text-blue-900 leading-none mb-2 tracking-tighter">
-                {glimpseBatch === '2025' ? '1008' : '279'}
+                {placementsData.find(d => d.section === `glimpse_${glimpseBatch}` && d.key === 'offers')?.value || (glimpseBatch === '2025' ? '1008' : '279')}
               </h3>
               <p className="text-xs md:text-sm font-black text-black uppercase tracking-[0.2em] leading-tight">No. of Placement Offered</p>
             </div>
             <div className="md:col-span-4 bg-white p-6 md:p-10 flex flex-col justify-center border-b-[3px] border-black min-h-[160px] md:min-h-0">
               <h3 className="text-4xl md:text-6xl font-black text-blue-900 leading-none mb-2 tracking-tighter">
-                {glimpseBatch === '2025' ? '32' : '49.12'} LPA
+                {placementsData.find(d => d.section === `glimpse_${glimpseBatch}` && d.key === 'highest')?.value || (glimpseBatch === '2025' ? '32' : '49.12')} LPA
               </h3>
               <p className="text-xs md:text-sm font-black text-black uppercase tracking-[0.2em] leading-tight">Highest Salary Package</p>
             </div>
@@ -937,19 +808,19 @@ const Placements = () => {
             {/* Row 2 */}
             <div className="md:col-span-4 bg-white p-6 md:p-10 flex flex-col justify-center border-b-[3px] border-r-0 md:border-r-[3px] border-black min-h-[160px] md:min-h-0">
               <h3 className="text-4xl md:text-6xl font-black text-blue-900 leading-none mb-2 tracking-tighter">
-                {glimpseBatch === '2025' ? '48+' : '50+'}
+                {placementsData.find(d => d.section === `glimpse_${glimpseBatch}` && d.key === 'companies')?.value || (glimpseBatch === '2025' ? '48+' : '50+')}
               </h3>
               <p className="text-xs md:text-sm font-black text-black uppercase tracking-[0.2em] leading-tight">Total Company Visited</p>
             </div>
             <div className="md:col-span-4 bg-[#0a0a0a] p-6 md:p-10 flex flex-col justify-center border-b-[3px] border-r-0 md:border-r-[3px] border-black min-h-[160px] md:min-h-0 text-white">
               <h3 className="text-4xl md:text-6xl font-black leading-none mb-2 tracking-tighter text-white">
-                {glimpseBatch === '2025' ? '86.38%' : '75.2%'}
+                {placementsData.find(d => d.section === `glimpse_${glimpseBatch}` && d.key === 'percentage')?.value || (glimpseBatch === '2025' ? '86.38%' : '75.2%')}
               </h3>
               <p className="text-xs md:text-sm font-black uppercase tracking-[0.2em] leading-tight opacity-80">Placement %</p>
             </div>
             <div className="md:col-span-4 bg-white p-6 md:p-10 flex flex-col justify-center border-b-[3px] border-black min-h-[160px] md:min-h-0">
               <h3 className="text-4xl md:text-6xl font-black text-blue-900 leading-none mb-2 tracking-tighter">
-                {glimpseBatch === '2025' ? '260' : '243'}
+                {placementsData.find(d => d.section === `glimpse_${glimpseBatch}` && d.key === 'students_placed')?.value || (glimpseBatch === '2025' ? '260' : '243')}
               </h3>
               <p className="text-xs md:text-sm font-black text-black uppercase tracking-[0.2em] leading-tight">Total Students Placed</p>
             </div>
@@ -957,7 +828,7 @@ const Placements = () => {
             {/* Row 3 */}
             <div className="md:col-span-5 bg-white p-6 md:p-10 flex flex-col justify-center border-b-[3px] md:border-b-0 border-r-0 md:border-r-[3px] border-black min-h-[160px] md:min-h-0">
               <h3 className="text-4xl md:text-6xl font-black text-blue-900 leading-none mb-3 tracking-tighter">
-                {glimpseBatch === '2025' ? '15+' : '190'}
+                {placementsData.find(d => d.section === `glimpse_${glimpseBatch}` && d.key === 'dream_offers')?.value || (glimpseBatch === '2025' ? '15+' : '190')}
               </h3>
               <div className="space-y-1">
                 <p className="text-xs md:text-sm font-black text-black uppercase tracking-[0.15em] leading-tight">Dream Offers</p>
@@ -966,7 +837,7 @@ const Placements = () => {
             </div>
             <div className="md:col-span-3 bg-white p-6 md:p-10 flex flex-col justify-center border-b-[3px] md:border-b-0 border-r-0 md:border-r-[3px] border-black min-h-[160px] md:min-h-0">
               <h3 className="text-4xl md:text-5xl font-black text-blue-900 leading-none mb-3 tracking-tighter">
-                {glimpseBatch === '2025' ? '52+' : '60'}
+                {placementsData.find(d => d.section === `glimpse_${glimpseBatch}` && d.key === 'super_dream_of')?.value || (glimpseBatch === '2025' ? '52+' : '60')}
               </h3>
               <div className="space-y-1">
                 <p className="text-xs md:text-sm font-black text-black uppercase tracking-[0.15em] leading-tight">Super Dream Offers</p>
@@ -975,7 +846,7 @@ const Placements = () => {
             </div>
             <div className="md:col-span-4 bg-white p-6 md:p-10 flex flex-col justify-center min-h-[160px] md:min-h-0">
               <h3 className="text-4xl md:text-5xl font-black text-blue-900 leading-none mb-3 tracking-tighter">
-                {glimpseBatch === '2025' ? '83+' : '239'}
+                {placementsData.find(d => d.section === `glimpse_${glimpseBatch}` && d.key === 'super_offers')?.value || (glimpseBatch === '2025' ? '83+' : '239')}
               </h3>
               <div className="space-y-1">
                 <p className="text-xs md:text-sm font-black text-black uppercase tracking-[0.15em] leading-tight">Super Offers</p>
@@ -1184,9 +1055,9 @@ const Placements = () => {
             </p>
           </div>
         </div>
-      </section >
+      </section>
       <Footer />
-    </div >
+    </div>
   );
 };
 

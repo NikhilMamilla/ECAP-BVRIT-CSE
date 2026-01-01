@@ -10,6 +10,8 @@ interface StoreContextType {
     departmentList: any[];
     placementList: any[];
     setDepartmentList: React.Dispatch<React.SetStateAction<any[]>>;
+    statsData: any[];
+    placementsData: any[];
 }
 
 export const StoreContext = createContext<StoreContextType>({
@@ -20,6 +22,8 @@ export const StoreContext = createContext<StoreContextType>({
     departmentList: [],
     placementList: [],
     setDepartmentList: () => { },
+    statsData: [],
+    placementsData: [],
 });
 
 const API_BASE_URL = (() => {
@@ -59,17 +63,78 @@ const StoreContextProvider: React.FC<{ children: React.ReactNode }> = (props) =>
     ]);
 
 
+    const [placementsData, setPlacementsData] = useState<any[]>(() => {
+        const cached = localStorage.getItem('cse_website_placements_page');
+        return cached ? JSON.parse(cached) : [];
+    });
+
+    const [statsData, setStatsData] = useState<any[]>(() => {
+        const cached = localStorage.getItem('cse_website_stats');
+        return cached ? JSON.parse(cached) : [];
+    });
+
+    const fetchSheetData = async (sheetUrl: string) => {
+        try {
+            const response = await fetch(`${sheetUrl}&t=${new Date().getTime()}`);
+            const text = await response.text();
+
+            const rows = text.split(/\r?\n/).map(row => {
+                const result = [];
+                let cell = "";
+                let inQuotes = false;
+                for (let i = 0; i < row.length; i++) {
+                    const char = row[i];
+                    if (char === '"') {
+                        inQuotes = !inQuotes;
+                    } else if (char === ',' && !inQuotes) {
+                        result.push(cell.trim());
+                        cell = "";
+                    } else {
+                        cell += char;
+                    }
+                }
+                result.push(cell.trim().replace(/^"|"$/g, ''));
+                return result;
+            });
+
+            const headers = rows[0].map(h => h.toLowerCase()); // Normalize headers to lowercase
+            return rows.slice(1).map(row => {
+                const obj: any = {};
+                headers.forEach((header, index) => {
+                    obj[header] = row[index];
+                });
+                return obj;
+            });
+        } catch (error) {
+            console.error("Error fetching sheet data:", error);
+            return null;
+        }
+    };
 
     useEffect(() => {
-        // API calls disabled - no backend configured
-        // This prevents CORS errors from attempting to fetch from non-existent API
-        // If you need to enable API calls in the future, uncomment the lines below
-        // and configure VITE_API_URL in your .env file
+        const statsUrl = 'https://docs.google.com/spreadsheets/d/1pPK9lF0pwOCrZsB0xictxm8fpCMOG_S_eBRfanheGmg/export?format=csv';
+        const placementsUrl = 'https://docs.google.com/spreadsheets/d/1jiOXfH0rUwbDy7cbFwLbZWKKe0rQ1YF0eTH30llqS7E/export?format=csv';
 
-        // newsListFetchData();
-        // heroListFetchData();
-        // announcementListFetchData();
-        // placementListFetchData();
+        const loadData = async () => {
+            const stats = await fetchSheetData(statsUrl);
+            if (stats) {
+                setStatsData(stats);
+                localStorage.setItem('cse_website_stats', JSON.stringify(stats));
+            }
+
+            if (placementsUrl) {
+                const placements = await fetchSheetData(placementsUrl);
+                if (placements) {
+                    setPlacementsData(placements);
+                    localStorage.setItem('cse_website_placements_page', JSON.stringify(placements));
+                }
+            }
+        };
+
+        loadData();
+        const interval = setInterval(loadData, 5000); // Poll every 5 seconds for instant updates
+
+        return () => clearInterval(interval);
     }, []);
 
     const contextValue = {
@@ -80,6 +145,8 @@ const StoreContextProvider: React.FC<{ children: React.ReactNode }> = (props) =>
         setDepartmentList,
         departmentList,
         placementList,
+        statsData,
+        placementsData,
     };
 
     return (

@@ -1,5 +1,16 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Code, Heart, Microscope, Award, ChevronRight, ChevronLeft, ExternalLink, Users, X } from 'lucide-react';
+import {
+    Code,
+    Heart,
+    Microscope,
+    Award,
+    ChevronRight,
+    ChevronLeft,
+    ExternalLink,
+    Users,
+    X,
+    Rocket
+} from 'lucide-react';
 import { AnimatedElement } from './AnimatedElement';
 
 interface Club {
@@ -9,8 +20,11 @@ interface Club {
     icon: typeof Code;
     color: string;
     description: string;
+    mission: string;
+    stats: { label: string; value: string }[];
     partners: string[];
     highlights: string[];
+    upcomingEvents: { title: string; date: string }[];
     logo?: string;
     website?: string;
     email: string;
@@ -20,17 +34,28 @@ const clubs: Club[] = [
     {
         id: 'cbb',
         name: 'CBB',
-        fullName: 'Coding Brigade BVRIT',
+        fullName: 'CODING BRIGADE BVRIT',
         icon: Code,
         color: 'blue',
         description:
-            'The official coding club of the CSE department, focused on hackathons, coding contests, workshops, and technical skill development.',
-        partners: ['Infosys Springboard', 'Google GDSC', 'Cisco Academy', 'TwinNetworking'],
+            'Coding Brigade BVRIT is the official technical and coding club of the CSE department. It focuses on strengthening students’ fundamentals in programming, problem-solving, and software development through continuous practice and peer learning.',
+        mission:
+            'To build a strong technical foundation among students by promoting coding discipline, practical learning, and collaborative growth.',
+        stats: [
+            { label: 'Student Members', value: '600+' },
+            { label: 'Technical Events', value: 'Regular' },
+            { label: 'Training Focus', value: 'DSA & Dev' }
+        ],
+        partners: ['Infosys', 'Cisco', 'Google GDSC', 'SmartBridge'],
         highlights: [
-            'Hackathons & coding competitions',
-            'Technical workshops',
-            'Junior mentorship programs',
-            'Career building sessions',
+            'Regular coding practice sessions',
+            'Data Structures & Algorithms training',
+            'Hands-on development workshops',
+            'Peer-to-peer technical mentoring'
+        ],
+        upcomingEvents: [
+            { title: 'Weekly Coding Sessions', date: 'Ongoing' },
+            { title: 'Technical Workshops', date: 'Periodic' }
         ],
         logo: 'https://cbb.bvrit.ac.in/logo.png',
         website: 'https://cbb.bvrit.ac.in/',
@@ -39,17 +64,28 @@ const clubs: Club[] = [
     {
         id: 'gdgoc',
         name: 'GDGoC',
-        fullName: 'Google Developer Groups on Campus',
+        fullName: 'GOOGLE DEVELOPER GROUPS ON CAMPUS',
         icon: Users,
         color: 'purple',
         description:
-            'A campus-based Google developer community where students learn, build projects, and explore modern Google technologies.',
-        partners: ['Google Developers', 'Google Cloud', 'Android', 'Firebase'],
+            'GDGoC BVRIT is a student-led developer community that enables learning and application of Google technologies through workshops, guided sessions, and collaborative projects.',
+        mission:
+            'To create an open learning environment where students explore modern development tools and build solutions through community-driven initiatives.',
+        stats: [
+            { label: 'Learning Programs', value: 'Ongoing' },
+            { label: 'Hands-on Projects', value: 'Multiple' },
+            { label: 'Community Reach', value: 'Campus-wide' }
+        ],
+        partners: ['Google Developers', 'Google Cloud', 'Firebase', 'TensorFlow'],
         highlights: [
-            'Google technology workshops',
-            'Cloud computing sessions',
-            'Mobile app development',
-            'Community building events',
+            'Google Cloud & developer tool workshops',
+            'Collaborative project development',
+            'Solution-based learning programs',
+            'Technical community events'
+        ],
+        upcomingEvents: [
+            { title: 'Developer Workshops', date: 'Scheduled' },
+            { title: 'Community Learning Sessions', date: 'Monthly' }
         ],
         logo: '/gdgoc.png',
         website: 'https://gdgoc.bvrit.ac.in/',
@@ -58,17 +94,28 @@ const clubs: Club[] = [
     {
         id: 'fit',
         name: 'FIT',
-        fullName: 'Female in Technology',
+        fullName: 'FEMALE IN TECHNOLOGY',
         icon: Heart,
         color: 'teal',
         description:
-            'An initiative empowering women in tech through mentorship, leadership programs, scholarships, and industry exposure.',
-        partners: ['Grace Hopper Virtuosa', 'Amazon WoW', 'Deloitte', 'Walmart', 'Flipkart Girls'],
+            'Female in Technology (FIT) is an initiative aimed at encouraging and supporting women students in building strong technical and professional skills in the field of engineering.',
+        mission:
+            'To support women students through mentorship, skill development, and career guidance, enabling equal participation and growth in technology.',
+        stats: [
+            { label: 'Mentorship Support', value: 'Available' },
+            { label: 'Skill Programs', value: 'Regular' },
+            { label: 'Student Participation', value: 'Active' }
+        ],
+        partners: ['Amazon WoW', 'Adobe Women-in-Tech', 'Grace Hopper', 'Wipro'],
         highlights: [
-            'Scholarships for women in tech',
-            'Leadership programs',
-            'Mentorship opportunities',
-            'Industry exposure events',
+            'Mentorship and career guidance programs',
+            'Technical and professional skill training',
+            'Awareness on opportunities for women in tech',
+            'Peer support and leadership development'
+        ],
+        upcomingEvents: [
+            { title: 'Mentorship Sessions', date: 'Ongoing' },
+            { title: 'Skill Development Programs', date: 'Periodic' }
         ],
         logo: '/FIT.png',
         website: 'https://fit.bvrit.ac.in/',
@@ -77,24 +124,34 @@ const clubs: Club[] = [
     {
         id: 'src',
         name: 'SRC',
-        fullName: 'Student Research Cell',
+        fullName: 'STUDENT RESEARCH CELL',
         icon: Microscope,
         color: 'indigo',
         description:
-            'A research-focused community supporting innovation, patents, publications, and participation in academic conferences.',
-        partners: ['ICRISAT', 'NIAS', 'TIHAN IIT Hyderabad'],
+            'The Student Research Cell (SRC) promotes research-oriented learning by encouraging students to explore problem statements, conduct studies, and contribute to academic research.',
+        mission:
+            'To nurture a research culture by guiding students in research methodology, publications, and innovation-driven projects.',
+        stats: [
+            { label: 'Research Papers', value: 'Published' },
+            { label: 'Research Projects', value: 'Ongoing' },
+            { label: 'Student Researchers', value: 'Active' }
+        ],
+        partners: ['IEEE', 'Springer', 'DRDO', 'ICRISAT'],
         highlights: [
-            'Patent achievements',
-            'Research paper publications',
-            'Conference participation guidance',
-            'Innovation support',
+            'Research methodology training',
+            'Guidance for paper publication',
+            'Support for patent and innovation activities',
+            'Faculty-mentored research projects'
+        ],
+        upcomingEvents: [
+            { title: 'Research Workshops', date: 'Scheduled' },
+            { title: 'Paper Writing Sessions', date: 'Periodic' }
         ],
         logo: '/SRC2.png',
         website: 'https://src.bvrit.ac.in/',
         email: 'src@bvrit.ac.in'
-    },
+    }
 ];
-
 
 const Clubs: React.FC = () => {
     const [selectedClub, setSelectedClub] = useState<string | null>(null);
@@ -103,89 +160,82 @@ const Clubs: React.FC = () => {
     const detailsRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
-        const checkMobile = () => {
-            setIsMobile(window.innerWidth < 768);
-        };
+        const checkMobile = () => setIsMobile(window.innerWidth < 768);
         checkMobile();
         window.addEventListener('resize', checkMobile);
         return () => window.removeEventListener('resize', checkMobile);
     }, []);
 
-    const handleNext = () => {
-        setClubIdx((prev) => (prev + 1) % clubs.length);
-    };
+    const handleNext = () => setClubIdx((prev) => (prev + 1) % clubs.length);
+    const handlePrev = () => setClubIdx((prev) => (prev - 1 + clubs.length) % clubs.length);
 
-    const handlePrev = () => {
-        setClubIdx((prev) => (prev - 1 + clubs.length) % clubs.length);
-    };
-
-    const colorMap: Record<string, { bg: string; text: string; lightBg: string; border: string; gradient: string }> = {
+    const colorMap: Record<
+        string,
+        { bg: string; text: string; border: string }
+    > = {
         blue: {
             bg: 'bg-blue-600',
             text: 'text-blue-600',
-            lightBg: 'bg-blue-50',
-            border: 'border-blue-600',
-            gradient: 'from-blue-900/90 via-blue-900/50 to-transparent'
+            border: 'border-blue-600'
         },
         teal: {
             bg: 'bg-teal-600',
             text: 'text-teal-600',
-            lightBg: 'bg-teal-50',
-            border: 'border-teal-600',
-            gradient: 'from-teal-900/90 via-teal-900/50 to-transparent'
+            border: 'border-teal-600'
         },
         indigo: {
             bg: 'bg-indigo-600',
             text: 'text-indigo-600',
-            lightBg: 'bg-indigo-50',
-            border: 'border-indigo-600',
-            gradient: 'from-indigo-900/90 via-indigo-900/50 to-transparent'
+            border: 'border-indigo-600'
         },
         purple: {
             bg: 'bg-purple-600',
             text: 'text-purple-600',
-            lightBg: 'bg-purple-50',
-            border: 'border-purple-600',
-            gradient: 'from-purple-900/90 via-purple-900/50 to-transparent'
-        },
+            border: 'border-purple-600'
+        }
     };
 
     const currentClub = clubs.find((c) => c.id === selectedClub);
+
     useEffect(() => {
         if (selectedClub && detailsRef.current) {
-            const yOffset = -100;
+            const yOffset = -60;
             const y =
                 detailsRef.current.getBoundingClientRect().top +
                 window.pageYOffset +
                 yOffset;
 
-            window.scrollTo({
-                top: y,
-                behavior: 'smooth',
-            });
+            window.scrollTo({ top: y, behavior: 'smooth' });
         }
     }, [selectedClub]);
 
     return (
-        <section id="clubs" className="bg-white py-16 md:py-20">
+        <section id="clubs" className="bg-white py-12 md:py-20 lg:py-24 overflow-hidden">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Header */}
-                <div className="text-center mb-12 md:mb-16">
+                <div className="text-center mb-8 md:mb-12">
                     <AnimatedElement animation="slide-down" className="block">
-                        <h2 className="text-4xl sm:text-5xl font-extrabold text-gray-900 tracking-tight" style={{ fontFamily: 'Georgia, serif' }}>
+                        <span className="text-blue-600 font-bold tracking-[0.2em] uppercase text-xs md:text-sm mb-2 block">
+                            Our Ecosystem
+                        </span>
+                        <h2
+                            className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 tracking-tight"
+                            style={{ fontFamily: 'Georgia, serif' }}
+                        >
                             Student <span className="text-blue-600">Clubs</span>
                         </h2>
                     </AnimatedElement>
                     <AnimatedElement animation="fade-in" delay={200} className="block">
-                        <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
-                            Join vibrant communities dedicated to innovation, leadership, and collaboration
+                        <p className="mt-3 text-sm md:text-base text-gray-600 max-w-2xl mx-auto leading-relaxed font-light">
+                            A thriving network of specialized communities where passion meets opportunity and
+                            leadership begins.
                         </p>
                     </AnimatedElement>
                 </div>
 
-                {/* Club Cards - Desktop Grid / Mobile Slider */}
+                {/* Cards */}
                 {isMobile ? (
-                    <div className="relative mb-12">
+                    <div className="relative mb-8">
                         <div className="overflow-hidden p-4 -m-4">
                             <div
                                 className="flex transition-transform duration-500 ease-out"
@@ -193,29 +243,33 @@ const Clubs: React.FC = () => {
                             >
                                 {clubs.map((club) => (
                                     <div key={club.id} className="w-full flex-shrink-0 px-2">
-                                        <div
-                                            onClick={() => setSelectedClub(selectedClub === club.id ? null : club.id)}
-                                            className={`group relative bg-white rounded-2xl overflow-hidden transition-all duration-300 border-2 ${selectedClub === club.id ? `border-${club.color}-500 shadow-xl` : 'border-gray-200 shadow-lg'}`}
-                                        >
-                                            <div className="h-48 w-full bg-white flex items-center justify-center p-4 border-b border-gray-100 relative group-hover:bg-gray-50 transition-colors duration-500">
+                                        <div className="group relative bg-white rounded-2xl overflow-hidden transition-all duration-300 border border-gray-100 shadow-md">
+                                            <div className="h-40 w-full bg-slate-50 flex items-center justify-center p-6">
                                                 {club.logo ? (
                                                     <img
                                                         src={club.logo}
                                                         alt={club.name}
-                                                        className="w-full h-full object-contain transform transition-transform duration-500 group-hover:scale-110"
+                                                        className="w-full h-full object-contain"
                                                     />
                                                 ) : (
-                                                    <club.icon className={`w-24 h-24 ${colorMap[club.color].text}`} />
+                                                    <club.icon className={`w-16 h-16 ${colorMap[club.color].text}`} />
                                                 )}
                                             </div>
 
-                                            <div className="p-5 text-center">
-                                                <h3 className={`text-xl font-bold mb-1 ${colorMap[club.color].text}`}>{club.name}</h3>
-                                                <p className="text-xs font-bold text-gray-800 uppercase tracking-wide mb-3 line-clamp-1">{club.fullName}</p>
+                                            <div className="p-4 text-center">
+                                                <h3 className={`text-xl font-bold mb-0.5 ${colorMap[club.color].text}`}>
+                                                    {club.name}
+                                                </h3>
+                                                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-3">
+                                                    {club.fullName}
+                                                </p>
 
-                                                <button className={`w-full py-2.5 px-4 rounded-xl font-bold transition-all duration-300 flex items-center justify-center gap-2 text-sm uppercase tracking-wide ${selectedClub === club.id ? `${colorMap[club.color].bg} text-white shadow-lg` : 'bg-gray-50 text-gray-700 hover:bg-gray-100'}`}>
-                                                    {selectedClub === club.id ? 'Hide Details' : 'View Details'}
-                                                    <ChevronRight className={`w-4 h-4 transition-transform duration-300 ${selectedClub === club.id ? 'rotate-90' : ''}`} />
+                                                <button
+                                                    onClick={() => setSelectedClub(club.id)}
+                                                    className="w-full py-2.5 px-6 rounded-xl text-xs font-bold uppercase tracking-widest bg-white text-black border border-slate-200 hover:bg-slate-100 transition-all flex items-center justify-center gap-2"
+                                                >
+                                                    Explore Now
+                                                    <ChevronRight className="w-3 h-3" />
                                                 </button>
                                             </div>
                                         </div>
@@ -224,58 +278,71 @@ const Clubs: React.FC = () => {
                             </div>
                         </div>
 
-                        {/* Slider Nav */}
-                        <div className="flex justify-center gap-4 mt-6 items-center">
-                            <button onClick={handlePrev} className="w-10 h-10 rounded-full bg-white border-2 border-slate-200 flex items-center justify-center text-slate-600 hover:bg-slate-50 hover:border-slate-300 transition-all shadow-sm">
-                                <ChevronLeft className="w-5 h-5" />
+                        {/* Slider dots */}
+                        <div className="flex justify-center gap-4 mt-4 items-center">
+                            <button
+                                onClick={handlePrev}
+                                className="p-1 rounded-full border border-gray-200 text-gray-400"
+                            >
+                                <ChevronLeft className="w-4 h-4" />
                             </button>
-                            <div className="flex gap-3">
+                            <div className="flex gap-1.5">
                                 {clubs.map((_, i) => (
-                                    <div key={i} className={`h-2 rounded-full transition-all duration-300 ${i === clubIdx ? 'w-8 bg-blue-600' : 'w-2 bg-slate-300'}`} />
+                                    <div
+                                        key={i}
+                                        className={`h-1 rounded-full transition-all duration-300 ${i === clubIdx ? 'w-5 bg-blue-600' : 'w-1 bg-slate-200'
+                                            }`}
+                                    />
                                 ))}
                             </div>
-                            <button onClick={handleNext} className="w-10 h-10 rounded-full bg-white border-2 border-slate-200 flex items-center justify-center text-slate-600 hover:bg-slate-50 hover:border-slate-300 transition-all shadow-sm">
-                                <ChevronRight className="w-5 h-5" />
+                            <button
+                                onClick={handleNext}
+                                className="p-1 rounded-full border border-gray-200 text-gray-400"
+                            >
+                                <ChevronRight className="w-4 h-4" />
                             </button>
                         </div>
                     </div>
                 ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-10">
                         {clubs.map((club, index) => (
-                            <AnimatedElement key={club.id} animation="slide-up" delay={index * 100} className="block h-full">
-                                <div
-                                    onClick={() => {
-                                        setSelectedClub(selectedClub === club.id ? null : club.id);
-                                    }}
-                                    className={`group relative bg-white rounded-2xl overflow-hidden cursor-pointer transition-all duration-500 hover:-translate-y-2 border-2 h-full flex flex-col ${selectedClub === club.id ? `border-${club.color}-500 shadow-xl ring-2 ring-${club.color}-200` : 'border-gray-200 shadow-hover hover:border-gray-300'}`}
-                                >
-                                    <div className="h-44 w-full bg-white flex items-center justify-center p-6 border-b border-gray-100 relative overflow-hidden">
-                                        <div className={`absolute inset-0 opacity-0 group-hover:opacity-5 transition-opacity duration-500 ${colorMap[club.color].bg}`} />
-
+                            <AnimatedElement
+                                key={club.id}
+                                animation="slide-up"
+                                delay={index * 100}
+                                className="block h-full"
+                            >
+                                <div className="group relative bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-lg hover:shadow-xl transition-all duration-500 hover:-translate-y-1.5 h-full flex flex-col">
+                                    <div className="h-40 w-full bg-slate-50/50 flex items-center justify-center p-6">
                                         {club.logo ? (
                                             <img
                                                 src={club.logo}
                                                 alt={club.name}
-                                                className="w-full h-full object-contain transform transition-transform duration-700 group-hover:scale-110 filter drop-shadow-sm"
+                                                className="w-full h-full object-contain"
                                             />
                                         ) : (
-                                            <club.icon className={`w-24 h-24 ${colorMap[club.color].text} transition-transform duration-500 group-hover:scale-110`} />
+                                            <club.icon
+                                                className={`w-14 h-14 ${colorMap[club.color].text}`}
+                                            />
                                         )}
                                     </div>
 
-                                    <div className="p-5 flex flex-col flex-grow bg-white">
-                                        <div className="text-center mb-3">
-                                            <h3 className={`text-2xl font-bold mb-0.5 transition-colors ${colorMap[club.color].text}`}>{club.name}</h3>
-                                            <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest leading-tight">{club.fullName}</p>
+                                    <div className="p-4 flex flex-col flex-grow">
+                                        <div className="text-center mb-4">
+                                            <h3 className={`text-xl font-bold mb-0 ${colorMap[club.color].text}`}>
+                                                {club.name}
+                                            </h3>
+                                            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em]">
+                                                {club.fullName}
+                                            </p>
                                         </div>
 
-                                        <div className="flex-grow"></div>
-
                                         <button
-                                            className={`mt-auto w-full py-2.5 px-4 rounded-xl font-bold transition-all duration-300 flex items-center justify-center gap-2 text-sm uppercase tracking-wide ${selectedClub === club.id ? `${colorMap[club.color].bg} text-white shadow-lg` : 'bg-gray-50 text-gray-700 hover:bg-gray-100'}`}
+                                            onClick={() => setSelectedClub(club.id)}
+                                            className="mt-auto w-full py-2.5 px-4 rounded-xl text-xs font-bold uppercase tracking-widest bg-white text-black border border-slate-200 hover:bg-slate-100 transition-all flex items-center justify-center gap-2"
                                         >
-                                            {selectedClub === club.id ? 'Hide Details' : 'View Details'}
-                                            <ChevronRight className={`w-4 h-4 transition-transform duration-300 ${selectedClub === club.id ? 'rotate-90' : 'group-hover:translate-x-1'}`} />
+                                            Explore Now
+                                            <ChevronRight className="w-3 h-3 group-hover:translate-x-1 transition-transform duration-300" />
                                         </button>
                                     </div>
                                 </div>
@@ -284,116 +351,162 @@ const Clubs: React.FC = () => {
                     </div>
                 )}
 
-                {/* Expanded Details Section */}
+                {/* Expanded details */}
                 {currentClub && (
-                    <AnimatedElement animation="slide-up" className="block mt-8 scroll-mt-24">
-                        <div ref={detailsRef} className="relative rounded-3xl bg-white border border-gray-100 shadow-2xl overflow-hidden" id="club-details">
-                            {/* Decorative Top Line */}
-                            <div className={`h-1.5 w-full ${colorMap[currentClub.color].bg}`} />
-
-                            <div className="p-6 md:p-10 relative">
-                                {/* Background Large Logo Faded */}
-                                <div className="absolute top-0 right-0 p-10 opacity-[0.03] pointer-events-none transform translate-x-1/4 -translate-y-1/4 overflow-hidden">
-                                    {currentClub.logo && <img src={currentClub.logo} alt="" className="w-[500px] h-[500px] object-contain grayscale" />}
+                    <AnimatedElement animation="slide-up" className="block mt-6 md:mt-10 scroll-mt-20">
+                        <div
+                            ref={detailsRef}
+                            className="relative rounded-[1.5rem] md:rounded-[2.5rem] bg-white border border-slate-200 shadow-2xl overflow-hidden mx-auto max-w-7xl"
+                        >
+                            {/* subtle centered logo */}
+                            {currentClub.logo && (
+                                <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-5">
+                                    <img
+                                        src={currentClub.logo}
+                                        alt={`${currentClub.name} logo`}
+                                        className="w-48 h-48 sm:w-60 sm:h-60 md:w-72 md:h-72 object-contain"
+                                    />
                                 </div>
+                            )}
 
-                                {/* Close Button */}
+                            <div className="p-6 md:p-8 lg:p-10 relative z-10">
+                                {/* Close button (simpler) */}
                                 <button
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        setSelectedClub(null);
-                                    }}
-                                    className="absolute top-4 right-4 md:top-6 md:right-6 p-2 rounded-full bg-gray-50 hover:bg-gray-100 text-gray-500 transition-colors z-20 border border-gray-200"
-                                    aria-label="Close details"
+                                    onClick={() => setSelectedClub(null)}
+                                    className="absolute top-4 right-4 md:top-6 md:right-6 p-2 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 transition-all"
+                                    aria-label="Close"
                                 >
-                                    <X className="w-5 h-5" strokeWidth={2.5} />
+                                    <X className="w-5 h-5" />
                                 </button>
 
-                                <div className="grid md:grid-cols-3 gap-8 md:gap-12 relative z-10">
-                                    {/* Main Content (2 cols) */}
-                                    <div className="md:col-span-2 space-y-8">
-                                        {/* Header */}
-                                        <div className="flex flex-col md:flex-row gap-6 items-start">
-                                            <div className="w-24 h-24 md:w-28 md:h-28 flex-shrink-0 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm flex items-center justify-center">
-                                                {currentClub.logo ? (
-                                                    <img src={currentClub.logo} alt={currentClub.name} className="w-full h-full object-contain" />
-                                                ) : (
-                                                    <currentClub.icon className={`w-12 h-12 ${colorMap[currentClub.color].text}`} />
-                                                )}
-                                            </div>
-                                            <div className="flex-grow pt-1">
-                                                <h3 className="text-3xl md:text-4xl font-bold mb-2 text-gray-900 leading-tight">{currentClub.name}</h3>
-                                                <h4 className="text-lg md:text-xl font-medium text-gray-500 mb-4 leading-snug">{currentClub.fullName}</h4>
-                                                {currentClub.website && (
-                                                    <a
-                                                        href={currentClub.website}
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold ${colorMap[currentClub.color].bg} text-white hover:opacity-90 transition-all shadow-sm transform hover:-translate-y-0.5`}
-                                                    >
-                                                        Visit Official Website <ExternalLink className="w-4 h-4" />
-                                                    </a>
-                                                )}
-                                            </div>
-                                        </div>
+                                {/* Header: logo + short + full name underneath */}
+                                <div className="flex flex-col md:flex-row items-center md:items-center gap-6 md:gap-8 border-b border-slate-100 pb-6 md:pb-8">
+                                    <div className="w-24 h-24 md:w-28 md:h-28 rounded-2xl bg-slate-50 border border-slate-100 p-4 flex items-center justify-center">
+                                        {currentClub.logo ? (
+                                            <img
+                                                src={currentClub.logo}
+                                                alt={currentClub.name}
+                                                className="w-full h-full object-contain"
+                                            />
+                                        ) : (
+                                            <currentClub.icon
+                                                className={`w-14 h-14 ${colorMap[currentClub.color].text}`}
+                                            />
+                                        )}
+                                    </div>
 
-                                        <div className="border-t border-gray-100 pt-8">
-                                            <h4 className="text-lg font-bold text-gray-900 mb-3 flex items-center gap-2">
-                                                About the Club
-                                            </h4>
-                                            <p className="text-gray-600 leading-relaxed text-lg">{currentClub.description}</p>
-                                        </div>
-
+                                    <div className="flex flex-col gap-3 text-center md:text-left flex-1">
                                         <div>
-                                            <h4 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-                                                Key Highlights
+                                            <div
+                                                className="text-4xl md:text-5xl font-black text-slate-900 leading-none"
+                                                style={{ fontFamily: 'Georgia, serif' }}
+                                            >
+                                                {currentClub.name}
+                                            </div>
+                                            <div className="mt-1 text-xs md:text-sm font-semibold text-slate-500 uppercase tracking-[0.25em]">
+                                                {currentClub.fullName}
+                                            </div>
+                                        </div>
+
+                                        <div className="flex flex-wrap gap-3 justify-center md:justify-start mt-2">
+                                            {currentClub.website && (
+                                                <a
+                                                    href={currentClub.website}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-bold bg-blue-600 text-white hover:bg-blue-700 transition-all uppercase tracking-wide"
+                                                >
+                                                    Official Portal
+                                                    <ExternalLink className="w-3.5 h-3.5" />
+                                                </a>
+                                            )}
+                                            <a
+                                                href={`mailto:${currentClub.email}`}
+                                                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-bold border border-blue-600 text-blue-600 hover:border-blue-700 hover:text-blue-700 transition-all uppercase tracking-wide"
+                                            >
+                                                Contact Lead
+                                                <Heart className="w-3.5 h-3.5" />
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Bottom: three columns */}
+                                <div className="grid lg:grid-cols-3 gap-8 md:gap-10 pt-6 md:pt-8">
+                                    {/* Mission & Vision */}
+                                    <div className="space-y-4">
+                                        <h4 className="text-xs md:text-sm font-black text-slate-900 uppercase tracking-[0.2em] mb-2 flex items-center gap-3">
+                                            <span
+                                                className={`w-5 h-5 md:w-6 md:h-6 rounded-full flex items-center justify-center text-[10px] md:text-xs text-white ${colorMap[currentClub.color].bg}`}
+                                            >
+                                                01
+                                            </span>
+                                            Mission & Vision
+                                        </h4>
+                                        <p className="text-sm md:text-base text-slate-600 leading-relaxed">
+                                            {currentClub.description}
+                                        </p>
+                                        <div className="p-4 rounded-xl bg-slate-50 border-l-4 border-slate-200 italic">
+                                            <p className="text-sm md:text-base text-slate-700 leading-relaxed">
+                                                "{currentClub.mission}"
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    {/* Core pillars */}
+                                    <div className="space-y-4">
+                                        <h4 className="text-xs md:text-sm font-black text-slate-900 uppercase tracking-[0.2em] mb-2 flex items-center gap-3">
+                                            <Award className={`w-4 h-4 md:w-5 md:h-5 ${colorMap[currentClub.color].text}`} />
+                                            Core Pillars
+                                        </h4>
+                                        <ul className="space-y-2">
+                                            {currentClub.highlights.map((h, i) => (
+                                                <li key={i} className="flex items-start gap-3">
+                                                    <span
+                                                        className={`mt-1 w-1.5 h-1.5 rounded-full ${colorMap[currentClub.color].bg}`}
+                                                    />
+                                                    <span className="text-sm md:text-base text-slate-600">{h}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+
+                                    {/* Events & Partners */}
+                                    <div className="space-y-5">
+                                        <div className="space-y-3">
+                                            <h4 className="text-xs md:text-sm font-black text-slate-900 uppercase tracking-[0.2em] mb-1 flex items-center gap-3">
+                                                <Rocket className={`w-4 h-4 md:w-5 md:h-5 ${colorMap[currentClub.color].text}`} />
+                                                Upcoming Milestones
                                             </h4>
-                                            <div className="grid sm:grid-cols-2 gap-3">
-                                                {currentClub.highlights.map((highlight, idx) => (
-                                                    <div key={idx} className="flex items-start gap-3 p-4 rounded-xl bg-gray-50 border border-gray-100 hover:border-gray-200 transition-colors">
-                                                        <div className={`mt-1.5 w-2 h-2 rounded-full flex-shrink-0 ${colorMap[currentClub.color].bg}`} />
-                                                        <span className="text-gray-700 font-medium text-sm leading-relaxed">{highlight}</span>
+                                            <div className="space-y-2">
+                                                {currentClub.upcomingEvents.map((e, i) => (
+                                                    <div
+                                                        key={i}
+                                                        className="flex justify-between items-center px-4 py-3 rounded-xl bg-slate-50 border border-slate-100"
+                                                    >
+                                                        <span className="text-sm font-semibold text-slate-800">{e.title}</span>
+                                                        <span className="text-[10px] font-black text-blue-500 uppercase tracking-[0.2em]">
+                                                            {e.date}
+                                                        </span>
                                                     </div>
                                                 ))}
                                             </div>
                                         </div>
-                                    </div>
 
-                                    {/* Sidebar (1 col) */}
-                                    <div className="space-y-6">
-                                        {/* Partners */}
-                                        <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100">
-                                            <h4 className="text-xs font-extrabold text-gray-400 uppercase tracking-widest mb-4 flex items-center gap-2">
-                                                <Award className="w-4 h-4" />
-                                                Our Partners
+                                        <div>
+                                            <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.25em] mb-2">
+                                                Strategic Partners
                                             </h4>
                                             <div className="flex flex-wrap gap-2">
-                                                {currentClub.partners.map((partner, idx) => (
+                                                {currentClub.partners.map((p, i) => (
                                                     <span
-                                                        key={idx}
-                                                        className="px-3 py-1.5 bg-white border border-gray-200 rounded-lg text-xs font-bold text-gray-700 shadow-sm"
+                                                        key={i}
+                                                        className="px-3 py-1.5 bg-white border border-slate-100 rounded-lg text-[10px] md:text-xs font-bold text-slate-500 uppercase tracking-tight"
                                                     >
-                                                        {partner}
+                                                        {p}
                                                     </span>
                                                 ))}
                                             </div>
-                                        </div>
-
-                                        {/* Join Card */}
-                                        <div className={`rounded-3xl p-8 text-white shadow-xl relative overflow-hidden ${colorMap[currentClub.color].bg}`}>
-                                            <div className="absolute top-0 right-0 p-4 opacity-10">
-                                                <currentClub.icon className="w-32 h-32 transform translate-x-10 -translate-y-10" />
-                                            </div>
-                                            <h4 className="text-2xl font-bold mb-3 relative z-10">Join {currentClub.name}</h4>
-                                            <p className="text-white/90 text-sm mb-6 leading-relaxed relative z-10">
-                                                Be part of a thriving community. innovative? Connect with us to start your journey in {currentClub.fullName}.
-                                            </p>
-                                            <a
-                                                href={`mailto:${currentClub.email}`}
-                                                className="w-full py-3.5 rounded-xl bg-white text-gray-900 font-bold text-sm shadow-sm hover:bg-gray-50 transition-colors relative z-10 uppercase tracking-wide flex justify-center items-center"
-                                            >
-                                                Contact Coordinator
-                                            </a>
                                         </div>
                                     </div>
                                 </div>

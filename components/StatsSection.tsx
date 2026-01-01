@@ -1,12 +1,13 @@
 // src/components/StatsSection.tsx
 
-import React from 'react';
+import React, { useContext } from 'react';
 import { useInView } from '../hooks/useInView';
 import { useCounter } from '../hooks/useCounter';
 import { AnimatedElement } from './AnimatedElement';
+import { StoreContext } from '../storeContext/StoreContext';
 
-// Data for the statistics cards - CSE Department Specific
-const statsData = [
+// Default Data for the statistics cards - CSE Department Specific (Fallback)
+const defaultStatsData = [
   { value: 1000, label: 'CSE Students', description: 'Across all batches', suffix: '+', decimals: 0 },
   { value: 86.4, label: 'Placement Rate', description: 'Highest department placement', suffix: '%', decimals: 1 },
   { value: 52, label: 'Highest Package', description: 'Record student achievement', suffix: ' LPA', decimals: 0 },
@@ -18,7 +19,7 @@ const statsData = [
 ];
 
 // Type definition for a single stat item
-type StatItem = typeof statsData[0];
+type StatItem = typeof defaultStatsData[0];
 
 // StatCard Sub-Component
 const StatCard: React.FC<{ stat: StatItem; inView: boolean; delay: string; index: number }> = ({ stat, index }) => {
@@ -55,6 +56,22 @@ const StatCard: React.FC<{ stat: StatItem; inView: boolean; delay: string; index
 // Main StatsSection Component
 const StatsSection: React.FC = () => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
+  const { statsData } = useContext(StoreContext);
+
+  // Filter and map stats for this section
+  const dynamicStats = statsData?.filter((item: any) => item.section === 'at_a_glance');
+
+  // Use dynamic stats if available, otherwise fallback to default
+  const displayStats = dynamicStats && dynamicStats.length > 0 ? dynamicStats.map((item: any) => ({
+    value: parseFloat(item.value), // Ensure value is a number
+    label: item.label,
+    description: item.note, // Mapping 'note' from sheet to 'description'
+    suffix: item.suffix && item.suffix !== 'null' ? item.suffix : '', // Handle null/empty suffix
+    decimals: item.value.includes('.') ? 1 : 0 // Simple auto-decimal detection
+  })) : defaultStatsData;
+
+  // Use the order from defaultStatsData if dynamic data is present to maintain layout if needed,
+  // or just use the order from the sheet. Here we rely on sheet order.
 
   return (
     <section className="relative pt-6 sm:pt-10 pb-6 sm:pb-10 bg-gray-50" ref={ref}>
@@ -72,24 +89,10 @@ const StatsSection: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 md:gap-8">
-          {statsData.map((stat, index) => (
+          {displayStats.map((stat: StatItem, index: number) => (
             <StatCard key={index} stat={stat} inView={inView} delay={`${index * 100}ms`} index={index} />
           ))}
         </div>
-
-        {/* <div className="mt-10 sm:mt-16 text-center">
-          <AnimatedElement animation="slide-up" delay={800} className="inline-block">
-            <a
-              href="#"
-              className="inline-flex items-center px-5 sm:px-8 py-2.5 sm:py-3 bg-blue-600 text-white rounded-full font-semibold text-sm sm:text-base hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
-            >
-              Download CSE Brochure
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-              </svg>
-            </a>
-          </AnimatedElement>
-        </div> */}
 
       </div>
     </section>

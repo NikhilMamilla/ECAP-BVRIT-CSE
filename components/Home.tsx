@@ -2,7 +2,6 @@ import React from 'react';
 import Header from './Header';
 import About from './About';
 import StatsSection from './StatsSection';
-import CSEProgramOverview from './CSEProgramOverview';
 import PlacementsSection from './PlacementsSection';
 import GraceHopperCOE from './GraceHopperCOE';
 import Clubs from './Clubs';
@@ -10,6 +9,8 @@ import RAndDHomeSection from './RAndDHomeSection';
 import Testimonials from './testominals';
 import Footer from './Footer';
 import Accreditations from './Accreditations';
+
+import HeroSlider from './HeroSlider';
 
 const Home: React.FC = () => {
 
@@ -23,9 +24,9 @@ const Home: React.FC = () => {
         The 'About' section might need top padding.
       */}
       <main className="space-y-0 pt-20">
+        <HeroSlider />
         <section id='About' className="scroll-mt-24"><About /></section>
         <section id="Accreditations" className="scroll-mt-24"><Accreditations /></section>
-        <section id="CSEPrograms" className="scroll-mt-24"><CSEProgramOverview /></section>
         <section id="CSEStats" className="scroll-mt-24"><StatsSection /></section>
         <section id="GraceHopper" className="scroll-mt-24">
           <GraceHopperCOE />

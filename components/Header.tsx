@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useVideo } from '../contexts/VideoContext';
+import { motion, AnimatePresence } from 'framer-motion';
+import { X, Menu, GraduationCap, ExternalLink } from 'lucide-react';
 
 // Admin Panel Links
 interface AdminLink {
@@ -30,12 +32,12 @@ interface LinkItem {
 const defaultLinks: LinkItem[] = [
   { id: 'About', label: 'About' },
   { id: 'Accreditations', label: 'Accreditations' },
-  { id: 'CSEPrograms', label: 'Programs' },
   { id: 'CSEStats', label: 'Stats' },
   { id: 'GraceHopper', label: 'COE' },
   { id: 'Clubs', label: 'Clubs' },
   { id: 'RAndD', label: 'R&D' },
   { id: 'Placements', label: 'Placements' },
+  { id: 'Faculty', label: 'Faculty' },
   { id: 'Testimonials', label: 'Testimonials' },
   { id: 'Footer', label: 'Contact' },
 ];
@@ -89,6 +91,18 @@ const Header: React.FC<HeaderProps> = ({ onLogoClick, customLinks }) => {
 
   // Navigation Logic
   const [activeSection, setActiveSection] = useState<string>('');
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMobileMenuOpen]);
 
   const handleScrollToSection = (e: React.MouseEvent, sectionId: string) => {
     e.preventDefault();
@@ -316,38 +330,71 @@ const Header: React.FC<HeaderProps> = ({ onLogoClick, customLinks }) => {
                 <div className="relative">
                   <button
                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                    className={`p-2 rounded-lg transition-colors duration-300 focus:outline-none ${isMobileMenuOpen ? 'bg-slate-200' : 'hover:bg-slate-100'}`}
+                    className={`p-2.5 rounded-full transition-all duration-300 z-[100] relative ${isMobileMenuOpen ? 'text-slate-900' : 'text-slate-700'}`}
                   >
-                    <svg className="h-7 w-7 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      {isMobileMenuOpen ? (
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                      ) : (
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                      )}
-                    </svg>
+                    {isMobileMenuOpen ? (
+                      <X className="h-8 w-8" strokeWidth={1} />
+                    ) : (
+                      <Menu className="h-8 w-8" />
+                    )}
                   </button>
 
-                  {/* Standard Navigation Mobile Dropdown */}
-                  {isMobileMenuOpen && (
-                    <div className="absolute top-full right-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-slate-200 overflow-hidden animate-slideInRight z-50">
-                      <div className="py-2">
-                        {navLinks.map((item) => (
-                          <a
-                            key={item.id}
-                            href={`#${item.id}`}
-                            onClick={(e) => {
-                              handleScrollToSection(e, item.id);
-                              setIsMobileMenuOpen(false);
-                            }}
-                            className={`block px-4 py-3 text-sm font-medium transition-colors border-b border-slate-50 last:border-0 ${activeSection === item.id ? 'bg-blue-50 text-blue-600' : 'text-slate-700 hover:bg-slate-50'
-                              }`}
+                  {/* Full Screen Mobile Navigation Overlay */}
+                  <AnimatePresence>
+                    {isMobileMenuOpen && (
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 w-full h-screen bg-white z-[90] flex items-center justify-center"
+                        style={{ position: 'fixed', top: 0, left: 0 }}
+                      >
+                        <nav className="w-full text-center">
+                          <ul className="flex flex-col items-center gap-y-7">
+                            {navLinks.map((item, index) => (
+                              <motion.li
+                                key={item.id}
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: index * 0.04 + 0.1 }}
+                              >
+                                <a
+                                  href={`#${item.id}`}
+                                  onClick={(e) => {
+                                    handleScrollToSection(e, item.id);
+                                    setIsMobileMenuOpen(false);
+                                  }}
+                                  className={`text-2xl font-semibold transition-all duration-300 ${activeSection === item.id
+                                    ? 'text-blue-600'
+                                    : 'text-slate-800 active:text-blue-500'
+                                    }`}
+                                >
+                                  {item.label}
+                                </a>
+                              </motion.li>
+                            ))}
+                          </ul>
+
+                          <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.5 }}
+                            className="mt-16"
                           >
-                            {item.label}
-                          </a>
-                        ))}
-                      </div>
-                    </div>
-                  )}
+                            <a
+                              href="https://bvrit.edu.in/Default.aspx?ReturnUrl=%2f"
+                              target="_blank"
+                              rel="noreferrer"
+                              className="text-xs font-bold text-black/70 uppercase tracking-[0.2em] flex items-center justify-center gap-1.5"
+                              onClick={() => setIsMobileMenuOpen(false)}
+                            >
+                              ECAP PORTAL <ExternalLink className="w-3.5 h-3.5" />
+                            </a>
+                          </motion.div>
+                        </nav>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
               </div>
             </div>

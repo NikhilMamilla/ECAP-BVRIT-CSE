@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Handshake, Rocket, GraduationCap, FileText, CheckCircle2, Award } from 'lucide-react';
 import AnimatedElement from './AnimatedElement';
+import { StoreContext } from '../storeContext/StoreContext';
 
 const GraceHopperCOE: React.FC = () => {
     const navigate = useNavigate();
+    const { statsData } = useContext(StoreContext);
 
-    const highlights = [
+    // Default Fallback Highlights
+    const defaultHighlights = [
         {
             icon: Handshake,
             count: '8+',
@@ -32,6 +35,22 @@ const GraceHopperCOE: React.FC = () => {
             description: 'IEEE conferences & journals'
         }
     ];
+
+    // Filter dynamic data for grace_hopper section
+    const dynamicStats = statsData?.filter((item: any) => item.section === 'grace_hopper');
+
+    // Map icons based on titles or indices if needed
+    const getIcon = (index: number) => {
+        const icons = [Handshake, Rocket, GraduationCap, FileText];
+        return icons[index % icons.length];
+    };
+
+    const highlights = dynamicStats && dynamicStats.length > 0 ? dynamicStats.slice(0, 4).map((item: any, index: number) => ({
+        icon: getIcon(index),
+        count: (item.value || '') + (item.suffix && item.suffix !== 'null' ? ' ' + item.suffix : ''),
+        title: item.label,
+        description: item.note
+    })) : defaultHighlights;
 
     return (
         <section className="bg-gradient-to-br from-blue-50 via-white to-blue-50 py-16 md:py-20">
@@ -59,11 +78,11 @@ const GraceHopperCOE: React.FC = () => {
 
                 {/* Highlight Stats */}
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-                    {highlights.map((highlight, index) => {
+                    {highlights.map((highlight: any, index: number) => {
                         const IconComponent = highlight.icon;
                         return (
                             <AnimatedElement key={index} animation="slide-up" delay={index * 100} className="h-full">
-                                <div className="bg-white rounded-xl shadow-lg p-6 text-center hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border-2 border-blue-100">
+                                <div className="bg-white rounded-xl shadow-lg p-6 text-center hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border-2 border-blue-100 h-full flex flex-col justify-center min-h-[220px]">
                                     <div className="flex justify-center mb-3">
                                         <IconComponent className="w-12 h-12 text-blue-600" strokeWidth={1.5} />
                                     </div>
@@ -95,10 +114,6 @@ const GraceHopperCOE: React.FC = () => {
                                         <CheckCircle2 className="w-6 h-6 text-blue-600 mr-3 flex-shrink-0 mt-0.5" />
                                         <span className="text-gray-700">Industry certifications from Google, IBM, Cisco, Oracle, Tech Mahindra, and more</span>
                                     </li>
-                                    {/* <li className="flex items-start">
-                                        <CheckCircle2 className="w-6 h-6 text-blue-600 mr-3 flex-shrink-0 mt-0.5" />
-                                        <span className="text-gray-700">Dedicated faculty team and comprehensive skill development programs</span>
-                                    </li> */}
                                 </ul>
                             </div>
                             <div>
